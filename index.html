@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>汽车行业资讯看板</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23161916'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23F1F2ED'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%2333523F' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23A2402F' stroke-width='1.2' stroke-dasharray='4 6'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#F1F2ED; --card:#FAFBF6; --ink:#161916; --ink-2:#3B4038;
+  --line:#D6D9CE; --pine:#33523F; --brick:#A2402F; --amber:#8A6A1F;
+  --muted:#6B7266;
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 64px;background-position:0 0}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(241,242,237,.9),rgba(241,242,237,.97));pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 16px 64px}
+
+/* ===== 报头 ===== */
+.mast{display:flex;flex-direction:column;gap:18px;padding:28px 0 18px;border-bottom:2px solid var(--ink)}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--serif);font-size:32px;line-height:1.15;margin:6px 0 8px;letter-spacing:.02em;font-weight:600}
+.sub{font-size:13px;color:var(--ink-2);margin:0}
+.status{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-start}
+.live{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--pine);
+  border:1px solid var(--pine);padding:4px 10px;border-radius:2px;background:rgba(51,82,63,.05);white-space:nowrap}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--pine);animation:p 2.4s ease-in-out infinite}
+@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+.stats{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0;padding:0;list-style:none}
+.stats li{font-size:12px;color:var(--muted)}
+.stats b{display:block;font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:600;letter-spacing:-.01em}
+@media(min-width:900px){.mast{flex-direction:row;justify-content:space-between;align-items:flex-end}}
+@media(min-width:900px){.status{flex-direction:column;align-items:flex-end;gap:10px}}
+
+/* ===== 工具条 ===== */
+.toolbar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  padding:10px 0;background:linear-gradient(180deg,var(--paper) 70%,rgba(241,242,237,.86));border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--sans);font-size:13px;padding:6px 11px;border:1px solid var(--line);background:transparent;
+  color:var(--ink-2);border-radius:2px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;min-height:34px}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip .n{font-family:var(--mono);font-size:11px;opacity:.65;margin-left:5px}
+.search{flex:1 1 180px;min-width:140px;position:relative}
+.search input{width:100%;font-family:var(--sans);font-size:16px;padding:7px 10px 7px 30px;border:1px solid var(--line);
+  border-radius:2px;background:var(--card);color:var(--ink)}
+.search input:focus{outline:none;border-color:var(--pine)}
+.search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:14px;height:14px;opacity:.45}
+.btn-refresh{font-size:13px;padding:7px 13px;border:1px solid var(--pine);background:transparent;color:var(--pine);
+  border-radius:2px;cursor:pointer;min-height:36px;display:inline-flex;align-items:center;gap:6px}
+.btn-refresh:hover{background:rgba(51,82,63,.07)}
+.sort{display:flex;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.sort button{font-size:12px;padding:7px 10px;border:0;background:transparent;color:var(--muted);cursor:pointer;min-height:36px}
+.sort button[aria-pressed="true"]{background:var(--pine);color:#F4F6F0}
+
+/* ===== 主体 ===== */
+.grid{display:block;margin-top:8px}
+@media(min-width:1000px){.grid{display:grid;grid-template-columns:minmax(0,1fr) 318px;gap:40px;align-items:start}}
+.day{display:flex;align-items:baseline;gap:12px;margin:26px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink)}
+.day h2{font-family:var(--serif);font-size:17px;margin:0;font-weight:600;letter-spacing:.02em}
+.day .cnt{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.day .today{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--brick);border:1px solid var(--brick);padding:1px 6px}
+
+.item{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.item.hide{display:none}
+.tm{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px;letter-spacing:-.02em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.cat{font-size:11px;padding:1px 7px;border-radius:2px;letter-spacing:.03em;white-space:nowrap}
+.cat-event{background:rgba(162,64,47,.1);color:var(--brick);border:1px solid rgba(162,64,47,.3)}
+.cat-people{background:rgba(51,82,63,.1);color:var(--pine);border:1px solid rgba(51,82,63,.3)}
+.cat-ext{background:rgba(74,79,110,.1);color:#414B6B;border:1px solid rgba(74,79,110,.28)}
+.cat-policy{background:rgba(138,106,31,.1);color:var(--amber);border:1px solid rgba(138,106,31,.3)}
+.src{font-size:11px;color:var(--muted);font-family:var(--mono)}
+h3{font-family:var(--serif);font-size:18px;line-height:1.4;margin:0 0 6px;font-weight:600;letter-spacing:.01em}
+.sum{margin:0;font-size:14px;color:var(--ink-2);line-height:1.65}
+.impact{margin:8px 0 0;font-size:13px;color:var(--ink-2);line-height:1.6;border-left:2px solid var(--line);padding-left:10px}
+.impact b{font-weight:600;color:var(--ink);font-size:12px;letter-spacing:.04em}
+.foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.badge{font-size:11px;padding:1px 6px;border-radius:2px;font-family:var(--mono)}
+.b-ok{background:rgba(51,82,63,.09);color:var(--pine)}
+.b-pend{background:rgba(138,106,31,.12);color:var(--amber)}
+.age{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.link{margin-left:auto;font-size:12px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:1px;white-space:nowrap}
+.link:hover{color:var(--brick);border-color:var(--brick)}
+.src-url{flex:1 0 100%;font-family:var(--mono);font-size:10.5px;color:var(--muted);word-break:break-all;line-height:1.5;margin-top:2px;user-select:all}
+
+/* ===== 侧栏 ===== */
+aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
+@media(min-width:1000px){aside{position:sticky;top:64px;margin-top:26px}}
+.panel{background:var(--card);border:1px solid var(--line);padding:14px 15px}
+.panel h4{margin:0 0 8px;font-size:12px;letter-spacing:.1em;font-family:var(--mono);color:var(--pine);font-weight:600}
+.panel p{margin:0;font-size:12.5px;line-height:1.65;color:var(--ink-2)}
+.rule{display:grid;grid-template-columns:16px 1fr;gap:8px;margin-bottom:9px}
+.rule i{font-family:var(--mono);font-size:11px;color:var(--brick);font-style:normal;padding-top:1px}
+.rule span{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.pend-list{margin:0;padding:0;list-style:none}
+.pend-list li{font-size:12.5px;line-height:1.55;padding:7px 0;border-top:1px dashed var(--line);color:var(--ink-2)}
+.pend-list li:first-child{border-top:0;padding-top:0}
+.pend-list b{font-weight:600;color:var(--amber)}
+.log{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.9}
+.log span{color:var(--ink)}
+.srcline{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;color:var(--ink-2);border-top:1px dashed var(--line)}
+.srcline:first-child{border-top:0}
+.srcline em{font-family:var(--mono);font-style:normal;color:var(--muted);font-size:11px}
+
+/* 延续线索 */
+.threads{margin-top:32px;border-top:2px solid var(--ink);padding-top:14px}
+.threads h2{font-family:var(--serif);font-size:17px;margin:0 0 10px;font-weight:600}
+.thread{display:grid;grid-template-columns:56px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+.thread .tm{color:var(--brick);font-size:11px}
+.thread p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+.thread p b{color:var(--ink)}
+
+.empty{display:none;padding:48px 0;text-align:center;color:var(--muted);font-size:14px}
+.empty.on{display:block}
+.footnote{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.7}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:#F4F6F0;
+  font-size:13px;padding:11px 16px;border-radius:2px;max-width:90vw;opacity:0;pointer-events:none;transition:.28s;z-index:50;line-height:1.5}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:520px){
+  h1{font-size:26px}
+  .item{grid-template-columns:44px minmax(0,1fr);gap:10px}
+  h3{font-size:16px}
+  .tm{font-size:11px}
+}
+
+.rf-pop{position:fixed;right:16px;top:74px;z-index:60;width:min(300px,calc(100vw - 32px));
+  background:var(--paper);border:1px solid var(--line);padding:14px 14px 12px;
+  box-shadow:0 10px 28px rgba(22,25,22,.12);font-size:13px;line-height:1.6}
+.rf-pop h5{margin:0 0 6px;font-size:11px;letter-spacing:.14em;color:var(--pine);
+  font-family:ui-monospace,Menlo,monospace;text-transform:uppercase}
+.rf-pop p{margin:0 0 10px;color:#5b635a}
+.rf-pop button{display:block;width:100%;margin:0 0 8px;padding:9px 10px;text-align:left;
+  background:#fff;border:1px solid var(--line);font:inherit;font-size:13px;color:var(--ink);cursor:pointer}
+.rf-pop button:hover{background:var(--paper);border-color:var(--pine);color:var(--pine)}
+.rf-pop .rf-note{display:block;font-size:11px;color:#6b736a}
+@media(max-width:520px){.rf-pop{top:auto;right:10px;bottom:68px}}
+
+.daynav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.verbar{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.04em;
+  color:#6b736a;margin:12px 0 0;padding:6px 2px;border-top:1px solid var(--line)}
+
+/* ===== 专栏 ===== */
+.cols{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0 6px}
+@media(min-width:820px){.cols{grid-template-columns:repeat(3,1fr)}}
+.col{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--pine);padding:12px 13px 8px}
+.col h4{margin:0 0 8px;font-size:12px;letter-spacing:.08em;font-family:var(--mono);color:var(--pine);font-weight:600;
+  display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.col h4 em{font-style:normal;font-size:10.5px;color:var(--muted);letter-spacing:0}
+.col-list{display:flex;flex-direction:column}
+.col-row{padding:7px 0;border-top:1px dashed var(--line);text-decoration:none;color:var(--ink);display:block}
+.col-row:first-child{border-top:0;padding-top:0}
+.col-row:hover .ct{color:var(--brick)}
+.col-row .when{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-right:6px}
+.col-row .ct{font-size:13px;line-height:1.5;font-weight:600}
+.col-row .cs{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.col-empty{font-size:12px;color:var(--muted);padding:6px 0}
+.col-msg{display:none}
+.tag{font-size:10.5px;padding:1px 6px;border-radius:2px;color:var(--ink-2);background:rgba(22,25,22,.06);border:1px solid var(--line);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div>
+      <div class="kicker">Industry Wire / 汽车产业监测</div>
+      <h1>汽车行业资讯看板</h1>
+      <p class="sub">整车 · 供应链 · 政策监管 · 具身智能　—　重大事件与人物动态优先，自动过滤新车上市类消息，时间线已回溯补齐至 10 月 19 日</p>
+    </div>
+    <div class="status">
+      <div class="live"><span class="pulse"></span>持续监测中</div>
+      <ul class="stats">
+        <li>本期采集<b id="s-refresh">—</b></li>
+        <li>下一轮<b id="s-next">11-09 18:00</b></li>
+        <li>收录<b id="s-count">—</b></li>
+        <li>覆盖窗口<b>10-19 至今</b></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="verbar" id="verbar">数据版本 —</div>
+
+  <nav class="toolbar">
+    <div class="daynav" id="daynav"></div>
+    <div class="chips" id="chips">
+      <button class="chip" data-cat="all" aria-pressed="true">全部<span class="n" data-n="all">0</span></button>
+      <button class="chip" data-cat="重大事件" aria-pressed="false">重大事件<span class="n" data-n="重大事件">0</span></button>
+      <button class="chip" data-cat="人物动态" aria-pressed="false">人物动态<span class="n" data-n="人物动态">0</span></button>
+      <button class="chip" data-cat="延伸行业" aria-pressed="false">延伸行业<span class="n" data-n="延伸行业">0</span></button>
+      <button class="chip" data-cat="政策与数据" aria-pressed="false">政策与数据<span class="n" data-n="政策与数据">0</span></button>
+      <button class="chip chip-col" data-cat="投融资" aria-pressed="false">投融资<span class="n" data-n="投融资">0</span></button>
+      <button class="chip chip-col" data-cat="新技术·产品" aria-pressed="false">新技术·产品<span class="n" data-n="新技术·产品">0</span></button>
+      <button class="chip chip-col" data-cat="定点" aria-pressed="false">定点<span class="n" data-n="定点">0</span></button>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="q" type="search" placeholder="搜索企业、人物、关键词" autocomplete="off">
+    </div>
+    <div class="sort" role="group" aria-label="排序方式">
+      <button data-sort="time" aria-pressed="true">最新优先</button>
+      <button data-sort="weight" aria-pressed="false">重要优先</button>
+    </div>
+    <button class="btn-refresh" id="refresh">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+      刷新
+    </button>
+    <div class="rf-pop" id="rfPop" hidden>
+      <h5>刷新方式</h5>
+      <p><b>网页是发布快照。</b>数据由自动任务 07:00—23:00 每两小时采一次，点按钮只能重载这一版，无法在浏览器里发起采集与发布。</p>
+      <button id="rfReload">取回最新采集版本</button>
+      <button id="rfCopy">复制「刷新看板」指令</button>
+      <span class="rf-note">回到对话粘贴发送，即可立刻重采</span>
+    </div>
+  </nav>
+
+  <section class="cols" id="cols">
+    <div class="col" data-col="投融资">
+      <h4>专栏 · 投融资 <em id="c-投融资"></em></h4>
+      <div class="col-list" id="col-投融资"></div>
+    </div>
+    <div class="col" data-col="新技术·产品">
+      <h4>专栏 · 新技术 / 产品 <em id="c-新技术·产品"></em></h4>
+      <div class="col-list" id="col-新技术·产品"></div>
+    </div>
+    <div class="col" data-col="定点">
+      <h4>专栏 · 定点 <em id="c-定点"></em></h4>
+      <div class="col-list" id="col-定点"></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <main>
+      <div id="list"></div>
+      <div class="empty" id="empty">当前筛选条件下没有条目。换个关键词，或点「全部」查看完整列表。</div>
+
+      <section class="threads">
+        <h2>延续线索：超过 48 小时但仍在演变的事</h2>
+        <div class="thread">
+          <div class="tm">11-03</div>
+          <p><b>舍弗勒再裁 3,460 人、关停 5 家欧洲工厂</b>：11 月 3 日官宣新一轮成本削减计划，涉及欧洲 16 个基地、净减 3,460 个岗位（德国约 2,660 个），关闭多特蒙德、莫尔巴赫、柏林、施瓦尔巴赫四座德国工厂及比利时赫斯塔尔工厂，并推全员临时降薪。理由为欧洲燃油车需求疲软、电动化提速不及预期；调整成本约 4 亿欧元级别。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-04</div>
+          <p><b>宇树科技联手中石油设合营企业做工业具身智能</b>：北京市市场监管局 11 月 4 日披露简易案件公示，宇树科技与中石油旗下昆仑制造及一致行动人昆仑资本、泛界智能拟新设合营企业，主营工业具身智能机器人解决方案，宇树、泛界各持股 20%，昆仑系合计 60%。中石油系首次以控股方身份进入具身智能，油气场景或成国产人形机器人最大单一客户。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-05</div>
+          <p><b>丰田中国本部换帅</b>：上田达郎（现任执行董事、中国本部长）转任 Senior Fellow，雷克萨斯销售推进部部长太田资大接任中国本部长，2027 年 1 月 1 日生效。与同期北美 TMNA 交接属同一轮全球人事重排，中国区将由更熟的雷克萨斯体系接手。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-05</div>
+          <p><b>虹桥国际经济论坛发布《2026 年汽车产业国际竞争力报告》</b>，第九届进博会期间「自由公平贸易与产业竞争力合作」分论坛上发布，聚焦贸易规则与产业竞争力。可作为判断后续出口/关税口径的官方参照，具体结论待报告全文公布。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-05</div>
+          <p><b>新华社发布全球首个仿生人形机器人新闻主播「新言」「新语」</b>，与优必选联合研发、张艺谋任形象主创设计，接入「新华语典」智能体，用于新闻播报场景。具身智能首次进入国家级媒体的生产流程，是「机器人从展示走向岗位」的信号。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-05</div>
+          <p><b>阿维塔总裁雍军回应「07L Max 低价＝偷工减料」质疑</b>：称「不可能在质量上玩套路」，并宣布 11-09 公开直播拆车、招募 3 名修车师傅现场参与。定价战进入「可信度对赌」阶段，质量舆情正成为低价策略的连带成本。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-02</div>
+          <p><b>东风汽车集团领导班子调整</b>：吴碧磊（原一汽集团党委常委、副总经理）任集团董事、党委副书记，岚图卢放任副总经理、党委常委，接替此前调离的刘艳红、黄勇，班子恢复至 9 人。商用车转型与自主品牌人事同步换血。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">11-01</div>
+          <p><b>北京现代首位中国籍总经理李凤刚离任</b>，履新不足一年。合资车企股东与管理层博弈背景下，转型路径再增不确定性；可与本期「四部门研发测试新规」一并观察合资体系的合规压力。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">10-30</div>
+          <p><b>博世宣布企业架构与移动出行业务板块重组</b>，半导体业务 2028 年起独立成部、目标 2030 年约 50 亿欧元销售额并开放代工。本期已出现具体落地细节，属于需要连续跟踪的供应链变量。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">10-29</div>
+          <p><b>广汽因湃泰国电池工厂投产</b>，首套动力电池下线，为广汽首个海外自主电池 PACK 工厂（春武里府，投资超 5000 万元、1.3 万平米），标志从「产品出海」转向「制造出海，整车 + 电池本地化配套」。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">10-16</div>
+          <p><b>长安汽车换帅</b>：朱华荣辞去上市公司董事长等全部职务、继续任中国长安汽车集团党委书记兼董事长；赵非当选董事长，叶沛出任总裁。集团与上市主体权责重新划分，是央企车企治理结构调整的标志性一步。</p>
+        </div>
+        <div class="thread">
+          <div class="tm">10-10</div>
+          <p><b>四部门发布《关于进一步加强汽车产品创新设计和研发测试验证有关管理工作的通知（征求意见稿）》</b>，要求安全风险评估前置、传统车不低于 3 万公里可靠性验证、「两冬一夏」环境验证。从舆论议题转为制度约束，「速成车」开发节奏被硬性压缩。</p>
+        </div>
+      </section>
+
+      <div class="footnote">
+        本看板由 AI 每两小时重新采集一次，条目按「事件发生时间」而非「抓取时间」排序。所有条目的时间均取自原文发布时间或官方渠道发布记录；无法核对原文的条目单独标为「待确认」，不计入重大事件判断。每张卡片下方直接列出完整原文地址，可复制后自行核对。
+      </div>
+    </main>
+
+    <aside>
+      <div class="panel">
+        <h4>新鲜度校验规则</h4>
+        <div class="rule"><i>01</i><span>以<b>原文发布时间</b>为准，不以聚合页、搜索结果的「今日 / 刚刚」标签为准。</span></div>
+        <div class="rule"><i>02</i><span>聚合早报里的「今日消息」，逐条回溯原始报道；原文早于窗口即降级或剔除。</span></div>
+        <div class="rule"><i>03</i><span>同一事件被多家转载时，取最早信源时间，其余只作交叉验证。</span></div>
+        <div class="rule"><i>04</i><span>仅单一信源、且无原文可核的，标注「待确认」，不写成结论。</span></div>
+      </div>
+
+      <div class="panel">
+        <h4>待确认清单</h4>
+        <ul class="pend-list" id="pend"></ul>
+      </div>
+
+      <div class="panel">
+        <h4>本期信源</h4>
+        <div class="srcline"><span>市场监管总局 / 工信部 / 发改委</span><em>官方</em></div>
+        <div class="srcline"><span>财联社 · 中国汽车报</span><em>财经</em></div>
+        <div class="srcline"><span>网通社 · 第一电动</span><em>行业</em></div>
+        <div class="srcline"><span>KBA · 宝马 / 沃尔沃财报</span><em>海外</em></div>
+        <div class="srcline"><span>企业公告与官方账号</span><em>一手</em></div>
+      </div>
+
+      <div class="panel">
+        <h4>刷新记录</h4>
+        <div class="log" id="log"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
+const REFRESH_TS = "2026-11-09T15:56:00+08:00";
+const NEXT_TS    = "2026-11-09T18:00:00+08:00";
+
+const DATA = [
+  {ts:"2026-11-09T15:53:00+08:00", cat:"重大事件", weight:3,
+   title:"传玛莎拉蒂与尊界合作项目定名「玛莎拉蒂 Design」，江淮制造＋华为赋能，双方均未回应",
+   src:"每日经济新闻",
+   sum:"11 月 9 日有消息称，玛莎拉蒂与尊界的合作项目名为「玛莎拉蒂 Design」，为华为、江淮、Stellantis 三方合作；因玛莎拉蒂国内生产资质问题，项目拟通过江淮制造、华为赋能的方式落地。另有消息称尊界将推出定价 40 万—50 万元、主打 SUV 的全新子品牌。针对上述消息，每日经济新闻记者向华为、江淮求证，双方均未回应，知情人士称「没有明确消息」。",
+   imp:"若成真，这是中国代工＋智驾方案首次承接超豪华品牌的整车定义权——比「外资车企用中国技术」更进一步，但未经双方确认前只能作为待确认线索。",
+   url:"http://m.toutiao.com/group/7706076820692582939/", verified:"pend", seen:"15:56", tags:[]},
+
+  {ts:"2026-11-09T15:51:00+08:00", cat:"具身智能", weight:3,
+   title:"天翼电信终端与优必选签战略合作，目标仿生人形与轮式人形销售突破 10 万台",
+   src:"每日经济新闻／新浪科技（双方签约）",
+   sum:"11 月 9 日，天翼电信终端有限公司与优必选科技签署全面战略合作协议，天翼电信终端副总经理桂烜、优必选高级副总裁郝宝玉见证签约。双方将在机器人规模化推广、联合创新攻关、渠道共享、场景打造、产业生态共建等方面合作，力争推动家庭陪伴机器人行业规模破百万台、超仿生人形与轮式人形机器人销售规模突破 10 万台，并共建「天翼终端-优必选机器人联合」相关平台。",
+   imp:"运营商把渠道与补贴体系接进人形机器人销售，是消费级机器人第一个真正意义上的规模化分销入口——比任何单场发布会都更能验证「能不能卖出去」。",
+   url:"http://m.toutiao.com/group/7706076328788853289/", verified:"ok", seen:"15:56", tags:["定点"]},
+
+  {ts:"2026-11-09T15:54:00+08:00", cat:"动力电池", weight:3,
+   title:"三星 SDI 将为波士顿动力 Atlas 人形机器人供应电池，初期基本独家",
+   src:"IT 之家（引韩媒 The Elec）",
+   sum:"11 月 9 日消息，韩媒 The Elec 报道称三星 SDI 将为现代汽车集团旗下波士顿动力开发的人形机器人 Atlas 供应电池；LG 新能源同样被选为供应商，但因产能有限，预计三星 SDI 负责几乎所有初期出货并在一段时间内保持独家地位。Atlas 计划 2028 年或之后量产。",
+   imp:"人形机器人电池开始出现「指定供应商＋初期独家」格局，与车用动力电池的多元定点逻辑不同——高倍率、轻量化的小批量供应能力比产能规模更关键。",
+   url:"http://m.toutiao.com/group/7706076932839965227/", verified:"pend", seen:"15:56", tags:["定点"]},
+
+  {ts:"2026-11-09T14:51:00+08:00", cat:"具身智能", weight:3,
+   title:"优理奇机器人完成 5 亿元 Pre-A 轮融资，绿地集团以战略投资人身份加入",
+   src:"新京报贝壳财经（腾讯新闻转载）",
+   sum:"11 月 9 日，优理奇机器人宣布完成 5 亿元 Pre-A 轮融资。老股东谢诺投资、涌铧投资连续多轮超额追加，新进机构包括绿地集团、柯力传感、华工创投、新景富盈、红鸟启航基金、玉林产投等产业及财务投资人。绿地集团以战略投资人身份加入，并将与优理奇围绕安保、酒店等场景展开合作。",
+   imp:"Pre-A 轮即 5 亿元、且由地产与传感器产业方联合入场，说明具身智能的估值逻辑已从「技术故事」切到「场景订单」——安保与酒店是第一批可算账的商用场景。",
+   url:"https://news.qq.com/rain/a/20261109A08PZA00", verified:"ok", seen:"15:56", tags:["投融资"]},
+
+  {ts:"2026-11-09T11:00:00+08:00", cat:"具身智能", weight:3,
+   title:"北京人形「慧思开物」平台发布 Hi-WBC 通用全身控制模型",
+   src:"新浪科技",
+   sum:"11 月 9 日上午，北京人形机器人创新中心在通用具身智能平台「慧思开物」上发布 Hi-WBC 通用全身控制模型（WholeBody Control for Humanoid Intelligence），同期发布两段 Demo 展示控制能力与落地场景。官方称核心思路是把动作参考从「必须严格复现的最终答案」改为「指导全身运动的运动先验」，围绕持续进化技能拓展、强交互大负载、复杂地形自主适应三项能力展开，使机器人可根据负载、外力和地形变化实时调整执行方式，面向高危、特种作业场景。",
+   imp:"人形机器人从「按轨迹复现」走向「按先验自适应」，是从演示走向可交付作业的分水岭——能否在大负载与复杂地形下稳定，决定厂商能否进工厂与特种场景拿到真订单。",
+   url:"http://finance.sina.com.cn/roll/2026-11-09/doc-iniycfmw6318164.shtml", verified:"ok", seen:"15:03", tags:["新技术·产品"]},
+
+  {ts:"2026-11-09T13:57:00+08:00", cat:"出海与法规", weight:3,
+   title:"乘联分会：10 月新能源乘用车出口 58.2 万辆，同比增 144.7%，占乘用车出口 62.8%",
+   src:"乘联分会数据（网通社快报／凤凰网汽车）",
+   sum:"11 月 9 日，乘联分会公布数据：2026 年 10 月新能源乘用车出口 58.2 万辆，同比增长 144.7%，环比增长 3.9%；新能源占乘用车出口比重达 62.8%，较 2025 年同期提升约 20 个百分点。",
+   imp:"出口结构已完成换挡：每三辆出海乘用车里有两辆是新能源。这意味着欧盟、东南亚的关税与准入变化，会直接决定中国车企明年的总量曲线，而不是影响一个边缘细分。",
+   url:"https://auto.ifeng.com/c/8xub7sbtI75", verified:"ok", seen:"15:03", tags:[]},
+
+  {ts:"2026-11-09T13:00:00+08:00", cat:"具身智能", weight:2,
+   title:"智元机器人入股机器人关节研发商泉智博，注册资本增至 1250.35 万元",
+   src:"人民财讯（企查查工商变更）",
+   sum:"11 月 9 日企查查显示，无锡泉智博科技有限公司发生工商变更，新增智元机器人关联公司智元创新（上海）科技股份有限公司、灵心伙伴（深圳）科技有限公司等为股东，注册资本增至 1250.35 万元。泉智博成立于 2023 年，主营人工智能通用应用系统与硬件销售，公开信息显示其为机器人关节研发商。",
+   imp:"整机厂开始用股权投资绑定关节这类核心零部件供应商——比签供货协议更硬，说明人形机器人供应链正在从「买件」转向「持股锁产能」。",
+   url:"http://finance.sina.com.cn/jjxw/2026-11-09/doc-iniycfmy3000529.shtml", verified:"pend", seen:"15:03", tags:["投融资"]},
+
+  {ts:"2026-11-09T11:09:00+08:00", cat:"具身智能", weight:3,
+   title:"英伟达在首尔 AI Day 宣布扩大与现代、斗山、SK 海力士、LG 的物理 AI 合作",
+   src:"AI Brief（引 Money Today，英伟达机器人负责人 Deepu Talla 主题演讲）",
+   sum:"11 月 9 日，英伟达在首尔举办 AI Day，机器人业务负责人 Deepu Talla 在主题演讲中表示，公司正扩大与韩国企业的物理 AI 合作，涉及现代汽车、斗山、SK 海力士与 LG，并称未来十年机器人相关算力与平台需求将大幅增长。",
+   imp:"英伟达把物理 AI 的落地重心押在韩国「整车＋重工＋存储＋家电」组合上——与中国方案形成并行赛道，谁的机器人本体量产更快，谁就拿到算力订单。",
+   url:"https://dailyaibrief.com/news/nvidia-ai-day-seoul-physical-ai-hyundai-doosan-mBXmR0DW", verified:"pend", seen:"15:03", tags:[]},
+
+
+
+  {ts:"2026-11-09T14:11:00+08:00", cat:"具身智能", weight:3,
+   title:"马斯克称 Optimus 将以「出租」而非出售方式交付，弗里蒙特工厂已启动早期量产",
+   src:"财联社（11-09 电）",
+   sum:"11 月 9 日，马斯克最新表态称，特斯拉很可能向客户出租其人形机器人 Optimus，而不是直接出售；特斯拉已在弗里蒙特工厂启动 Optimus 的早期量产，预计 2027 年底左右开始向外部客户交付。这是继 11-07「只租不卖、初期造价约 3 万美元」表态后的进一步确认，并首次给出量产地点与交付节奏。",
+   imp:"由卖转租把一次性收入变成经常性收入，也把机器人可靠性风险留在自己身上——这是对人形机器人当前故障率仍高的定价妥协，商业模式先于产品成熟。",
+   url:"http://m.toutiao.com/group/7706051261434528292/", verified:"pend", seen:"14:18", tags:["新技术·产品"]},
+
+  {ts:"2026-11-09T13:10:00+08:00", cat:"重大事件", weight:2,
+   title:"公安部推出 5 项交管便民新措施，进口小客车新车上牌「一件事」12 月 1 日起全国推行",
+   src:"齐鲁网·闪电新闻（新浪转载，公安部发布）",
+   sum:"11 月 9 日，公安部宣布推出进口小客车新车上牌「一件事」等 5 项公安交管便民利企改革新措施，自 12 月 1 日起在全国全面推行，进一步压减进口车从通关到上牌的环节与材料。",
+   imp:"进口车长期卡在「通关后上牌繁琐、周期长」这一环，改革直接压缩平行进口与豪华进口车的交付周期，利好进口车经销商资金周转。",
+   url:"https://k.sina.cn/article_1893761531_70e081fb02003b4t6.html", verified:"ok", seen:"14:18", tags:[]},
+
+  {ts:"2026-11-09T09:00:00+08:00", cat:"人物", weight:2,
+   title:"现代汽车意大利分公司任命 Francesco Colonnese 为总裁兼 CEO，11 月 9 日生效",
+   src:"Inforicambi（现代汽车意大利公司公告）",
+   sum:"现代汽车意大利公司宣布，Francesco Colonnese 自 2026 年 11 月 9 日起出任总裁兼 CEO，接替此前由现代欧洲销售与服务副总裁 Andrea Crespi 代管的过渡期，直接向现代欧洲汇报。",
+   imp:"欧洲南部分公司换帅，多与电动化转型节奏和渠道整合挂钩；现代在欧洲的份额压力正在向区域人事传导。",
+   url:"https://www.inforicambi.it/magazine/lavoro-economia/hyundai-italia-francesco-colonnese-presidente-ceo-2026_1507091.html", verified:"ok", seen:"14:18", tags:[]},
+
+  {ts:"2026-11-09T08:56:00+08:00", cat:"出海与法规", weight:3,
+   title:"进博会观察：麦格纳格拉茨工厂将签约两家中国车企代工，奔驰与同济签智能驾驶合作备忘录",
+   src:"环球时报·财经观察（新浪财经转载）",
+   sum:"11 月 9 日环球时报报道，据奥地利媒体，麦格纳位于格拉茨的整车代工基地即将与两家中国汽车制造商敲定合同，涉及数万辆整车生产和零部件生产，奥地利多个汽车产业集群企业有望受益。同时，连续 9 年参展进博会的梅赛德斯-奔驰在本届进博会期间与同济大学签署合作备忘录，将围绕辅助驾驶、智能座舱、人工智能、新能源及电子电气架构展开合作。报道称「中国智造」正反向输出到全球汽车工业体系。",
+   imp:"麦格纳格拉茨过去代工奔驰 G 级、宝马等豪华车，如今产能要被中国品牌填满——这是欧洲闲置产能＋中国产品定义能力的组合，比单纯「建新厂」更快也更便宜。",
+   url:"http://finance.sina.cn/2026-11-09/detail-iniyauwa6470304.d.html", verified:"pend", seen:"09:01", tags:[]},
+
+  {ts:"2026-11-08T22:00:00+08:00", cat:"人物", weight:3,
+   title:"比亚迪李云飞：今年全年销量同比略有增长，增量主要来自海外",
+   src:"财联社（11-08 电，网易财经 11-09 07:53 转载）",
+   sum:"11 月 8 日，在比亚迪仰望鼎曜发布会后的媒体沟通会上，比亚迪品牌及公关处总经理李云飞表示，今年比亚迪全年销量相较去年会略有增长，其中一方面来自海外更高的增长；并称海外市场仍是明年重点。",
+   imp:"国内价格战打到增量见顶，「略有增长＋海外更高增长」是头部企业公开承认国内天花板的第一手表述——明年中国车企的销量叙事将主要靠出口支撑。",
+   url:"http://m.163.com/dy/article/LB9DMJ9K0550B1DU.html", verified:"pend", seen:"09:01", tags:[]},
+
+  {ts:"2026-11-09T00:00:00+08:00", cat:"出海与法规", weight:2,
+   title:"比亚迪评估在葡萄牙 Matosinhos 前 Galp 炼厂址建储能电池工厂",
+   src:"The Bay（引葡萄牙媒体，葡萄牙投资贸易局已介入）",
+   sum:"据葡萄牙媒体报道，比亚迪正评估在南欧新建制造基地，重点生产先进储能系统，候选址为 Matosinhos 的前 Galp 炼厂地块，已与政府官员及葡萄牙投资贸易局进行多轮正式商谈，葡方称项目推进程度「相当靠前」。葡萄牙经济部长亦公开提及该洽谈。",
+   imp:"若落地，这将是比亚迪在欧洲的第一座储能（而非整车）工厂——绕开整车关税、直供欧洲电网侧储能需求，路径比建整车厂更可控。",
+   url:"https://thebay.mo/beyond-the-bay/lusophone-countries/byd-battery-factory-in-portugal/", verified:"pend", seen:"09:01", tags:[]},
+
+  {ts:"2026-11-09T08:57:00+08:00", cat:"具身智能", weight:2,
+   title:"FF 称其 EAI 大脑 OmniMind 在全球机器人模型测评 RoboColiseum 综合榜登顶",
+   src:"CNMO 科技（引 FFR 周报第 80 期）",
+   sum:"11 月 9 日，FF（法拉第未来）发布周报第 80 期：其 EAI 大脑 OmniMind 及模型在具身智能仿真评测平台 RoboColiseum 发起的全球机器人模型测评中，以 0.8698 的总分（满分 1）位列综合榜第一。FF 与 FFAI 同时宣布将分别于 11 月 13 日、11 月 17 日召开第三季度业绩电话会。",
+   imp:"由车企转型做「机器人通用大脑」并拿榜单背书，本质是为新一轮融资和估值找锚——榜单成绩需独立复现验证，暂列待确认。",
+   url:"http://m.toutiao.com/group/7705969543088341555/", verified:"pend", seen:"09:01", tags:["新技术·产品"]},
+
+  {ts:"2026-11-08T21:45:00+08:00", cat:"动力电池", weight:3,
+   title:"杉杉股份拟投 51 亿元建 15 万吨负极一体化基地，补齐石墨化工序产能缺口",
+   src:"证券时报·e公司（杉杉股份公告）",
+   sum:"杉杉股份披露扩产计划：拟投资约 51 亿元建设年产 15 万吨锂离子电池负极材料一体化项目，并配套 5 万吨石墨化产能，用以补齐九原工厂现有石墨化工序的产能缺口。公司称全球新能源汽车与储能需求快速增长、负极材料产能缺口持续扩大，需通过新建一体化基地保障客户订单交付，建成后与青山等既有基地形成协同。",
+   imp:"负极是四大主材里石墨化成本最敏感的一环，一体化＋自配石墨化等于把电价敏感环节内部化——在储能需求接棒动力成为增量主源的阶段，这是材料厂抢份额的现实做法。",
+   url:"https://egs.stcn.com/quotation/stock-info/sz300035.html", verified:"pend", seen:"07:34", tags:["投融资"]},
+
+  {ts:"2026-11-08T19:30:00+08:00", cat:"动力电池", weight:2,
+   title:"世龙实业拟 3.65 亿元新建 15 万吨氯化亚砜装置，锁定新型锂盐原料",
+   src:"世龙实业公告（网易财经早参转载）",
+   sum:"世龙实业公告，拟在江西乐平工业园区投资 3.65 亿元新建年产 15 万吨氯化亚砜生产装置及配套设施，项目分两期：一期 8 万吨、建设周期 10 个月，二期 7 万吨、建设周期 8 个月。公司明确本次投资基于新能源动力电池及储能产业链对新型锂盐（LiFSI）等上游原料的需求增长。",
+   imp:"氯化亚砜是双氟磺酰亚胺锂的核心原料，扩产说明 LiFSI 从「添加剂级小众」向「主盐级大宗」过渡——高倍率、宽温域电池路线的成本曲线正在被上游提前铺平。",
+   url:"http://m.163.com/dy/article/LB9BCB2N0512B07B.html", verified:"pend", seen:"07:34", tags:[]},
+
+  {ts:"2026-11-08T05:19:00+08:00", cat:"智驾与芯片", weight:2,
+   title:"越南 VinFast 与以色列 Autobrains 达成战略合作，共研 L2++ 智驾与低成本 Robotaxi",
+   src:"The Times Australia（双方联合发布）",
+   sum:"11 月 8 日，越南车企 VinFast 与以色列 AI 智驾公司 Autobrains 宣布战略合作，聚焦为 VinFast 未来电动车型研发增强版 L2++ 自动驾驶技术，并共同推进低成本 Robo-Car 方案。VinFast 现有车型配备 L2 级辅助驾驶，升级版 L2++ 系统已进入验证阶段。",
+   imp:"新兴市场车企选择「买算法、自研整车」而非全栈自建，意味着智驾供应链正在按区域分层：中国方案卷城市 NOA，东南亚与中东更看重低成本 L2++ 落地。",
+   url:"https://www.thetimes.com.au/news/news-from-asia/47373-vinfast-and-autobrains-announce-strategic-partnership-on-developing-autonomous-driving-technology-and-affordable-robo-car", verified:"pend", seen:"07:34", tags:[]},
+
+  {ts:"2026-11-08T23:01:00+08:00", cat:"重大事件", weight:2,
+   title:"马斯克：Cybercab 将用 40kWh 电池组、新增液态银配色，进一步提升能效",
+   src:"IT 之家（马斯克 11-08 凌晨 X 发文）",
+   sum:"IT 之家 11 月 8 日消息，马斯克在 X 上透露特斯拉将对 Cybercab 做多项升级：「我们会进一步提高能效，让 Cybercab 用上 40kWh 电池组，还会推出液态银色，免得车身颜色太单调。」此前一周，特斯拉刚因 Cybertruck 订单积压而宣布追加生产班次、并在明年 6—7 月拆线为 Cybercab 让位。",
+   imp:"把 Robotaxi 专用车的电池下探到 40kWh，等于把「每公里成本」当作核心指标来设计——这是特斯拉与 Waymo 路线差异最直观的一处：一个极致降本，一个堆感知冗余。",
+   url:"http://m.toutiao.com/group/7705815861566636553/", verified:"pend", seen:"23:06", tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T18:00:00+08:00", cat:"出海与法规", weight:3,
+   title:"起亚拟到 2029 年向光州投资约 3 万亿韩元，把内燃机基地改造为未来车生产枢纽",
+   src:"首尔新闻 / 光州时报（起亚 11-06 与光州市、全南大学、GIST 签约）",
+   sum:"11 月 6 日，起亚在光州 Autoland 工厂与光州市、全南大学、光州科学技术院（GIST）签署「基于 PBV 的未来移动出行产业生态」业务协议，并公布投资计划：到 2029 年在光州投入约 3 万亿韩元，把以内燃机为中心的整车基地改造为电动化、自动驾驶为基础的未来车生产体系。",
+   imp:"韩国整车厂开始用「PBV 平台＋大学科研」的组合改造既有工厂，说明传统产能过剩的解不是关厂，而是转产高附加值平台——这对中国车企在海外收购闲置工厂的谈判逻辑同样适用。",
+   url:"https://m.seoul.co.kr/news/society/2026/11/08/20261108500016", verified:"pend", seen:"23:06", tags:[]},
+
+  {ts:"2026-11-04T15:37:00+08:00", cat:"智驾与芯片", weight:3,
+   title:"后摩智能完成数十亿元 B 轮融资，存算一体智驾芯片进入规模化交付",
+   src:"上海证券报·中国证券网（36 氪 11-05 交叉）",
+   sum:"11 月 4 日上证报从知情人士处获悉，存算一体 AI 芯片企业后摩智能已完成数十亿元人民币 B 轮融资，投资方包括上下游产业资本、国有资本及国际投资人，多家老股东追加。资金将主要用于扩大 M50 芯片的规模化交付、推进新一代 M6X 与下一代 3D 存算一体产品研发，并完善软件工具链与生态。11-08 财联社创投通把它列为本周并列最高金额融资事件。",
+   imp:"存算一体在智驾芯片上的意义是「用架构换能效」，绕开先进制程限制——数十亿元单笔融资意味着资本已认可这条绕道方案可以量产，而非只停留在论文阶段。",
+   url:"http://www.cnstock.com/commonDetail/823751", verified:"ok", seen:"23:06", tags:["投融资","新技术·产品"]},
+
+  {ts:"2026-11-08T19:53:00+08:00", cat:"重大事件", weight:2,
+   title:"进博会观察：外企的「身体」开始接入中国的「大脑」，跨国车企在华转向技术协同",
+   src:"观察者网（经头条转载）",
+   sum:"11 月 8 日观察者网进博会观察稿指出，跨国企业正从「在中国卖产品」转为「用中国的技术做产品」：展台上出现基于视觉语言模型的驾驶接管危险预警方案（在自动驾驶接近能力边界时分三级提示驾驶员准备、主动或紧急接管），以及融合双路视觉信息的车载乘客眩晕检测方案，为车企优化接管时机与座舱体验提供依据。",
+   imp:"外资车企的在华研发已从适配性本地化，滑向对中国 AI 算法与数据能力的实质依赖——这既是效率选择，也让「技术主权」成为合资谈判的新变量。",
+   url:"http://m.toutiao.com/group/7705767416311120422/", verified:"pend", seen:"21:01", tags:[]},
+
+  {ts:"2026-11-05T19:20:00+08:00", cat:"具身智能", weight:4,
+   title:"丰田新设「Toyota Robotics」机器人部门：2027-01-01 运行，与电动化、软件并列为三大支柱",
+   src:"新浪财经（丰田 11-05 全球新闻室组织改正公告）",
+   sum:"11 月 5 日，丰田汽车发布组织架构调整公告：自 2027 年 1 月 1 日起新设全社直辖组织「Toyota Robotics（丰田机器人）」，由执行董事兼首席生产官志贺武文兼任组织长，整合公司内分散的机器人知识、人员与资源，布局工业机器人、人形机器人与护理服务机器人三类形态，目标是加快机器人在生产一线的实际应用并推进对外商业化。这是丰田首次把机器人业务升级为与电动化、软件并列的核心战略板块，公司同时对外释放中长期数十万台的部署规划。",
+   imp:"丰田把近 50 年的工厂自动化积累直接组织化，意味着汽车巨头切入具身智能的方式不是另起炉灶做本体，而是先把自己最擅长的「产线场景＋量产工艺」变成护城河——这对靠融资驱动的新势力构成成本压制。",
+   url:"https://finance.sina.com.cn/jjxw/2026-11-05/doc-inixsvxw6024732.shtml", verified:"ok", seen:"21:01", tags:[]},
+
+  {ts:"2026-11-08T18:10:00+08:00", cat:"具身智能", weight:3,
+   title:"进博会特斯拉披露：上海工厂零部件本土化率 98%，正建「人形机器人学院」用人类数据训练 Optimus",
+   src:"腾讯新闻（2026 进博会报道）",
+   sum:"11 月 8 日进博会报道显示，特斯拉上海超级工厂零部件本土化率已达 98%，2026 年 9 月单月交付超 9.5 万辆、其中国内约 6.5 万辆，均创年内新高，工厂工业废弃物利用率保持 94% 以上并获国家级「绿色工厂」认定。特斯拉同时披露正在建设「人形机器人学院」（Optimus Academy），以人类数据做基础训练，再在仿真与现实中反复练习迭代；其训练算力基础设施同时支撑车辆与人形机器人的自主软件开发。",
+   imp:"两条线正在合并：一是中国供应链已深度嵌入特斯拉全球体系（98% 本土化），逆向影响其全球成本；二是 Optimus 的训练范式直接复用 FSD 的数据与算力底座——具身智能的胜负可能不在本体，而在数据闭环规模。",
+   url:"http://news.qq.com/rain/a/20261108A0A7KO00", verified:"pend", seen:"19:11", tags:[]},
+
+  {ts:"2026-11-04T18:57:00+08:00", cat:"重大事件", weight:4,
+   title:"大众系 61 万辆召回：副车架与转向机固定螺栓锈蚀可能断裂，2027-01-15 起实施",
+   src:"汽车之家（经证券之星转载，总局 11-04 备案）",
+   sum:"11 月 4 日，大众汽车（中国）销售、上汽大众、一汽-大众三家向市场监管总局备案召回计划：自 2027 年 1 月 15 日起，召回部分进口高尔夫、途威及国产途昂、途昂 X、威然、揽境、奥迪 Q3、奥迪 Q6 等车型，合计逾 61 万辆。原因为车辆受水分与融雪剂侵蚀，副车架与转向机右侧固定螺栓可能锈蚀断裂，极端情况下影响转向与行驶稳定性，将免费更换螺栓。",
+   imp:"这是本轮周期内规模最大的单次召回，且实施日推到 2027 年初、跨越两个冬季——锈蚀类缺陷与使用环境强相关，说明「防腐设计与售后件更换」正成为大规模存量车的新风险敞口。",
+   url:"https://auto.stockstar.com/IG2026110400035095.shtml", verified:"ok", seen:"19:11", tags:[]},
+
+  {ts:"2026-11-08T15:09:00+08:00", cat:"动力电池", weight:2,
+   title:"储能出海「名单固化」：亿纬拿下 206GWh 大单，国轩、比亚迪加码中东与北非本地制造",
+   src:"钛媒体（经头条转载）",
+   sum:"11 月 8 日钛媒体报道，亿纬锂能签下 206GWh 储能大单后，国轩高科、比亚迪、阳光电源同步在中东与北非掘金：阳光电源已在埃及苏伊士运河经济区开建 10GWh 储能工厂，国轩联合中国能建与 AMEA Power 在埃及布局 3GWh 电池制造基地。文章判断本地化产能已成为拿到下一轮中东订单的前置成本，头部供应商名单趋于固化。",
+   imp:"储能订单的竞争门槛已从「报价」变成「本地建厂＋高温工况适配」，这与动力电池出海的路径完全一致：谁先落地产能，谁就锁定下一轮招标资格。",
+   url:"http://m.toutiao.com/group/7705694276797989418/", verified:"pend", seen:"19:11", tags:[]},
+
+  {ts:"2026-11-08T17:09:00+08:00", cat:"具身智能", weight:3,
+   title:"上纬新材启元机器人第 10000 台个人机器人下线：14 天从 5000 台到 10000 台",
+   src:"上海证券报（上纬新材 11-08 公告披露）",
+   sum:"11 月 8 日上纬新材公告披露，公司在保障新材料主业稳健基础上开展消费级具身智能机器人业务，2026 年 9 月 20 日正式发布「启元 Q1」与「启元 T1」，截至公告披露日累计下线第 10000 台个人机器人；此前 10 月 25 日第 5000 台下线，14 天内完成 5000→10000 的跨越，进入万台级量产。启元 T1 为可变形个人机器人，四足与人形轮足间切换，可越 17 厘米障碍、爬 30 度坡，售价 19999 元起。",
+   imp:"个人机器人先跑出了「消费电子式」的产能曲线——万台级、周级别翻倍。这比工业人形机器人的订单制交付更能验证供应链成熟度，也意味着具身智能的第一场规模战可能发生在个人/消费场景而非工厂。",
+   url:"http://m.toutiao.com/group/7705725202684756515/", verified:"ok", seen:"17:10", tags:[]},
+
+  {ts:"2026-11-08T16:03:00+08:00", cat:"重大事件", weight:2,
+   title:"进博会观察：外资车企在华角色重写，从「卖进口车」转向本地研发与反向出口",
+   src:"腾讯新闻",
+   sum:"11 月 8 日进博会观察稿指出，连续多年参展的跨国车企展台信号已变：从早年以进口车型展示为主，转向电动化新品、最新技术方案与本土化研发成果，并释放加码投资中国的长期信号；通用汽车与上汽集团已将合资合作期限延长至 2047 年，别克至境 E7 计划出口海外，成为「本土开发、反向出口」的合资样本。",
+   imp:"合资公司的功能定位正在翻转：从「外资技术输入中国」变成「中国研发供给全球」，这既是中国供应链能力的溢出，也意味着合资股比、利润分配与出口归属的谈判筹码将重新洗牌。",
+   url:"https://news.qq.com/rain/a/20261108A08FWU00", verified:"pend", seen:"17:10", tags:[]},
+
+  {ts:"2026-11-08T08:43:00+08:00", cat:"具身智能", weight:2,
+   title:"眸深智能发起「通用具身大脑产业创新联合体」，与复旦共建实验室、连签四家战略合作",
+   src:"上海证券报（经头条转载，待补一手稿）",
+   sum:"在上海国家会展中心举行的具身智能产业生态共建交流会上，复旦大学与眸深智能签约共建「通用空间智能与自主系统机器人」校企联合研究实验室；眸深智能发起「通用具身大脑产业创新联合体」，共汇聚 42 家企业与机构，含复旦大学未来信息创新学院、国家地方共建人形机器人创新中心、宇树科技、优必选等，覆盖高校科研、机器人本体、灵巧操作、数据算力与产业应用。眸深同时与碧桂园服务、弈柯莱、东方有线、壁仞科技签署战略合作。",
+   imp:"具身智能开始组「联盟+联合实验室」的产业组织形态：把大模型、场景方、国产算力绑在一起，是想在标准与生态入口上先占位，而非单点卖机器人。",
+   url:"http://m.toutiao.com/group/7705594776049009203/", verified:"pend", seen:"15:16", tags:[]},
+
+  {ts:"2026-11-08T15:15:00+08:00", cat:"具身智能", weight:2,
+   title:"新希望金融科技联手宇树 G1 进银行厅堂：机器人自主导航、办业务、做动作交互",
+   src:"蓝鲸财经（待补一手稿）",
+   sum:"11 月 8 日消息，新希望金融科技旗下机器人团队基于宇树 G1 本体，自主开发完成智能导航、业务办理、动作交互等核心能力，三台机器人现场亮相；新光世界承担具身智能的数据采集、标注与预训练。新希望金融科技 CEO 徐志华称现场动作全部由算力芯片自主决策，目标是让银行厅堂不再靠人工引导。",
+   imp:"金融厅堂成为具身智能第一个可算 ROI 的室内服务场景——任务边界清晰、人不便进入、7×24 运行，比工厂之外的家庭场景更容易先跑通。",
+   url:"https://www.lanjinger.com/t", verified:"pend", seen:"15:16", tags:[]},
+
+  {ts:"2026-11-08T11:10:00+08:00", cat:"重大事件", weight:2,
+   title:"沪武高速潜山段事故官方通报：载电池货车自燃引发多车追尾，致 1 死 4 伤",
+   src:"光明网（转安庆公安交管支队通报）",
+   sum:"11 月 8 日凌晨安庆市公安局交管支队通报：11 月 7 日 15 时许，沪武高速下行线驼岭隧道附近发生多车追尾事故，现场一辆货车着火，事故造成 1 人死亡、4 人受伤（均无生命危险）。此前报道称该货车载有电池。目击者称当时大雾下雨、视野受限。",
+   imp:"伤亡数字落地后，这起「载电池货车自燃＋隧道群多车追尾」事件大概率推动对动力电池运输（危险品/普货口径）与隧道段限速的专项排查，运输端合规成本将上升。",
+   url:"https://m.gmw.cn/2026-11/08/content_1304583732.htm", verified:"ok", seen:"15:16", tags:[]},
+
+  {ts:"2026-11-08T12:58:00+08:00", cat:"人物", weight:3,
+   title:"比亚迪执行副总裁李柯：对玛莎拉蒂已无太多兴趣，正洽谈 Stellantis 欧洲闲置工厂",
+   src:"微博（阿布扎比受访，待补一手稿）",
+   sum:"11 月 8 日在阿布扎比仰望 U9 Xtreme 速度纪录庆祝活动期间，比亚迪执行副总裁李柯再被问及收购玛莎拉蒂，回应称「或许几年前我们兴趣更高，但现在我们已经走出属于自己的道路，方向正确。况且如今全球最快的车就是我们的」；此前 5 月官方曾辟谣收购传闻，称系考察欧洲高端资产的误读。报道同时称比亚迪实际在洽谈 Stellantis 的欧洲闲置工厂。",
+   imp:"高管口径把「买品牌」和「买产能」切开：比亚迪要的是欧洲现成产线与关税通道，不是豪华品牌溢价，这也解释了欧洲本地化为何集中在工厂而非品牌收购。",
+   url:"https://m.weibo.cn/detail/5362964900873036", verified:"pend", seen:"13:05", tags:[]},
+
+  {ts:"2026-11-08T12:24:00+08:00", cat:"出海", weight:2,
+   title:"统计：中国车企已在欧洲落地 10 个本地化生产项目，比亚迪匈牙利工厂 Q4 投产",
+   src:"e公司（上市公司快讯，待补一手稿）",
+   sum:"梳理显示，中国车企在欧洲的本地化布局加快落地：比亚迪匈牙利工厂计划 2026 年四季度投产，奇瑞与西班牙 Ebro 的合资工厂计划 2026 年底启动奇瑞品牌车型生产，零跑借 Stellantis 萨拉戈萨工厂联合生产，上汽计划在西班牙加利西亚建年产 12 万辆工厂；自 2023 年 9 月以来已宣布 10 个欧洲本地化生产项目。",
+   imp:"欧洲从「出口目的地」变成「制造基地」，欧盟关税与本地含量规则反被转化为产能转移的加速器，2026 年四季度是第一个集中投产窗口。",
+   url:"https://www.egsea.com/quotation/stock-info/sh601238.html", verified:"pend", seen:"13:05", tags:[]},
+
+  {ts:"2026-11-08T10:09:00+08:00", cat:"重大事件", weight:3,
+   title:"美国 NHTSA 推进召回改革：把 OTA 更新作为提升召回修复率的关键路径",
+   src:"Internet Info Agency（网上车市英文站，待补 NHTSA 一手文件）",
+   sum:"11 月 8 日报道，美国 NHTSA 正推进车辆召回制度改革，将 OTA 远程升级作为提高召回实际修复率的关键手段——传统召回的实际完成率长期偏低，监管希望允许以软件更新完成部分整改并强化可核查的执行记录。",
+   imp:"若落地，软件定义汽车时代的召回逻辑被改写：OTA 可计入整改、软件缺陷的举证与披露要求同步加严，这对出口美国的中国车企是合规成本与流程能力的双重考验。",
+   url:"https://english.news18a.com/news/english_312585.html", verified:"pend", seen:"13:05 补录", tags:[]},
+
+  {ts:"2026-11-07T18:00:00+08:00", cat:"具身智能", weight:2,
+   title:"拓斯达全球开放日：发布三套工业解决方案，全尺寸工业双足人形机器人 Star 亮相",
+   src:"蓝鲸财经",
+   sum:"11 月 7 日拓斯达在全球开放日推出三套面向工业场景的解决方案，聚焦多品种小批量分拣、多工序集成作业、智能搬运；全尺寸工业双足人形机器人 Star 同步亮相，适配现有工厂产线布局，双臂负载 10kg，可完成物料搬运等作业。",
+   imp:"装备厂商直接把双足机器人塞进既有产线规格里卖，说明具身智能的竞争重心正从「像人」转向「能进厂、能负载、能接单」，工业侧落地先行。",
+   url:"https://www.lanjinger.com/t", verified:"pend", seen:"13:05 补录", tags:[]},
+
+  {ts:"2026-11-07T08:30:00+08:00", cat:"重大事件", weight:3,
+   title:"工信部副部长辛国斌公开点名「激进式」创新：未充分验证就装车，非理性竞争仍突出",
+   src:"人民网（11-07 工信部新闻发布会相关报道）",
+   sum:"辛国斌表示，非理性竞争问题仍较突出，一些「激进式」创新设计未经充分实验验证就装车应用，还出现个别引发社会关注的汽车产品质量、自动驾驶安全事件；下一步将积极稳妥推进智能网联汽车准入与上路通行试点、车路云一体化试点，并强调「坚守产品质量底线」。",
+   imp:"主管部委把「创新速度」明确列为风险源，配合四部门生产一致性专项，意味着智能座舱/智驾类功能的合规审查会实质收紧，抢跑式上车的窗口正在关闭。",
+   url:"http://search.people.cn/s/?keyword=%E5%9B%BD%E5%A4%96%E6%B1%BD%E8%BD%A6%E8%AE%BE%E8%AE%A1%E7%BD%91%E7%AB%99", verified:"ok", seen:"11:22 补录", tags:[]},
+
+  {ts:"2026-11-08T11:16:00+08:00", cat:"具身智能", weight:2,
+   title:"爱仕达智能谷具身智能创新中心揭牌，自研人形机器人 ASD-S2 亮相，定位「全栈式赋能」",
+   src:"e公司（上市公司快讯，待补一手稿）",
+   sum:"11 月 8 日，爱仕达宣布智能谷具身智能创新中心正式揭牌，自研人形机器人 ASD-S2 亮相；公司同时把自身定位为具身智能行业「全栈式赋能平台」，向机器人企业输出从核心零部件到整机交付的制造能力。董事长陈灵巧在会上回顾集团三次战略升级。",
+   imp:"又一家家电/制造企业把既有制造能力打包成具身智能代工与零部件平台，这类「造产能」的角色正在快速增多，整机厂自建产线的必要性下降。",
+   url:"https://www.egsea.com/quotation/stock-info/sz002403.html", verified:"pend", seen:"11:22", tags:[]},
+
+  {ts:"2026-11-08T10:19:00+08:00", cat:"具身智能", weight:2,
+   title:"眸深智能 CEO 穆泽林：机器人售价须低于被替代岗位 18 个月工资，才可能规模化上岗",
+   src:"澎湃新闻",
+   sum:"穆泽林称，从现在到明年 3 月是具身企业的关键节点，眸深计划 2027 年 3 月前完成质检、快递分拣等 3—4 个场景的最小单元概念验证，再逐步扩大部署；规模化落地必须先算经济账——机器人整机价格不得超过所替代岗位 18 个月的薪资。",
+   imp:"把具身智能的商业化门槛量化成「18 个月工资」这个可验算式，比空谈场景更狠：按此标准，现有动辄数十万元的整机报价在多数岗位都过不了关。",
+   url:"http://m.toutiao.com/group/7705619660745474603/", verified:"ok", seen:"11:22", tags:[]},
+
+  {ts:"2026-11-08T08:00:00+08:00", cat:"重大事件", weight:3,
+   title:"马斯克：Cybertruck 加开一个班次赶订单，明年 6—7 月拆线让位 Cybercab",
+   src:"IT之家（据马斯克 X 发文）",
+   sum:"当地时间周六，马斯克在 X 上表示，Cybertruck 现有积压订单量远超特斯拉在明年 6 月至 7 月左右拆除生产线、为 Cybercab 扩产前能完成的数量，因此将增加一个额外生产班次，尽量按时交付全部订单。",
+   imp:"停产不再是纯粹的砍产品，而是「清库存式收尾」——得州工厂的产线让位节奏被锁在 2027 年年中，Cybercab 的量产时间表随之被公开确认。",
+   url:"http://finance.sina.com.cn/tech/digi/2026-11-08/doc-inixymrk7593466.shtml", verified:"ok", seen:"09:01", tags:[]},
+
+  {ts:"2026-11-08T06:56:00+08:00", cat:"供应链", weight:3,
+   title:"宁德时代出海从「卖设备」转向链式合作：连签日立能源、epec、新南威尔士大学与欧洲储能商",
+   src:"新浪财经",
+   sum:"报道梳理宁德时代近期海外动作：与日立能源、epec 集团、悉尼新南威尔士大学分别签署备忘录，对应系统集成、并网交付与本地人才培养；10 月底欧洲储能方案商 intilion 亦签约，未来 5 年将在德、瑞、奥落地 3 GWh 储能系统。出海形态正从单一电芯出口升级为「电芯—系统—并网—验证—服务—人才」的链条输出。",
+   imp:"电池出海的竞争点从产能与价格转到并网许可、本地服务与人才，谁把链条铺完谁才有定价权；这对还在卖电芯的二三线电池厂是明确的挤压信号。",
+   url:"http://m.toutiao.com/group/7705567129814286863/", verified:"ok", seen:"09:01", tags:[]},
+
+  {ts:"2026-11-06T00:00:00+08:00", cat:"重大事件", weight:3,
+   title:"市场监管总局 11-06 集中备案三起召回：北京奔驰、斯巴鲁、奇瑞瑞虎5x/欧萌达",
+   src:"国家市场监督管理总局政务服务平台",
+   sum:"11 月 6 日召回公告显示：北京奔驰汽车有限公司与梅赛德斯-奔驰（中国）汽车销售有限公司联合召回部分车型；斯巴鲁汽车（中国）召回部分进口汽车；奇瑞汽车股份有限公司召回部分瑞虎 5x、欧萌达汽车。三起均为向总局备案的正式召回计划。",
+   imp:"本周召回节奏明显加快（11-04 已有多品牌超 80 万辆、11-06 再落三起），说明四部门生产一致性与质量提升专项行动进入实操期，车企主动备案的意愿在提升。",
+   url:"https://zwfw.samr.gov.cn/eportal/ui?currentPage=1&moduleId=9c3fd76ff8294954884479d5b3a58941&pageId=b34fe38d35a14f46b8814e387f7bf980", verified:"ok", seen:"07:04 补录", tags:[]},
+
+  {ts:"2026-11-07T12:11:00+08:00", cat:"重大事件", weight:2,
+   title:"北汽召回 605 辆 Can-Am Spyder F3 三轮摩托车，制动/操控隐患",
+   src:"新浪财经",
+   sum:"11 月 7 日，北汽相关主体向市场监管总局备案召回部分 Can-Am Spyder F3 三轮摩托车，共计 605 辆，原因为特定批次存在安全隐患，将为相关车辆免费检修更换。",
+   imp:"摩托车产品同样纳入缺陷召回体系，进口高端玩乐车型的合规成本开始显性化。",
+   url:"https://finance.sina.com.cn/wm/2026-11-07/doc-inixwtfy8138353.shtml", verified:"ok", seen:"07:04 补录", tags:[]},
+
+  {ts:"2026-11-05T00:00:00+08:00", cat:"供应链", weight:2,
+   title:"特斯拉柏林工厂新设「Cybaer」工程中心启用，欧洲本地研发加码",
+   src:"网上车市（单一信源）",
+   sum:"报道称特斯拉位于柏林超级工厂的新工程中心已于 11 月初启用，命名 Cybaer，用于欧洲本地车型工程与研发支持。该消息未见特斯拉官方公告。",
+   imp:"在欧洲销量承压期增设本地工程中心，指向特斯拉把研发决策权前移到欧洲，以应对本地法规与产品偏好差异。",
+   url:"http://auto.news18a.com/news/xinwen/129/", verified:"pend", seen:"07:04 补录", tags:[]},
+
+  {ts:"2026-11-07T22:58:00+08:00", cat:"重大事件", weight:3,
+   title:"沪武高速安徽潜山段载电池货车自燃、后方多车追尾，有人送医",
+   src:"南方都市报（据新华社）",
+   sum:"11 月 7 日下午，沪武高速岳西往桐城南方向安徽潜山段，一辆载有电池的货车发生自燃，后方多车追尾。消防、公安等多部门到场处置，事故伤亡情况仍在核实，已有人员送医。",
+   imp:"动力电池运输环节的热失控风险再次进入公共交通事故场景；这类事故会直接推动电池运输包装、车载电量上限与高速通行管理的收紧。",
+   url:"http://m.toutiao.com/group/7705443336185758250/", verified:"ok", seen:"23:01", tags:[]},
+
+  {ts:"2026-11-05T22:30:00+08:00", cat:"延伸行业", weight:4,
+   title:"Agility Robotics 登陆纳斯达克（AGLT），成首家人形机器人纯正上市股，合并后融资约 4.65 亿美元",
+   src:"Agility Robotics 官方新闻稿",
+   sum:"11 月 4 日 Agility 与 SPAC 公司 Churchill Capital Corp XI 完成合并交割，11 月 5 日以代码 AGLT 在纳斯达克开始交易，成为首家纯人形机器人业务的美国上市公司。交易投前估值 25 亿美元，合并后融资总额约 4.65 亿美元（信托 1.64 亿 + 富士康领投 PIPE 2.01 亿 + 已收股权款），核心产品为已在产线累计 6.5 万小时作业的 Digit。",
+   imp:"人形机器人第一次拿到公开市场定价，一级市场估值有了对标锚；富士康领投意味着 3C 制造场景被选为首个可验证的规模化落地口，国内本体厂商的 IPO 叙事随之被抬高。",
+   url:"https://www.agilityrobotics.com/", verified:"ok", seen:"23:01 补录", tags:["投融资"]},
+
+  {ts:"2026-11-07T08:05:00+08:00", cat:"供应链", weight:2,
+   title:"Stellantis 与宁德时代西班牙 LFP 超级工厂投产在即，已从中国派专家赴当地培训",
+   src:"더구루（韩媒，单一信源）",
+   sum:"报道称 Stellantis 与宁德时代位于西班牙萨拉戈萨的合资电池超级工厂进入投产准备阶段，中方已派遣 LFP 电池专业技术与生产人员赴西班牙进行本地人员培训。该厂设计产能规划约 50 GWh，双方于 2024 年 11 月签署合资备忘录。",
+   imp:"欧洲本地化生产从「建厂」推进到「带人」阶段，LFP 工艺输出成为中欧电池合作的实际内核；对国内电池企业，海外产能爬坡速度开始取决于人才外派而非设备。",
+   url:"https://stockinfo7.com/news/url/49778983", verified:"pend", seen:"23:01", tags:[]},
+
+  {ts:"2026-11-07T20:55:00+08:00", cat:"重大事件", weight:2,
+   title:"日产（中国）声明：假冒召回短信与伪造召回文件系诈骗，勿提供证件与验证码",
+   src:"日产（中国）官方微博",
+   sum:"11 月 7 日 20:55，日产（中国）投资有限公司发布声明：近期有不法分子冒用日产（中国）及相关监管部门名义，向车主发送虚假召回短信、伪造召回文件，附非官方链接与二维码诱导填写个人及车辆信息。日产强调官方召回绝不会要求线上转账或提交银行卡、短信验证码。此前沃尔沃汽车已于当日 18:05 发布同类型辟谣。",
+   imp:"召回公告集中发布后，诈骗团伙直接仿冒「召回」话术，沃尔沃、日产一天内先后辟谣，说明这是针对车主信息的规模化黑产；车企召回流程与车主触达渠道需要一次统一的验真机制。",
+   url:"https://m.weibo.cn/detail/5362722515459900", verified:"ok", seen:"21:11", tags:[]},
+
+  {ts:"2026-11-07T15:39:00+08:00", cat:"重大事件", weight:4,
+   title:"奔驰承认 L3「推进太超前」：当下专心做 L2，未来绕过 L3 直接上 L4",
+   src:"新浪财经",
+   sum:"11 月 7 日，奔驰方面表示当初推出 L3 级 Drive Pilot 时技术实用性有限，决定调整路线：优先发展功能更全面的 L2 级辅助驾驶，未来计划绕过 L3 直接进入 L4。奔驰 2023 年曾凭 Drive Pilot 成为首家在美国获 L3 批准的车企，但系统适用车速受限（不高于 64 km/h 等条件）。",
+   imp:"全球第一个拿到 L3 牌照的车企公开承认路线偏早，等于给「L3 是不是过渡产物」定了调：法规先行但体验不足的级别会被车企跳过，资源将集中到 L2++ 与 L4 Robotaxi 两端。",
+   url:"https://cj.sina.com.cn/articles/view/1826017320/6cd6d02802001yuog?froms=ttmp", verified:"ok", seen:"21:11 补录", tags:["新技术·产品"]},
+
+  {ts:"2026-11-04T20:00:00+08:00", cat:"人物动态", weight:2,
+   title:"Stellantis 任命 Pablo Di Si 为北美及美国品牌 COO，直接向 CEO Filosa 汇报",
+   src:"Stellantis 官方新闻稿",
+   sum:"Stellantis 于当地时间 11 月 4 日宣布，任命 Pablo Di Si 为北美及美国品牌首席运营官，即日生效，进入集团领导团队并向 CEO Antonio Filosa 汇报；北美业务由此从 Filosa 手中移交。Di Si 此前任集团首席绩效官，更早为大众汽车南美区执行主席、大众美国公司总裁兼 CEO。",
+   imp:"把大众系出身、做过美国市场一把手的经理人放到北美 COO，是 Stellantis 在北美利润修复上的直接动作；Filosa 卸下北美日常，意味着重心回到全球品牌与产品节奏。",
+   url:"https://www.media.stellantis.com/uk-en/corporate/press/stellantis-appoints-pablo-di-si-chief-operating-officer-north-america-and-american-brands", verified:"ok", seen:"21:11 补录", tags:[]},
+
+  {ts:"2026-11-07T19:01:00+08:00", cat:"政策与数据", weight:3,
+   title:"日本纯电动车年销量首破 10 万辆，2027 年起补贴上限腰斩至 75 万日元",
+   src:"IT之家",
+   sum:"日本纯电动汽车年度新车销量首次突破 10 万辆。日本经济产业省已于 10 月 21 日公布 CEV 补贴调整方案，自 2027 年 1 月 1 日起对新注册车辆适用新额度：登记车 EV 补贴上限由 125 万日元降至 75 万日元。",
+   imp:"销量刚破 10 万辆就退坡补贴，说明日本市场的电动化仍高度依赖政策；补贴腰斩会先打到价格敏感的 A0/A 级纯电，中国出口车型与日系本土 EV 同时承压。",
+   url:"http://m.toutiao.com/group/7705382890292494886/", verified:"ok", seen:"19:11", tags:[]},
+
+  {ts:"2026-11-07T17:41:00+08:00", cat:"延伸行业", weight:3,
+   title:"苹果披露人形机器人自主系统 HALO：单项任务成功率 91%，训练与部署代码全部开源",
+   src:"IT之家（原文 arXiv 论文）",
+   sum:"当地时间 11 月 4 日，苹果研究团队在 arXiv 提交论文《Perceptive Humanoid Motion from Simulation》，披露人形机器人自主控制系统 HALO：在仿真中程序化生成上千个家庭场景的视觉—语言—动作数据，策略完全在机器人本体上运行；360 次单项任务测试平均成功率 91%，组合长任务成功率约 70%，数据生成、训练与部署代码已全部公开。",
+   imp:"数据靠算力生成而非人工采集，是具身智能从「采数据」转向「造数据」的关键一步；开源部署代码会显著拉低复现门槛，加速国内本体厂商的算法侧追赶。",
+   url:"http://m.toutiao.com/group/7705362359367631403/", verified:"ok", seen:"19:11", tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T18:05:00+08:00", cat:"重大事件", weight:1,
+   title:"沃尔沃汽车声明辟谣「高田气囊召回」短信：非官方发布，勿提供银行卡与验证码",
+   src:"界面新闻（财经网汽车）",
+   sum:"11 月 7 日，沃尔沃汽车发布声明称，近期流传的「涉及高田气囊召回」等信息均非沃尔沃官方发布；官方召回通知不会以任何名义引导车主提供银行卡、验证码或进行转账付款。此举与本周多家车企针对召回诈骗的联合提示一致。",
+   imp:"召回公告集中发布后被诈骗团伙当成话术模板，车主信息与资金安全成了召回事件的次生风险；车企开始把「反诈」写进召回声明，说明这类冒用已形成规模化黑产。",
+   url:"https://m.weibo.cn/detail/5362679595926267", verified:"pend", seen:"19:11", tags:[]},
+
+  {ts:"2026-11-07T17:36:00+08:00", cat:"人物动态", weight:3,
+   title:"零跑朱江明：海外出口已达 23 万辆为去年三倍，浙江有望成新能源全球佼佼者",
+   src:"界面新闻",
+   sum:"11 月 7 日，零跑汽车董事长朱江明公开表示，今年零跑海外出口量已达 23 万辆，为去年全年出口规模的三倍；欧洲 9 月新能源汽车市占率达 40%，超出行业预期。他认为依托三年前置化的海外调研与产品规划，现有车型可覆盖全球 85% 的市场需求，浙江有望成为新能源汽车赛道的全球佼佼者。",
+   imp:"「出口三倍增长 + 覆盖 85% 市场需求」把零跑从国内价格战里挪了出来；欧洲 40% 的渗透率也说明当地政策窗口仍在，出海节奏正成为中国车企第二增长曲线的分水岭。",
+   url:"http://m.toutiao.com/group/7705361204167983657/", verified:"ok", seen:"17:45 补录", tags:[]},
+
+  {ts:"2026-11-07T16:42:00+08:00", cat:"重大事件", weight:4,
+   title:"小米汽车成立国际业务部，2027 年拟在 14 国启动销售",
+   src:"腾讯新闻",
+   sum:"11 月 7 日消息，小米汽车已成立国际业务部，计划 2027 年在 14 个国家启动销售。10 月小米汽车交付量突破 5 万辆，连续三个月阶梯式攀升；1—10 月累计交付约 33.6 万—34 万辆，全年 55 万辆目标完成率约 61%，剩余两个月需月均交付近 10.7 万辆。",
+   imp:"交付爬坡与出海建制同步推进，意味着小米把汽车当作全球产品而非国内单品；但最后两个月月均 10.7 万辆的缺口，会把产能与渠道压力直接压到年底。",
+   url:"http://news.qq.com/rain/a/20261107A0A9Y500", verified:"ok", seen:"17:45 补录", tags:[]},
+
+  {ts:"2026-11-07T14:00:00+08:00", cat:"重大事件", weight:2,
+   title:"保时捷召回 18,274 辆 Cayenne：泊车辅助系统软件存在偏差",
+   src:"汽车之家",
+   sum:"保时捷（中国）向国家市场监督管理总局备案召回计划（召回编号 S2026M0136I），召回部分进口 Cayenne 共计 18,274 辆，原因为泊车辅助系统软件存在偏差，可能影响泊车过程中的距离判断。",
+   imp:"豪华品牌的问题从机械件转向软件标定，说明「软件缺陷即召回」已成监管常态——OTA 时代的合规成本正从硬件供应商转移到整车软件栈。",
+   url:"https://www.autohome.com.cn/57/conjunction.html", verified:"ok", seen:"17:45 补录", tags:[]},
+
+  {ts:"2026-11-06T20:30:00+08:00", cat:"政策与数据", weight:1,
+   title:"吉利星愿上市两年累计销量破 100 万辆，已进入 30 余国",
+   src:"中国证券报（IT 时代网转述）",
+   sum:"11 月 6 日晚吉利用户大会披露，A0 级纯电车型星愿上市两年累计销量突破 100 万辆；2026 年 10 月全球销量超 7 万辆，创上市以来单月新高，该车型已进入英国等 30 余个国家。",
+   imp:"A0 级小车做出百万级体量并同步出口，是「小车打全球」的样本；对 A0 级细分市场而言，规模壁垒已经形成。",
+   url:"https://m.weibo.cn/detail/5362657813070334", verified:"pend", seen:"17:45 补录", tags:[]},
+
+  {ts:"2026-11-06T20:00:00+08:00", cat:"政策与数据", weight:2,
+   title:"广汽集团 10 月销量 14.37 万辆环比增 11.75%，自主品牌同比增约 26%",
+   src:"新京报贝壳财经",
+   sum:"11 月 6 日广汽集团发布产销公告，10 月销量 14.37 万辆，环比增长 11.75%；1—10 月累计销量 128.49 万辆，自主品牌延续两位数增长，同比增幅约 26%。",
+   imp:"合资板块承压、自主板块补位的结构在广汽身上最清楚：环比回正靠自主，这也解释了集团层面对合资产能与渠道的持续收缩动作。",
+   url:"https://auto.eastmoney.com/a/chyxw.html", verified:"ok", seen:"17:45 补录", tags:[]},
+
+  {ts:"2026-11-06T16:00:00+08:00", cat:"人物动态", weight:2,
+   title:"丰田任命 Mark Templin 为北美区 CEO，2027 年 1 月 1 日生效",
+   src:"WardsAuto",
+   sum:"丰田汽车宣布任命 Mark Templin 出任丰田北美公司首席执行官，任命于 2027 年 1 月 1 日生效。Templin 长期负责丰田北美销售与出行相关业务。",
+   imp:"北美是丰田利润最厚的市场，换帅落在关税与电动化投入的关键窗口；人选来自销售体系，意味着短期优先级仍是渠道与混动基本盘。",
+   url:"https://www.wardsauto.com/news/toyota-motor-north-america-names-new-ceo/873993/", verified:"pend", seen:"17:45 补录", tags:[]},
+
+  {ts:"2026-11-07T15:50:00+08:00", cat:"延伸行业", weight:2,
+   title:"特斯拉 FSD v14.3.9 被曝误判眩光为摄像头污渍，官方承认是软件 Bug",
+   src:"新浪汽车 7×24 快讯",
+   sum:"特斯拉本月初推送的 FSD（完全自动驾驶）v14.3.9 版本被曝存在软件漏洞，导致大量车主收到「前向摄像头脏污」的误报提醒，即使挡风玻璃与摄像头镜片完全干净；官方已承认该问题为 Bug。",
+   imp:"智驾系统把环境干扰（强光、眩光）误判为硬件故障，会直接触发功能降级——说明纯视觉方案在极端光照下的鲁棒性仍是量产落地的硬约束。",
+   url:"https://auto.sina.cn/7x24/?vt=4&sid=209893&oaid=03200", verified:"pend", seen:"17:13",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T16:12:00+08:00", cat:"延伸行业", weight:2,
+   title:"吉利汽车与中国气象局数值预报中心签战略合作，联合推出交通气象大模型「智象-星睿」",
+   src:"网通社（凤凰网汽车转载）",
+   sum:"网通社 11 月 7 日报道，吉利汽车集团已于 11 月 5 日与中国气象局地球系统数值预报中心签署战略合作框架协议，双方联合推出「智象-星睿交通气象大模型」，聚焦结冰、暴雨等对智驾与行车安全影响最大的气象场景。",
+   imp:"把国家级气象数值预报接进车端智驾链路，是「车—路—云」协同里少见的具体抓手；对北方冬季与湿滑路况下的 AEB/NOA 误触发问题有直接价值。",
+   url:"https://auto.ifeng.com/c/8xrT2TRsnLL", verified:"pend", seen:"17:13 补录",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-04T22:08:00+08:00", cat:"行业格局", weight:3,
+   title:"乘联分会 10 月新能源乘用车批发榜：比亚迪 48.3 万辆居首，渗透率创新高",
+   src:"每日经济新闻（引乘联分会数据）",
+   sum:"11 月 3 日乘联分会发布 10 月新能源乘用车批发销量（含预估）排名：比亚迪 483,125 辆、吉利 213,165 辆、奇瑞 134,471 辆位列前三，10 月新能源批发渗透率创历史新高，出口成为多家主流车企共同的增长主线；乘联分会初步统计 10 月全国新能源乘用车批发预估 180 万辆，同比增 12%、环比增 8%。",
+   imp:"渗透率新高叠加批发环比 +8%，说明「金九银十」的增量已主要由新能源承担；出口成为共同主线，意味着国内价格战的边际压力部分被海外消化。",
+   url:"http://m.toutiao.com/group/7704317725976085028/", verified:"ok", seen:"15:21 补录",
+   tags:[]},
+
+  {ts:"2026-11-04T18:04:00+08:00", cat:"行业格局", weight:2,
+   title:"长安汽车 10 月销量 23.32 万辆、同比降 16.23%，新能源与海外成为唯一两个增量项",
+   src:"36氪（引长安汽车公告）",
+   sum:"长安汽车公告，2026 年 10 月销量 233,239 辆，同比下降 16.23%，其中海外销量 102,476 辆；1—10 月累计 1,925,905 辆，同比下降 18.88%；10 月新能源汽车销量 140,576 辆，同比增长 17.97%。",
+   imp:"总销量两位数下滑、新能源与出口双增，是传统车企结构性换挡的典型样本：燃油基盘萎缩的速度已经超过新能源补位的速度。",
+   url:"https://36kr.com/newsflashes/4055271625249672", verified:"ok", seen:"15:21 补录",
+   tags:[]},
+
+  {ts:"2026-11-07T14:42:00+08:00", cat:"延伸行业", weight:2,
+   title:"零部件巨头在进博会争抢机器人客户，上半年国内具身智能融资总额达 935 亿元",
+   src:"界面新闻（进博看未来）",
+   sum:"界面新闻 11 月 7 日报道，进博会上多家汽车零部件巨头开始争抢机器人客户。IT 桔子统计显示，上半年国内具身智能赛道融资总额 935 亿元、同比增长五倍；税务总局数据显示前五个月工业企业购进具身智能机器人金额同比增长 2.3 倍；瑞银预测 2050 年人形机器人年需求超 8000 万台。",
+   imp:"Tier1 把机器人当成新客户群去投标，说明具身智能的钱和需求正从「演示」走向「采购」；对汽车零部件企业而言，这是产线复用而非跨界冒险。",
+   url:"http://m.toutiao.com/group/7705316162879636008/", verified:"ok", seen:"15:03",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T13:32:00+08:00", cat:"延伸行业", weight:2,
+   title:"马斯克：Optimus 考虑只租不卖，初期造价约 3 万美元，生产力是人类的 5 倍",
+   src:"新浪科技",
+   sum:"11 月 7 日，马斯克谈及特斯拉 Optimus 时称，公司正考虑对人形机器人采取「只租不卖」的模式；初期单台造价约 3 万美元，其宣称的生产效率约为普通人的五倍。交付上先满足特斯拉自有工厂，2027 年底左右开始向外部企业交付，搭载 AI5 的版本预计 2027 年 4 月前后推出。",
+   imp:"「只租不卖」若落地，等于把人形机器人做成按产出计费的运营生意而非硬件生意；但 2027 年底才对外交付、需先内部自用，短期内难以对外形成有效供给。",
+   url:"https://finance.sina.com.cn/tech/digi/2026-11-07/doc-inixwthe8307672.shtml", verified:"ok", seen:"15:03",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T12:56:00+08:00", cat:"延伸行业", weight:2,
+   title:"进博会 AI 自主决策人形机器人乒乓对打全球首秀，感知到击球闭环压缩至 0.3 秒",
+   src:"腾讯新闻（宅男财经）",
+   sum:"第九届进博会上，AI 自主决策人形机器人乒乓对打完成全球首秀。两台全尺寸人形机器人隔桌自主完成感知、预测、决策与挥拍，从来球感知到击球需在约 0.3 秒内完成闭环，平台方 Hitch Open 称这是全球首个物理竞技平台。",
+   imp:"乒乓对打是少见的「高速动态 + 公开可验证」的具身智能能力测试场，若真能在 0.3 秒内闭环，说明端侧感知与控制在向实时物理交互推进。",
+   url:"https://news.qq.com/rain/a/20261107A07BUU00", verified:"ok", seen:"13:12",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T12:08:00+08:00", cat:"召回与质量", weight:2,
+   title:"比亚迪、问界、理想、大众等车企密集通报「召回信息不实」",
+   src:"网易科技",
+   sum:"近两日跟进辟谣「气囊召回」短信的车企持续增加：问界声明并无所谓气囊召回事项、相关短信非官方通知；理想汽车称该事项纯属虚构，短信与网址均非官方，已点击或提供信息的车主应立即采取安全措施；比亚迪、大众中国、宝马等亦先后发布类似声明。",
+   imp:"从单一品牌的偶发谣言演变为针对整个行业的定向诈骗，车企公关与客服系统被动承压；也说明召回查询入口的官方化（总局召回中心）亟需成为用户默认路径。",
+   url:"http://m.163.com/dy/article/LB4NEPN205567I2C.html", verified:"ok", seen:"13:12",
+   tags:[]},
+
+  {ts:"2026-11-05T18:03:00+08:00", cat:"出海与法规", weight:3,
+   title:"泰国内阁通过电动车消费税新政：2027 年起无本地配套的纯电与增程进口车税率升至 35%",
+   src:"搜狐汽车",
+   sum:"泰国内阁于 11 月 3 日正式通过电动车消费税新政，2027 年 1 月起，无本地配套的纯进口 BEV 与增程式 REEV 消费税统一上调至 35%（纯电此前约 10%）。本地生产且本地含量达标车型适用 10%，本地生产但含量不达标落 15%—20%。",
+   imp:"东南亚最重要的电动车市场把「是否本地化」直接写进税率阶梯，中国车企的整车出口通路被压缩，泰国工厂从选项变成门票；印尼的 TKDN 阶梯是同一套逻辑。",
+   url:"https://www.sohu.com/a/1097655244_157534", verified:"ok", seen:"13:12",
+   tags:[]},
+
+  {ts:"2026-11-07T10:13:00+08:00", cat:"供应链", weight:2,
+   title:"安波福与它石智航、上海电气进博会签约，年底前完成百台级机器人产线部署",
+   src:"网易科技（进博会）",
+   sum:"11 月 6 日进博会期间，安波福与上海它石智航、上海电气分别签署战略合作协议。按协议，安波福将在今年底前完成百台级它石 A 系列工业具身智能机器人的规模部署，覆盖 8 大生产工艺、33 类应用场景，含柔性组装、检测协同、生产管理。",
+   imp:"Tier1 在自己的产线上规模部署国产具身智能机器人，等于用采购订单给具身智能做了可靠性背书，比展台演示有说服力得多。",
+   url:"http://m.163.com/dy/article/LB4GT4E20514R9OJ.html", verified:"ok", seen:"11:17",
+   tags:["新技术·产品","定点"]},
+
+  {ts:"2026-11-07T10:11:00+08:00", cat:"政策与数据", weight:2,
+   title:"江西省明确 2026 年汽车以旧换新补贴申报截止 2027-01-10，资金用完即止",
+   src:"江西省商务厅（黄河新闻网转载）",
+   sum:"江西省商务厅通告，2026 年汽车以旧换新补贴申报截止时间为 2027 年 1 月 10 日 24 时，年度补贴资金用完即止；需更改补正信息的须在 2027 年 1 月 20 日 24 时前完成提交，逾期不再受理。",
+   imp:"地方置换补贴进入「收口期」，年末冲量窗口被压缩，对四季度终端节奏和明年一季度订单前置都有影响。",
+   url:"http://m.toutiao.com/group/7705246393723585075/", verified:"ok", seen:"11:17",
+   tags:[]},
+
+  {ts:"2026-11-06T16:08:00+08:00", cat:"政策与数据", weight:4,
+   title:"马斯克宣布 2027 年年中起逐步停产 Cybertruck，得州产线让位 Cybercab",
+   src:"观点网/新浪财经（马斯克 X 发文）",
+   sum:"11 月 6 日，马斯克在社交平台 X 发文称，特斯拉将于明年年中前后在得克萨斯州超级工厂逐步结束 Cybertruck 生产，把产线腾给 Cybercab（无人驾驶出租车）扩产；Cybertruck 实际销量仅为规划产能约一成，低价版本亦未提振需求。",
+   imp:"特斯拉正式把资源从「卖不动的电动皮卡」抽向 Robotaxi，是产品战略的一次公开转向；对国内车企意味着竞争焦点加速向无人驾驶运营与成本模型迁移。",
+   url:"https://finance.sina.com.cn/stock/estate/integration/2026-11-06/doc-inixuuqw8765907.shtml", verified:"ok", seen:"11:17",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T08:39:00+08:00", cat:"政策与数据", weight:3,
+   title:"工信部第 413 批公示新车申报量锐减，同步扩容 51 项技术参数，监管锁死「速成造车」",
+   src:"经济导报",
+   sum:"11 月 7 日，工信部第 413 批《道路机动车辆生产企业及产品》公示显示，新车申报数量在上一批（412 批）回落基础上进一步探底；工信部同步公开新增 51 项车辆技术参数申报清单、《汽车产品创新设计技术指南》与《汽车产品研发测试验证技术规范》三份文件。",
+   imp:"从准入规则到参数扩容的组合拳，直接抬高新车型的开发与验证门槛，靠快速迭代抢市场的打法被制度性约束；合资新能源车反而可能借合规红利突围。",
+   url:"http://m.toutiao.com/group/7705222810981663266/", verified:"pend", seen:"09:00",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T11:20:00+08:00", cat:"召回与质量", weight:3,
+   title:"哪吒汽车关联公司合众新能源新增 2 则被执行人信息，执行标的逾 1.1 亿元",
+   src:"界面新闻（新浪财经）",
+   sum:"天眼查法律诉讼信息显示，哪吒汽车关联公司合众新能源汽车股份有限公司近日新增 2 则被执行人信息，执行标的合计 1.1 亿余元，执行法院分别为南宁市中级人民法院与温州市瓯海区人民法院。有报道称公司单车亏损约 5.5 万元、创始人已成被执行人。",
+   imp:"重整期内新增亿元级执行标的，会直接侵蚀潜在投资人的报价空间；哪吒的产能与工厂资产处置节奏，可能影响华南、西南一带的新能源配套订单。",
+   url:"https://finance.sina.com.cn/jjxw/2026-11-06/doc-inixuize5506650.shtml", verified:"ok", seen:"09:00",
+   tags:[]},
+
+  {ts:"2026-11-05T15:10:00+08:00", cat:"出海与法规", weight:3,
+   title:"工信部就《机器人产品标识码管理暂行办法（征求意见稿）》公开征求意见",
+   src:"工业和信息化部装备工业一司",
+   sum:"11 月 5 日，工信部装备工业一司公示《机器人产品标识码管理暂行办法（征求意见稿）》，拟为机器人建立统一「身份证」：标识码服务平台 10 个工作日内完成注册信息形式审核；制造商年度累计申请数量一般不超过上一年度实际产量的 300%。",
+   imp:"机器人从展品转向量产商品后，监管开始按「机动车式」的产品追溯思路下手；申请量上限还带有抑制虚报产能的意味，对整机厂申报节奏与供应链排产是新的约束。",
+   url:"https://www.miit.gov.cn/jgsj/zbys/gzdt/art/2026/art_0d0e760d30aa4d90926fa1ca32b6d19a.html", verified:"ok", seen:"09:00",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T06:46:00+08:00", cat:"延伸行业", weight:2,
+   title:"宇树王兴兴进博会称载人机甲 GD01 接近量产，海外传播效果良好",
+   src:"光明网",
+   sum:"11 月 7 日，在世界互联网大会/进博会相关活动上，宇树科技创始人王兴兴介绍，今年 5 月发布的 GD01 载人机甲是目前全球唯一一款准备量产的载人机甲，本质为「升级版越野车」，四足行走、越障能力强，在海外收获良好传播效果。",
+   imp:"宇树把机器人叙事从工业替代扩到「可载人的消费级机甲」，说明具身智能正在寻找 C 端付费场景，但量产与合规（载人设备监管）仍是关键变量。",
+   url:"http://m.toutiao.com/group/7705193449951330816/", verified:"pend", seen:"07:16",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-07T06:01:00+08:00", cat:"召回与质量", weight:2,
+   title:"「召回诈骗」升级：骗子报出真实车架号，公安部刑侦局与深圳反诈中心预警",
+   src:"央广网",
+   sum:"11 月 7 日消息，多地出现利用真实汽车召回信息实施的「诱捕式诈骗」，对方自称厂家、能准确报出车型与车架号，以气囊隐患紧急召回为由诱导点击链接并承诺上门取车。多家车企已声明辟谣，公安部刑侦局与深圳反诈中心发文提醒。",
+   imp:"召回信息成了诈骗素材，暴露车主数据在黑产中已可精准匹配；对车企而言，召回通知渠道的官方认证与二次核验机制必须补上。",
+   url:"https://m.weibo.cn/detail/5362497345028300", verified:"ok", seen:"07:16",
+   tags:[]},
+
+  {ts:"2026-11-07T00:22:00+08:00", cat:"延伸行业", weight:2,
+   title:"易成创新完成 2 亿元 C 轮，安徽国投、粤科集团等参投，加码工业无人车与物理交互数据",
+   src:"科创板日报（财联社创投通）",
+   sum:"深圳市易成自动驾驶技术有限公司（易成创新）近日完成 2 亿元 C 轮融资，投资方包括粤科集团、善达投资、安徽国投、佛山创投等。资金用于扩大工厂产能与交付能力、推进世界模型研发和物理交互数据建设，加快工业场景部署，此前已完成超亿元 B 轮。",
+   imp:"资本对「世界模型 + 物理数据」这类基础设施层持续加注，工业无人车成为具身智能最早跑通商业闭环的落地口。",
+   url:"http://m.toutiao.com/group/7705094498086388224/", verified:"ok", seen:"07:16",
+   tags:["投融资","新技术·产品"]},
+
+  {ts:"2026-11-06T23:22:00+08:00", cat:"供应链", weight:2,
+   title:"均胜电子：前三季度新获定点全生命周期订单约 615 亿元",
+   src:"证券之星（业绩说明会）",
+   sum:"11 月 5 日业绩说明会上，均胜电子披露 2026 年前三季度累计新获定点项目的预测全生命周期订单金额约 615 亿元人民币，头部自主品牌与造车新势力成为订单增长核心驱动力，占比稳定提升；智能驾驶领域前期项目顺利推进。",
+   imp:"615 亿元全生命周期定点额说明本土 Tier1 已拿到自主与新势力的主供位，均胜的全球安全业务正被中国订单结构重塑。",
+   url:"http://m.toutiao.com/group/7705079085495550527/", verified:"ok", seen:"07:16",
+   tags:["定点"]},
+
+  {ts:"2026-11-06T22:56:00+08:00", cat:"政策与数据", weight:2,
+   title:"奇瑞汽车 11-06 回购 381.79 万港元，已连续 5 个交易日回购",
+   src:"证券时报",
+   sum:"奇瑞汽车（09973.HK）11 月 6 日回购 15.98 万股，价格区间 23.86—23.90 港元，耗资 381.79 万港元；公司已连续 5 个交易日实施回购。",
+   imp:"刚完成港股 IPO 的奇瑞用连续回购托住股价，反映市场对其 10 月销量与欧洲项目节奏的疑虑；后续要看回购规模是否从「姿态」升级为实质。",
+   url:"http://m.toutiao.com/group/7705072500866253312/", verified:"ok", seen:"23:04",
+   tags:["投融资"]},
+
+  {ts:"2026-11-06T22:51:00+08:00", cat:"政策与数据", weight:3,
+   title:"普华永道：上半年中国汽车行业并购 212 宗、交易额 1385 亿元同比增 48%",
+   src:"澎湃新闻（进博会发布）",
+   sum:"11 月 6 日，普华永道在第九届进博会发布《2026 年上半年中国汽车行业并购活动回顾及未来展望》，上半年完成 212 宗并购交易、交易额 1385 亿元，同比增长 48%，活跃度集中在电动化供应链整合与出海资产布局。",
+   imp:"并购回暖 48% 说明行业进入「以规模换生存」阶段：尾部产能与零部件企业被整合的速度加快，头部则在为出海提前买通道。",
+   url:"https://m.thepaper.cn/newsDetail_forward_34423118", verified:"ok", seen:"23:04",
+   tags:["投融资"]},
+
+  {ts:"2026-11-06T21:56:00+08:00", cat:"召回与质量", weight:3,
+   title:"刹车踏板支架断裂风波满月，尊界 V800 重启官方宣传",
+   src:"深圳商报（腾讯新闻）",
+   sum:"11 月 6 日，距刹车踏板支架断裂引发的质量舆情过去一个月，鸿蒙智行尊界汽车官方微博重新发布 V800 相关宣传内容，该账号自 10 月 15 日起停更约三周。报道称事件后官方对相关批次做了改进。",
+   imp:"停更一个月再复产宣传，是鸿蒙智行对高端品牌声誉的止血动作；但质量事件的结论与召回范围若仍不公开，重启宣传反而会放大质疑。",
+   url:"http://news.qq.com/rain/a/20261106A0F1A700", verified:"ok", seen:"23:04",
+   tags:[]},
+
+  {ts:"2026-11-06T22:00:00+08:00", cat:"延伸行业", weight:2,
+   title:"云深处发布绝影 X50 四足机器人，持续行进负载提升至 50kg",
+   src:"新浪机器人热点小时报",
+   sum:"11 月 6 日晚，云深处科技发布绝影 X50 四足机器人，对关节与整机结构优化，在不增加机身尺寸前提下将持续行进负载提升至 50kg，面向重载全地形持续作业场景。",
+   imp:"四足机器人参数竞赛已从「能走」转到「能扛」，电力、石化巡检等工业场景的替代门槛正在被抬高。",
+   url:"https://cj.sina.com.cn/articles/view/7857201856/1d45362c001908tw7a?froms=ttmp", verified:"pend", seen:"23:04",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T17:02:00+08:00", cat:"召回与质量", weight:4,
+   title:"总局一日连发多起召回，合计近 45 万辆：奇瑞 5.39 万、斯巴鲁 19.65 万、奔驰 18 万",
+   src:"国家市场监督管理总局",
+   sum:"11 月 6 日总局召回中心集中发布多起公告：奇瑞瑞虎 5x、欧萌达 53,882 辆（S2026M0146V，后轴纵臂焊接不良，11-27 起）；斯巴鲁森林人/力狮/傲虎/XV/BRZ 196,494 辆（S2026M0135I，转向螺旋电缆断线，12-21 起，系总局启动缺陷调查后实施）；北京奔驰国产 A 级/GLA/GLB 129,819 辆与进口多车型 50,458 辆（S2026M0129V/0130V，车门锁微动开关受潮）；保时捷 Cayenne 18,274 辆泊车影像软件缺陷、911 扩大召回 1 辆。合计近 45 万辆。",
+   imp:"单日 45 万辆在近年召回节奏里属高位，且斯巴鲁、保时捷两条都写明「在总局启动缺陷调查情况下开展」——监管从被动备案转向主动调查，进口品牌在华合规成本明显上升。",
+   url:"https://www.samr.gov.cn/zw/zh/art/2026/art_5b9ab6e6504647c7884b92ea0ad16436.html", verified:"ok", seen:"21:12",
+   tags:[]},
+
+  {ts:"2026-11-06T17:10:00+08:00", cat:"出海与法规", weight:3,
+   title:"小米汽车成立国际业务部，于立国兼任总经理，2027 年下半年正式出海",
+   src:"IT之家（新浪科技）",
+   sum:"11 月 6 日，小米汽车宣布架构调整，成立国际业务部，汽车部副总裁于立国兼任总经理，向雷军、卢伟冰双线汇报；下设汽车国际市场部、GTM、销售、网络发展、交付物流、用户服务等部门。卢伟冰此前确认小米汽车 2027 年下半年启动出海，先发达国家、先中高端、先右舵，首站欧洲以德国为突破口。",
+   imp:"组织比产品先行一年半，说明小米把出海当成体系工程而非渠道生意；德国首站意味着直接进入全球最严苛的认证与售后体系，成败会成为其全球化成色的试金石。",
+   url:"https://m.ithome.com/html/1023430.htm", verified:"ok", seen:"21:12",
+   tags:[]},
+
+  {ts:"2026-11-06T14:44:00+08:00", cat:"延伸行业", weight:2,
+   title:"成都睿芯行科技完成 B+ 轮数千万元融资，创新工场等参投",
+   src:"科创板日报",
+   sum:"11 月 6 日消息，成都睿芯行科技完成 B+ 轮数千万级融资，创新工场等机构参投。睿芯行聚焦移动机器人具身智能控制器与视觉感知方案。",
+   imp:"资金继续流向「机器人小脑」这类中间层——控制器与感知模组，而非整机；说明资本判断本体竞争已进入成本与可靠性的工程阶段。",
+   url:"http://m.toutiao.com/group/7704945623677682239/", verified:"pend", seen:"21:12",
+   tags:["投融资"]},
+
+  {ts:"2026-11-06T18:59:00+08:00", cat:"供应链", weight:2,
+   title:"博世拿下奇瑞欧洲 6 款车型定点，配套欧洲本地化项目",
+   src:"汽电速递（新浪汽车聚合稿）",
+   sum:"11 月 6 日晚间速递显示，博世已获得奇瑞欧洲 6 款车型的项目定点，为其欧洲本地化车型配套。同期速递还提到纳芯微推出国内首颗车规三相浮动栅极驱动芯片并已量产。",
+   imp:"奇瑞把欧洲项目的零部件定点交给博世这类全球一级供应商，说明本地化不只是造整车，配套体系也要在欧洲闭环；中国车企出海正把供应链一起带出去或换成本地供应商。",
+   url:"https://k.sina.com.cn/article_5952915720_162d24908067054j0e.html", verified:"pend", seen:"19:04",
+   tags:["定点"]},
+
+  {ts:"2026-11-06T18:59:00+08:00", cat:"延伸行业", weight:2,
+   title:"纳芯微推出国内首颗车规三相浮动栅极驱动芯片，已进入量产",
+   src:"汽电速递（新浪汽车聚合稿）",
+   sum:"11 月 6 日速递，纳芯微 NSD366x-Q1 系列车规三相浮动栅极驱动器已量产，单芯片集成三路浮动栅极驱动，支持 4.5V 至 50V 输入与 0%—100% 占空比，内置带扩频调制的两级电荷泵。",
+   imp:"栅极驱动是电驱逆变器的关键小件，此前长期由英飞凌、TI 把守；国产化到「首颗量产」这一步，意味着电驱 BOM 的最后一层进口依赖在松动。",
+   url:"https://k.sina.com.cn/article_5952915720_162d24908067054j0e.html", verified:"pend", seen:"19:04",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T18:57:00+08:00", cat:"人物动态", weight:2,
+   title:"玲珑轮胎副总裁兼财务总监吕晓燕因个人原因辞职",
+   src:"玲珑轮胎公告（证券时报）",
+   sum:"11 月 6 日盘后公告，玲珑轮胎（601966）副总裁兼财务总监吕晓燕因个人原因申请辞职，辞职后不再担任公司任何职务。",
+   imp:"轮胎企业正处在海外扩产与配套新能源的高投入期，财务负责人此时离开，短期需关注其海外项目资金安排与年报审计衔接。",
+   url:"https://c.m.163.com/news/a/LB2SET13053469RG.html", verified:"ok", seen:"19:04",
+   tags:[]},
+
+  {ts:"2026-11-06T18:57:00+08:00", cat:"延伸行业", weight:4,
+   title:"Agility Robotics 登陆纳斯达克，成为美国首家上市人形机器人公司",
+   src:"新浪财经（速递）",
+   sum:"11 月 6 日，英伟达、亚马逊、富士康押注的 Agility Robotics 在纳斯达克上市，估值约 25 亿美元。公司披露 Digit 5 已获超 3 亿美元多年期承诺订单，机器人在 9 家客户场景投用，已获 12 处客户设施部署承诺，目标 2027 年底潜在客户扩至 100 家，覆盖汽车、零售、制药。",
+   imp:"人形机器人第一次拿到公开市场的定价锚：25 亿美元对应的是 3 亿美元订单储备，这个倍数会成为国内一级市场估值的参照系，也会倒逼本体企业从「讲故事」转向「交订单」。",
+   url:"http://m.toutiao.com/group/7705010873185649161/", verified:"ok", seen:"19:04",
+   tags:[]},
+
+  {ts:"2026-11-06T17:25:00+08:00", cat:"政策与数据", weight:3,
+   title:"广汽集团 10 月销量 14.37 万辆同比降 15.84%，新能源逆势增 46.43%",
+   src:"广汽集团公告（证券时报 e 公司）",
+   sum:"11 月 6 日盘后公告，广汽集团 10 月汽车销量 14.37 万辆，同比下降 15.84%；1—10 月累计 128.49 万辆，同比下降 5.13%。其中 10 月新能源汽车销量 68,770 辆，同比增长 46.43%。",
+   imp:"合资燃油盘继续失血、自主新能源补位，是广汽当前的结构写照；总量两位数下滑说明新能源增量还填不上合资的坑，明年合资产线与渠道的收缩压力会更明显。",
+   url:"http://m.toutiao.com/group/7704987183631057462/", verified:"ok", seen:"17:27",
+   tags:[]},
+
+  {ts:"2026-11-06T17:19:00+08:00", cat:"政策与数据", weight:2,
+   title:"江淮汽车 10 月销量 32,296 辆同比增 2.48%，累计仍下滑 8.22%",
+   src:"江淮汽车公告（证券时报 e 公司）",
+   sum:"11 月 6 日公告，江淮汽车 10 月销量 32,296 辆，同比增长 2.48%；1—10 月累计销量 28.75 万辆，同比下降 8.22%。单月转正但累计仍未回正。",
+   imp:"单月微增更像是低基数与出口拉动，尊界等高价位项目的放量尚未体现在总量上；对江淮而言，真正的变量是华为合作车型能否把均价与毛利抬起来。",
+   url:"http://m.toutiao.com/group/7704985632669549110/", verified:"ok", seen:"17:27",
+   tags:[]},
+
+  {ts:"2026-11-06T17:16:00+08:00", cat:"延伸行业", weight:2,
+   title:"仰望 U9 Xtreme 跑出 503.17km/h，刷新全球汽车极速纪录",
+   src:"仰望汽车（微博官方）",
+   sum:"11 月 6 日仰望宣布，U9 Xtreme 取得 503.17km/h 极速成绩，测试于 11 月 1 日在阿联酋阿布扎比 E11 高速公路封闭路段完成，车手为马克·巴森。上一纪录同样由其保持。",
+   imp:"极速纪录本身不产生销量，但它是三电、热管理与空气动力学能力的公开验证；中国品牌开始用工程极限而非价格来争夺全球技术话语权。",
+   url:"https://m.weibo.cn/detail/5362305049036231", verified:"pend", seen:"17:27",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T09:01:00+08:00", cat:"延伸行业", weight:2,
+   title:"极佳视界与隆盛科技旗下隆盛唯睿战略合作，三年目标本体代工与销售 1,000 台",
+   src:"证券时报 e 公司",
+   sum:"11 月 6 日消息，极佳视界与隆盛科技旗下隆盛唯睿达成深度战略合作，隆盛唯睿将依托省级平台以超长时数据采集支撑大模型场景落地，计划三年内实现具身本体代工与销售 1,000 台。双方合作始于 2026 年。",
+   imp:"具身智能开始出现「模型公司 + 精密制造厂」的分工组合：前者出算法与场景，后者出产线与一致性，这正是人形机器人从样机走向批量交付的现实路径。",
+   url:"https://egs.stcn.com/quotation/stock-info/sz300680.html", verified:"pend", seen:"17:27",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T16:46:00+08:00", cat:"供应链", weight:2,
+   title:"盟固利向特定对象发行股票获证监会注册，募资 8.66 亿元投正极材料",
+   src:"盟固利公告（网易转载）",
+   sum:"11 月 6 日盘后，盟固利（301487.SZ）公告定增获证监会同意注册，发行价 14.50 元/股，发行 5,972.41 万股，共 15 名认购对象，募资总额 8.66 亿元，扣除费用后投向正极材料相关项目。",
+   imp:"三元正极企业的再融资通道重新打开，说明资本市场对电池材料的定增约束在松动；这笔钱到位后，其产能爬坡节奏会直接影响三元与磷酸铁锂的份额拉锯。",
+   url:"https://c.m.163.com/news/a/LB2KVGGI0550WHYR.html", verified:"ok", seen:"16:55",
+   tags:["投融资"]},
+
+  {ts:"2026-11-06T16:42:00+08:00", cat:"延伸行业", weight:3,
+   title:"华为乾昆与宁德时代签换电合作，首车指向东风奕派 EP7 换电版",
+   src:"全民新视野（头条号，引三方签约信息）",
+   sum:"11 月 6 日消息，华为乾昆与宁德时代就换电补能达成合作，首款落地车型指向东风奕派 EP7 换电版。该车 9 月完成工信部第 411 批申报公示、10 月 16 日公告生效，具备销售资质。",
+   imp:"换电这条路线此前是蔚来、宁德「巧克力」各自的封闭体系，华为带着车端与渠道进来，等于把换电从单品牌服务推向平台化补能；对充电运营商是竞争，对车企是降低补能自建成本。",
+   url:"http://m.toutiao.com/group/7704975867562295858/", verified:"pend", seen:"16:55",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-06T15:51:00+08:00", cat:"人物动态", weight:3,
+   title:"上汽集团副总裁杨晓东因个人发展辞职，原定任期至 2028 年 6 月",
+   src:"上汽集团公告（金融界转载）",
+   sum:"11 月 6 日，上汽集团公告副总裁杨晓东因个人发展需要辞去副总裁职务，辞职后不在公司及控股子公司任职，申请自送达董事会之日起生效，原定任期到期日为 2028 年 6 月 26 日，不存在未履行完毕的公开承诺。",
+   imp:"任期中途离职且不留任，常见于合资/自主板块业务重整前的人事腾挪；上汽正处于自主品牌与合资双线调整期，高管层变动值得继续跟踪接任者来源。",
+   url:"http://m.toutiao.com/group/7704962895485944330/", verified:"ok", seen:"16:55",
+   tags:[]},
+
+  {ts:"2026-11-06T16:18:00+08:00", cat:"延伸行业", weight:2, tags:["投融资"],
+   title:"重载工业物理 AI 公司易博图半年内连完两轮近 4 亿元融资，葛卫东、零一汽车等入局",
+   src:"大河财立方（立方基金通）",
+   sum:"11 月 6 日披露，上海易博图科技连续完成两轮融资合计近 4 亿元，投资方含葛卫东、辰韬资本、弘毅投资、零一汽车、兴富资本、猎鹰投资旗下星奇基金等。公司 2026 年 2 月成立，做面向重载场景的「移动+操作」物理 AI 模型，已运营 100 多台无人重卡。",
+   imp:"无人重卡正从「自动驾驶」转向「物理 AI+作业能力」：资本押注的不再是跑通路上，而是让车能装卸、能进场站干活，这决定了它能否替代真正的司机成本。",
+   url:"http://m.toutiao.com/group/7704969924485202447/", verified:"pend", seen:"16:29",
+   tags:["投融资"]},
+
+  {ts:"2026-11-06T14:55:00+08:00", cat:"重大事件", weight:2,
+   title:"众泰汽车为海外定制的小型纯电 WinkY01 右舵版下线，公司提示量产资金到位存不确定性",
+   src:"第一财经（东方财富 14:55 转载）",
+   sum:"11 月 6 日第一财经报道，众泰汽车专为海外市场开发的小型纯电车型 WinkY01 国际右舵版确已下线，但仍未进入量产阶段；公司提示量产所需资金到位存在不确定性。当日盘中众泰股价跌约 2%，报 1.65 元。",
+   imp:"下线不等于量产：众泰的复出依赖外部资金与海外订单双重到位，右舵出口是它绕开国内红海的价格带选择，但资金链是否撑得住仍是最大变量。",
+   url:"https://auto.eastmoney.com/a/chyxw.html", verified:"pend", seen:"15:12"},
+
+  {ts:"2026-11-06T14:51:00+08:00", cat:"延伸行业", weight:2, tags:["投融资"],
+   title:"宁德时代入股压电材料传感器企业灵动佳芯，指向机器人与锂电感知场景",
+   src:"财联社（企查查工商变更）",
+   sum:"企查查显示，苏州灵动佳芯科技近日发生工商变更，新增宁德时代全资子公司宁波梅山保税港区问鼎投资等为股东。灵动佳芯以压电材料与半导体技术开发传感器方案，应用覆盖智能机器人、智能穿戴、新能源与锂电池。",
+   imp:"电池厂开始往感知层布子：压电传感器是机器人触觉与电池状态监测的共用好料，宁德这笔投资把「电池+具身智能」两条延伸线接在了一起。",
+   url:"https://www.cls.cn/detail/2527277", verified:"ok", seen:"15:12"},
+
+  {ts:"2026-11-06T14:16:00+08:00", cat:"供应链", weight:2, tags:["新技术·产品","定点"],
+   title:"博泰车联获国内龙头新能源车企座舱定点，采用地平线星空芯片，称行业首个纯国产舱驾一体芯片方案",
+   src:"阿斯达克财经（港股公告口径）",
+   sum:"11 月 6 日 14:16 消息，博泰车联（02889.HK）取得内地龙头新能源车企项目定点，项目采用地平线星空芯片方案，为其高端 AI 座舱供货。公司称这是行业首个纯国产「舱驾一体」芯片的高端 AI 座舱定点，标志其从智能座舱向跨域融合进阶。",
+   imp:"定点从「座舱」跨到「舱驾一体」，是国产芯片第一次挤进高端座舱的定点名单；对 Tier1 而言，谁绑定了国产算力平台，谁就在下一轮座舱竞标里拿到入场券。",
+   url:"https://cn.aastocks.com/en/stocks/analysis/stock-aafn-con/02889/AAFN/NOW.1537713/hk-stock-news?totc=1", verified:"ok", seen:"16:29",
+   tags:["定点"]},
+
+  {ts:"2026-11-06T14:09:00+08:00", cat:"供应链", weight:2, tags:["投融资","新技术·产品"],
+   title:"固态电解质企业蓝固新能源完成近两亿元 B+ 轮，遂宁千吨级全固态产线已开工",
+   src:"投资界（新浪财经 14:15 交叉）",
+   sum:"11 月 6 日蓝固新能源宣布完成近 2 亿元 B+ 轮，中化学新材料基金、信建未来、华成创投、溧阳战新基金、常州新能源产业基金、南通创投参投；资金投向固态电池电解质材料研发与产业化。溧阳基地万吨级氧化物固态电解质线已投产，淄博基地年产 5 万吨电解液与原位固态化电解质项目在产，遂宁千吨级全固态电解质线已启动建设。",
+   imp:"固态电池的竞争正从电芯厂蔓延到电解质材料环节：谁能先把氧化物/原位固化路线的吨级产能和成本跑通，谁就握住了全固态量产的前置阀门，这也解释了资本为何在 B 轮阶段就密集下注。",
+   url:"https://m.weibo.cn/detail/5362257980557099", verified:"ok", seen:"14:24"},
+
+  {ts:"2026-11-06T12:24:00+08:00", cat:"重大事件", weight:2,
+   title:"宝马中国发声辟谣虚假「召回通知」短信：跨品牌高田气囊钓鱼诈骗集中扩散",
+   src:"宝马中国官方微博（新京报 13:02 交叉）",
+   sum:"11 月 6 日 12:24 宝马中国官微声明，近期有人冒用官方名义群发「高田气囊召回」短信并附链接骗取银行卡、验证码，此类召回通知均非官方发布；宝马今年无相关集中召回计划，召回需凭 17 位车架号单独查询。此前大众中国、理想、丰田已先后辟谣，郑州多家 4S 店收到总部风险预警。",
+   imp:"针对车主的定向钓鱼诈骗已从单品牌扩散为跨品牌事件，骗子能准确报出姓名、车牌与车架号，说明车辆登记数据存在泄露链条；车企密集辟谣也意味着召回信息发布渠道的可信度问题被摆上台面。",
+   url:"https://m.weibo.cn/detail/5362231572693687", verified:"ok", seen:"13:12"},
+
+  {ts:"2026-11-06T11:13:00+08:00", cat:"重大事件", weight:3,
+   title:"本田中国 10 月销量同比腰斩 52.2%，降至 28,652 辆",
+   src:"财联社",
+   sum:"11 月 6 日财联社电，本田中国 10 月汽车销量 28,652 辆，同比下降 52.2%，为在华连续大幅下滑的又一个月。同期中国新能源渗透率已近 68%。",
+   imp:"合资阵营里下滑最陡的一家：燃油基盘失守、纯电产品未成规模，本田在华已进入「渠道收缩—渠道再收缩」的负循环，与其全球电动化战略反复调整互为因果。",
+   url:"https://www.cls.cn/detail/2527074", verified:"ok", seen:"11:32"},
+
+  {ts:"2026-11-06T10:20:00+08:00", cat:"供应链", weight:2, tags:["投融资","新技术·产品"],
+   title:"富锂锰基电池企业陀普科技完成数千万元 A 轮，资金投向淮北 0.5GWh 产能",
+   src:"36 氪（首发）",
+   sum:"11 月 6 日 36 氪报道，佛山陀普科技完成数千万元 A 轮融资，投资方含淮北集善、安徽恒纳、重庆海特；资金用于安徽淮北 0.5GWh 基地扩产，计划 2027 年 1 月投产。公司已在无人机领域批量出货并实现盈利。",
+   imp:"富锂锰基被视作兼顾能量密度与去钴化的路线，先在无人机等价格不敏感场景验证再向车用渗透；若 2027 年产能落地，将为低价位车型提供新的材料选项。",
+   url:"https://36kr.com/p/4057654395736963", verified:"ok", seen:"11:32"},
+
+  {ts:"2026-11-06T07:56:00+08:00", cat:"延伸行业", weight:1, tags:["新技术·产品","定点"],
+   title:"瑞浦兰钧与凯傲中国签战略合作，直供叉车锂电池电芯与模组",
+   src:"界面新闻（引瑞浦兰钧消息）",
+   sum:"11 月 6 日据瑞浦兰钧消息，其与凯傲中国（KION 集团旗下，含林德物料搬运、宝骊）在厦门签署战略合作框架协议，围绕叉车用锂电池直供、供应链协同、技术联合创新与双向优先采购合作。",
+   imp:"动力电池企业把产能转向非车用工业车辆，是储能与商用车之外的新出口；叉车电动化对磷酸铁锂的成本与循环寿命要求高，长协有助于摊薄产线波动。",
+   url:"https://m.jiemian.com/article/15300787.html", verified:"pend", seen:"09:03"},
+
+  {ts:"2026-11-06T07:03:00+08:00", cat:"供应链", weight:2,
+   title:"两家锂电材料龙头锁定长协：天赐材料向亿纬锂能供 45 万吨电解液（2027—2029）",
+   src:"每日经济新闻（引 11-05 上市公司公告）",
+   sum:"11 月 5 日天赐材料公告，全资子公司九江天赐与亿纬锂能签《长期供货协议》，2027—2029 年供应约 45 万吨电解液，采购量按需求预测上下浮动 20% 执行。同日星源材质欧洲子公司与大众旗下电池企业签 15.58 亿平米隔膜定点（2027—2034）。",
+   imp:"电解液环节盈利承压、六氟磷酸锂价格波动背景下，头部电池厂用 3 年长协锁量与锁供应，材料端议价能力进一步向电池厂倾斜；欧洲隔膜定点则显示中国材料出海从产品出口转向产能本地化绑定。",
+   url:"https://news.qq.com/rain/a/20261106A03A3T00", verified:"pend", seen:"09:03"},
+
+  {ts:"2026-11-06T06:26:00+08:00", cat:"供应链", weight:3, tags:["新技术·产品"],
+   title:"车规级存储芯片供需矛盾凸显，国产存储迎来规模上车窗口期",
+   src:"财联社电报",
+   sum:"11 月 6 日财联社报道，智能汽车算力迭代带动存储需求爆发，叠加全球存储大厂产能向 AI 业务倾斜，车规级存储芯片涨价、交付周期拉长，成为汽车供应链突出的成本与保供风险点；国内车企转向长协锁价与自研芯片对冲。",
+   imp:"存储涨价直接压缩智能电动车 BOM 成本，且与智驾算力升级正相关；若延续，2027 年车型的座舱/智驾域控成本结构与交付节奏都会受影响，国产车规存储厂商议价窗口打开。",
+   url:"https://m.cls.cn/telegraph?id=1233327", verified:"ok", seen:"09:03"},
+
+  {ts:"2026-11-05T23:06:00+08:00", cat:"延伸行业", weight:2, tags:["投融资"],
+   title:"人形机器人公司 Humble Robotics 完成 5100 万美元 A 轮融资",
+   src:"云财经（单一信源）",
+   sum:"11 月 5 日晚，云财经快讯称 Humble Robotics 完成 5100 万美元 A 轮融资。该公司聚焦具身智能与人形机器人，融资信息暂未见更多官方披露。",
+   imp:"具身智能一级市场融资保持高密度，但此条仅单一财经快讯信源，金额与投资方结构待企业或权威渠道确认后计入。",
+   url:"https://m.weibo.cn/detail/5362030655574990", verified:"pend", seen:"23:12"},
+
+  {ts:"2026-11-05T23:10:00+08:00", cat:"重大事件", weight:3,
+   title:"通用汽车在美国召回超 6.7 万辆电动车，涉及凯迪拉克多款与 Lyriq、Celestiq 等",
+   src:"经济观察网（引通用/监管披露）",
+   sum:"11 月 5 日通用汽车确认在美国召回 67,380 辆电动车，覆盖 2023-2027 款凯迪拉克 Lyriq、2025-2026 款 Celestiq、2026-2027 款 Vistiq 及部分 2024-2027 款车型。",
+   imp:"通用北美电动化车型集中召回，暴露其奥特能平台软件/三电一致性问题，叠加此前多起召回，短期对其北美电动车口碑与软件迭代节奏构成压力。",
+   url:"http://www.eeo.com.cn/2026/1105/1085322.shtml", verified:"ok", seen:"23:12"},
+
+  {ts:"2026-11-05T21:00:00+08:00", cat:"延伸行业", weight:3, tags:["投融资","新技术·产品"],
+   title:"宁德时代印尼动力电池合资厂开始投产，早于总统主持的正式启用仪式",
+   src:"Just Auto（引当地报道）",
+   sum:"宁德时代与印尼方面合资、位于西爪哇省卡拉旺的动力电池工厂已开始生产运营，早于印尼总统普拉博沃本月晚些时候主持的正式启用仪式。工厂 2025 年 6 月动工，为宁德时代东南亚首个从电芯到电池包的一体化基地。",
+   imp:"东南亚整车产能正被「电池本地化」带动，印尼借此从镍矿上游向电芯制造延伸；对中国电池厂而言，这是绕开欧美关税、贴近东盟整车客户的第二条出海路径。单一外媒信源，投产时点与产能爬坡待官方口径确认。",
+   url:"https://www.just-auto.com/news/catls-ev-battery-jv-in-indonesia-begins-operations/", verified:"pend", seen:"21:25"},
+
+  {ts:"2026-11-05T20:25:00+08:00", cat:"重大事件", weight:2,
+   title:"大众中国声明：有不法分子冒用其与监管部门名义发送虚假「召回」短信，均非官方通知",
+   src:"大众汽车（中国）投资有限公司官方声明",
+   sum:"11 月 5 日晚，大众中国发布声明称，近日有不法分子冒用「大众汽车（中国）投资有限公司」及相关监管部门名义，向部分车主发送虚假短信，通过非官方链接诱导提供个人信息、办理所谓召回手续；上述短信及附件均非官方召回通知。",
+   imp:"召回信息正被当作社工诈骗的入口，恰逢 11-04 大众系 61 万辆大规模召回公告发布，车主辨识成本陡增。对车企而言，召回传播链路（官方渠道、唯一核验入口）已成为合规与品牌风险的新战场。",
+   url:"https://m.weibo.cn/detail/5361990208064166", verified:"ok", seen:"21:25"},
+
+  {ts:"2026-11-05T20:00:00+08:00", cat:"延伸行业", weight:2, tags:["新技术·产品"],
+   title:"海外每两块装车动力电池就有一块「中国造」，六家中国企业份额升至 56.4%",
+   src:"新浪财经（引行业统计）",
+   sum:"最新统计显示，宁德时代、比亚迪、国轩高科、蜂巢能源、中创新航、亿纬锂能六家中国企业合计占海外动力电池装车份额 56.4%，较上年同期提升 13 个百分点。",
+   imp:"海外市场从「日韩主导」转为「中韩对半再向中国倾斜」，中国电池厂的出海已跨过关税与认证门槛进入份额兑现期；但份额越高，欧美本地化率与供应链审查的压力也越大。",
+   url:"https://finance.sina.com.cn/roll/2026-11-05/doc-inixsrrs5614831.shtml.md", verified:"pend", seen:"21:25"},
+
+  {ts:"2026-11-05T19:00:00+08:00", cat:"人物动态", weight:3,
+   title:"丰田北美一把手交接：Ted Ogawa 回日本总部，Mark Templin 升任 TMNA 总裁兼 CEO",
+   src:"Toyota Motor North America 官方新闻室",
+   sum:"TMNA 11 月 5 日公告管理层交接，2027 年 1 月 1 日生效：现任总裁兼 CEO Ted Ogawa 卸任、回日本总部任 Senior Fellow（4 月正式到任，其间任高级顾问）；现任执行副总裁兼 COO Mark Templin 升任总裁兼 CEO，日本总部事业企划本部长 Hiroshi Nambu 接任 COO。",
+   imp:"北美是丰田利润与电动化合规的双重关键市场，一把手回总部、由内部经营老将接棒，意味着北美制造与产品决策权进一步向日本总部对齐，为其在美扩产（北卡电池厂、五年最高 100 亿美元追加投资）与混动投放排兵。",
+   url:"https://pressroom.toyota.com/toyota-motor-north-america-tmna-announces-executive-leadership-transition/", verified:"ok", seen:"20:01"},
+
+  {ts:"2026-11-05T19:01:00+08:00", cat:"延伸行业", weight:2, tags:["投融资"],
+   title:"工业具身智能公司睿芯行科技完成数千万元 B+ 轮融资",
+   src:"搜狐科技 / 企业披露",
+   sum:"成都睿芯行科技完成数千万元 B+ 轮融资，投资方为创新工场、中力股份、今天国际。公司 2019 年成立，早期做移动机器人控制器，现聚焦工业场景具身智能，主打降低机器人进厂部署成本与提升环境适应性。",
+   imp:"资方里同时出现产业方（中力股份、今天国际），说明工业具身智能正从纯财务融资转向「设备商 + 集成商」绑定，落地路径比通用人形机器人更短。单一信源披露，金额与条款待企业确认。",
+   url:"https://m.sohu.com/a/1097673502_120109837/", verified:"pend", seen:"20:01"},
+
+  {ts:"2026-11-05T18:56:00+08:00", cat:"延伸行业", weight:3, tags:["新技术·产品","定点"],
+   title:"星源材质子公司与大众旗下动力电池公司签 7 年隔膜定点协议，合计约 15.58 亿平方米",
+   src:"星源材质公告（深交所）",
+   sum:"11 月 5 日星源材质公告，全资子公司欧洲星源（瑞典）与大众集团旗下动力电池子公司签订《定点协议》，2027—2034 年供应约 15.58 亿平方米湿法涂覆锂离子电池隔膜，为框架性约定、不构成业绩承诺。",
+   imp:"大众欧洲自建电池产能的材料供应链被中国隔膜厂锁定，出海逻辑从「卖电芯」变成「卖材料 + 本地配套」；8 年长协也说明海外电池产能的爬坡节奏已被提前排定。",
+   url:"https://static.cninfo.com.cn/finalpage/2026-11-05/1225659985.PDF", verified:"ok", seen:"20:01"},
+
+  {ts:"2026-11-05T15:44:00+08:00", cat:"重大事件", weight:4, tags:["投融资","新技术·产品"],
+   title:"上汽与 Momenta、延电科技合资设立智驾公司，注册资本 3 亿元、Momenta 控股 51%",
+   src:"上汽集团九届十四次董事会决议公告",
+   sum:"上汽集团 11 月 5 日董事会审议通过，与控股企业延电科技、魔门塔（Momenta，苏州）共同设立合资公司，注册资本 3 亿元：Momenta 认缴 1.53 亿元持股 51%，上汽认缴 7500 万元持股 25%，延电科技认缴 7200 万元持股 24%，用于加强高阶智驾技术研发。",
+   imp:"整车厂首次把高阶智驾的主体交给算法供应商控股，上汽从「自研 + 采购」转为「合资共担」，权责与话语权一并让渡；若跑通，会成为其他国企车企复制智驾合作的新模板。",
+   url:"https://data.eastmoney.com/notices/detail/600104/AN202611051831449333,JUU0JUI4JThBJUU2JUIxJUJEJUU5JTlCJTg2JUU1JTlCJUEy.html", verified:"ok", seen:"20:01"},
+
+  {ts:"2026-11-05T15:22:00+08:00", cat:"政策与数据", weight:4, title:"工信部就《新能源汽车动力电池数字身份证管理暂行规定》公开征求意见",
+   src:"工业和信息化部",
+   sum:"11 月 5 日工信部就《新能源汽车动力电池数字身份证管理暂行规定（征求意见稿）》公开征求意见：为电池单体、模块、电池包建立覆盖设计、生产、销售、装车、运营、维修更换、报废回收、综合利用等环节的数字化身份档案，车企须向车主提供所购车辆动力电池信息。",
+   imp:"动力电池从「装车即失联」转为全生命周期可追溯，回收、梯次利用与碳足迹核算被制度化；对电池企业是新增合规与数据报送成本，对溯源平台与回收服务商是确定性增量。",
+   url:"https://www.miit.gov.cn/jgsj/jns/zhlyh/art/2026/art_c607b8dc102b40ce950ae2f411089709.html", verified:"ok", seen:"17:01"},
+
+  {ts:"2026-11-03T14:00:00+08:00", cat:"延伸行业", weight:3,
+   title:"小米人形机器人在汽车工厂完成 8 小时稳定作业，初步验证产线级能力",
+   src:"科创板日报 / 雷军视频",
+   sum:"11 月 3 日雷军公布视频：小米通用人形机器人在小米汽车工厂中控台侧盖板排序工站首次完成 8 小时连续作业，满足工站全天生产需求，实现异常自主纠偏与产线系统级协同。该工位 3 月进厂时连续作业 3 小时、双侧安装成功率 90.2%，7 月成功率升至 98%。",
+   imp:"从「演示」到「顶满一个班次」，是具身智能在整车制造场景第一个可量化的人效节点；成功率的爬升曲线比发布会叙事更能反映量产可行性。",
+   url:"https://m.chinastarmarket.cn/detail/2524900", verified:"ok", seen:"17:01"},
+
+  {ts:"2026-11-05T14:54:00+08:00", cat:"延伸行业", weight:3,
+   title:"上纬新材机器人研发投入激增 11.8 倍，获关联方 4.5 亿元借款押注人形机器人",
+   src:"网易财经",
+   sum:"11 月 5 日披露的财报信息显示，上纬新材机器人业务研发投入同比激增 11.8 倍；公司已收到股东上纬国际 4.5 亿元关联借款、年利率 1.7%，用于机器人业务的研发、供应链与量产工艺。",
+   imp:"材料类上市公司以借款方式重仓人形机器人，是「化工/复材企业跨界具身智能」的典型样本；资金成本仅 1.7% 说明股东输血意愿强，但商业化兑现仍待观察。",
+   url:"http://m.163.com/dy/article/LAVS565F0512D03F.html", verified:"ok", seen:"15:01"},
+
+  {ts:"2026-11-05T09:09:00+08:00", cat:"延伸行业", weight:3,
+   title:"三星 SDI 印第安纳 LFP 电芯量产，并获超 60GWh 美国储能订单",
+   src:"上海有色网",
+   sum:"三星 SDI 10 月在印第安纳 StarPlus Energy 启动 LFP 电芯量产，四季度加速 EV 产线向 LFP 转换；为规避中国关税与满足 FEOC 规则，已与韩国供应商签署 LFP 正极材料长期协议。另获超 60GWh 美国储能订单。",
+   imp:"韩系电池厂以 LFP + 北美本地化对冲中国供应链限制，直接改写北美 EV 与储能电芯的供给格局；对国内 LFP 材料出口与「出海建厂」路线构成替代压力。",
+   url:"https://news.smm.cn/live/detail/104205298", verified:"ok", seen:"15:01"},
+
+  {ts:"2026-11-04T22:00:00+08:00", cat:"延伸行业", weight:4,
+   title:"Agility Robotics 完成 SPAC 合并，11 月 5 日起以 AGLT 挂牌纳斯达克",
+   src:"Agility Robotics 官方公告",
+   sum:"人形机器人公司 Agility Robotics 于 11 月 4 日完成与 Churchill Capital XI 的业务合并，合并后主体沿用 Agility 名称，普通股 11 月 5 日起在纳斯达克以「AGLT」交易，预计总募资约 4.65 亿美元。",
+   imp:"全球第一家以纯人形机器人主业登陆美股的公司，为一级市场具身智能资产提供了公开估值锚；Digit 已在制造与物流场景商用，但半年净销售额仅数十万美元级，估值与收入严重脱节，后续披露的订单数据是关键验证点。",
+   url:"https://www.agilityrobotics.com/content/agility-robotics-and-churchill-capital-corp-xi-announce-expected-gross-capital-raise-of-approximately-465-million-and-anticipated-closing-of-business-combination", verified:"ok", seen:"15:01"},
+
+  {ts:"2026-11-04T17:49:00+08:00", cat:"重大事件", weight:3,
+   title:"丰田在华一次备案召回 5.55 万辆普拉多与雷克萨斯 GX550h，燃油管接头存脱落起火风险",
+   src:"国家市场监督管理总局",
+   sum:"召回编号 S2026M0133I / S2026M0134I：一汽丰田（成都）召回 2024-07-15 至 2026-10-06 生产的国产普拉多混动 47,347 辆；丰田中国召回 2024-02-28 至 2026-10-01 生产的进口雷克萨斯 GX550h 8,130 辆。原因是燃油管快接接头固定器可能被外力抬起，存在燃油泄漏起火风险，予以免费检修。",
+   imp:"两款都是高单价、高热度的越野车型，同一条供应链上的接头工艺缺陷同时波及国产与进口线，说明问题出在零部件设计与装配一致性，而非单一工厂。",
+   url:"https://www.samr.gov.cn:99/zw/zh/art/2026/art_ff570104bc0942c58846134c8a683148.html", verified:"ok", seen:"14:30"},
+
+  {ts:"2026-11-04T19:41:00+08:00", cat:"延伸行业", weight:2, tags:["新技术·产品"],
+   title:"芯粤能、芯聚能第二代 1400V 碳化硅主驱芯片配套电驱总成在星驱科技批量下线",
+   src:"新浪财经（芯聚能官方 11-04 发布）",
+   sum:"11 月 4 日，搭载芯粤能、芯聚能第二代 1400V 碳化硅 MOSFET 主驱芯片及功率模块的电驱总成，在国内头部三电企业星驱科技批量下线。该组合已完成客户选型、验证到量产导入全流程，面向 900V 以上高压平台，进入头部电驱供应链。",
+   imp:"1400V 器件量产上车，意味着 900V 高压平台的国产器件供给不再是瓶颈；碳化硅从「样品验证」走到「电驱总成批量下线」，受益的是整条高压快充链。",
+   url:"https://finance.sina.com.cn/stock/t/2026-11-04/doc-inixqnsx0118008.shtml", verified:"ok", seen:"16:29",
+   tags:["新技术·产品"]},
+
+  {ts:"2026-11-04T20:00:00+08:00", cat:"人物动态", weight:4,
+   title:"Stellantis 任命 Pablo Di Si 为北美及美国品牌首席运营官",
+   src:"Stellantis 官方新闻稿",
+   sum:"Stellantis 11 月 4 日宣布，任命 Pablo Di Si 为北美及美国品牌首席运营官，即日生效，直接向 CEO Antonio Filosa 汇报（此前 Filosa 兼任北美负责人）；同时任命 Jon Nelson 为北美 CFO。Di Si 曾任大众美国公司 CEO。",
+   imp:"CEO 交出北美直管权、由前大众美国一号位接手，说明集团把北美扭亏与品牌复兴交给外部职业经理人；结合其此前与东风的合资谈判动作，北美与海外市场的资源排序正在重排。",
+   url:"https://www.stellantis.com/en/news/press-releases/2026/november/stellantis-appoints-pablo-di-si-chief-operating-officer-north-america-and-american-brands", verified:"ok", seen:"15:01"},
+
+  {ts:"2026-11-05T12:58:00+08:00", cat:"重大事件", weight:4,
+   title:"丰田 Q2 销售净额 13.44 万亿日元同比 +8.6%，股价当日大涨 10%",
+   src:"丰田汽车财报 / 财联社",
+   sum:"11 月 5 日丰田汽车公布第二季度财报：销售净额 13.44 万亿日元，同比增长 8.6%。财报公布后股价上涨 10%，为近期日系车企最大单日涨幅。",
+   imp:"在全球需求走弱、关税与电动化投入加大的背景下仍录得增长，市场重新定价其混动产品组合的现金流韧性；对一汽丰田、广汽丰田两家合资板块的盈利预期是正面参照。",
+   url:"https://www.cls.cn/detail/2525989", verified:"ok", seen:"13:14"},
+
+  {ts:"2026-11-05T11:18:00+08:00", cat:"政策与数据", weight:3,
+   title:"成渝智能网联新能源汽车产业集群入选国家级先进制造业集群",
+   src:"重庆日报",
+   sum:"11 月 5 日重庆市经济信息委披露，工信部公示本年度国家先进制造业集群名单，成渝地区智能网联新能源汽车产业集群入选。成渝是西部规模最大、链条最全的智能网联新能源汽车集聚区。",
+   imp:"集群身份通常与专项资金、土地与产能指标挂钩，成渝整车与零部件配套将获制度性倾斜，对长安、赛力斯等本地企业的产能与出口布局是加分项。",
+   url:"http://m.toutiao.com/group/7704521416556823076/", verified:"ok", seen:"13:14"},
+
+  {ts:"2026-11-05T10:00:00+08:00", cat:"延伸行业", weight:3,
+   title:"比亚迪拟在泰国建 1500kW 闪充站，注册资本 3 亿泰铢",
+   src:"Carwizard（泰国）",
+   sum:"11 月 5 日泰国汽车媒体报道，比亚迪计划在泰国落地 FLASH CHARGING 闪充站，单站功率 1500kW，并为此设立注册资本 3 亿泰铢的运营主体。",
+   imp:"把兆瓦级闪充搬到海外，是「车 + 桩 + 电网」一体化出海的延续；自建补能网络意味着中国车企在东南亚的竞争从卖车转向基础设施卡位。",
+   url:"https://www.carwizard.co.th/byd-flash-charging-thailand-investment", verified:"pend", seen:"13:14"},
+
+  {ts:"2026-11-05T11:04:00+08:00", cat:"政策与数据", weight:3,
+   title:"10 月销量分化：长安同比降 16%，零跑连续四个月破 10 万",
+   src:"长安汽车产销快报 / 乘联分会",
+   sum:"长安汽车 11 月 5 日发布 10 月产销快报：销量 233,239 辆，同比下降 16.23%；产量 224,944 辆，同比下降 21.18%；当月海外销量超 10 万辆。同期零跑交付 10.61 万辆，连续四个月超 10 万辆；乘联分会口径 10 月新能源零售 114.8 万辆、环比增长 6%。",
+   imp:"产量降幅大于销量，说明主机厂在主动去库存；「海外 10 万辆」成为长安对冲国内下滑的主要支点。新势力放量与合资、传统自主下滑形成剪刀差。",
+   url:"http://static.cninfo.com.cn/finalpage/2026-11-05/1225657628.PDF", verified:"ok", seen:"11:14"},
+
+  {ts:"2026-11-05T10:30:00+08:00", cat:"延伸行业", weight:3, tags:["新技术·产品"],
+   title:"安波福具身智能感知与计算平台进入量产交付，进博会首展",
+   src:"盖世汽车",
+   sum:"11 月 5 日第九届进博会开幕，安波福携车载光纤系统、具身机器人感知与计算平台、数据中心与储能相关技术亮相，其中具身智能计算平台即将量产交付。",
+   imp:"Tier1 把车规感知与算力平台平移到具身智能，且已到量产节点——这是「汽车供应链向机器人外溢」从概念走向订单的标志。",
+   url:"http://m.toutiao.com/group/7703913778160632371/", verified:"pend", seen:"11:14"},
+
+  {ts:"2026-11-05T09:46:00+08:00", cat:"延伸行业", weight:4,
+   title:"王兴兴：2027 年大概率是具身智能临界点；优必选万台级工厂 10 分钟下线一台",
+   src:"潮新闻 / 乌镇峰会",
+   sum:"11 月 4 日乌镇峰会互联网企业家论坛上，宇树王兴兴称「最后几个毫米」的触觉与物理世界对齐仍未解决，判断很大概率 2027 年成为行业临界点。同日论坛披露：优必选联合英伟达、西门子建柳州万台级工厂，每 10 分钟下线一台人形机器人；京东计划 5 年内采购 300 万台机器人、100 万台无人车、10 万架无人机，并开放物流与门店场景供训练。",
+   imp:"首次出现「万台级产能 + 每 10 分钟一台」的量产节拍，叠加平台方以巨额订单牵引，瓶颈正从模型转向场景与供应链；2027 这个时间点值得作为判断行业节奏的锚。",
+   url:"http://m.toutiao.com/group/7704497743842050579/", verified:"ok", seen:"11:14"},
+
+  {ts:"2026-11-05T06:56:00+08:00", cat:"延伸行业", weight:3,
+   title:"机器人便利店 24 小时「打工」，具身智能开始攻零售场景",
+   src:"证券时报",
+   sum:"智元、智平方、跨维智能、银河通用等十余家具身智能公司陆续进入零售项目，24 小时无人便利店成为最新试验场。行业判断该场景「足够真实也足够难」，可验证非结构化环境下的抓取与补货能力。",
+   imp:"场景从工厂、表演转向高频零售，意味着商业模式开始接受单位经济性检验；能跑通的门店数量会成为下一阶段估值分化的依据。",
+   url:"http://m.toutiao.com/group/7704454007011541519/", verified:"ok", seen:"11:14"},
+
+  {ts:"2026-11-03T20:00:00+08:00", cat:"人物动态", weight:3,
+   title:"小鹏任命李万植为韩国子公司董事总经理，12 月 1 日生效",
+   src:"中国汽车供应商网",
+   sum:"11 月 3 日小鹏汽车宣布，任命前沃尔沃汽车韩国公司沟通与商务事务负责人（执行董事）李万植为小鹏汽车韩国子公司董事总经理（韩国总裁），任命 2026 年 12 月 1 日正式生效。",
+   imp:"直接挖角沃尔沃韩国市场的本地高管，是小鹏从「出口卖车」转向「本地化经营」的组织动作，韩国将成其欧洲之外的第二个攻坚市场。",
+   url:"https://www.chinaautosupplier.com/article-152.html", verified:"ok", seen:"11:14"},
+
+  {ts:"2026-11-05T09:43:00+08:00", cat:"重大事件", weight:5, title:"广汽丰田召回 12.1 万辆铂智 3X / 铂智 7，含智驾软件风险",
+   src:"市场监管总局召回中心",
+   sum:"分三批召回：铂智 3X 100,175 辆（前悬架平衡杆拉杆螺母轴力不足，极端情况脱出）；铂智 7 18,130 辆（舒适停车软件逻辑不充分，低速制动力受限、制动距离变长）；铂智 7 2,955 辆（前摄像头软件 OTA 异常，巡航辅助下方向盘可能非预期转动）。",
+   imp:"同一天内软件类缺陷与机械类缺陷同时出现，说明召回重心已从硬件转向「软件 + OTA 可控性」。涉及智驾与制动两类安全项，监管口径趋严。",
+   url:"https://www.samr.gov.cn:8001/zw/zh/art/2026/art_a0babb029e4a4e699a201d6af7fda3ed.html", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-05T06:06:00+08:00", cat:"延伸行业", weight:3,
+   title:"进博会汽车展区开幕，零部件企业补链具身智能与材料回收",
+   src:"证券时报",
+   sum:"本届进博会汽车及智慧出行展区构建整车、零部件、未来出行三大体系。安波福展出覆盖智能驾驶感知、车载光通信、具身智能计算、数据中心互联的方案；安赛乐米塔尔首发第三代高强韧性铝硅镀层热成形钢；HRC 首次推出碳纤维回收再生产品系列。",
+   imp:"供应链展会的看点已从整车转向「零部件 + 具身智能算力 + 材料闭环」，是判断 Tier1 转型方向的窗口。",
+   url:"http://m.toutiao.com/group/7704441165294141952/", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-05T00:30:00+08:00", cat:"人物动态", weight:3,
+   title:"何小鹏回应 MONA L05 目标：5 万台为首销期目标，首月交付将破万",
+   src:"微博（威海播报转述）",
+   sum:"11 月 4 日 MONA L05 首批车主集中交付活动在广州举行，何小鹏现场交付并就销量目标报道作出回应，称 5 万台为「首销期」目标，当前订单情况良好。",
+   imp:"新势力用「首销期」口径替代月度目标，是应对订单波动与舆论压力的表达方式变化，需与后续月度交付数据对照。",
+   url:"https://m.weibo.cn/detail/5361815691464232", verified:"pend", seen:"09:56"},
+
+  {ts:"2026-11-04T21:22:00+08:00", cat:"重大事件", weight:5,
+   title:"市场监管总局单日 8 条召回，合计 81.59 万辆汽车 + 695 辆摩托车",
+   src:"市场监管总局 / 中新经纬",
+   sum:"路特斯、Jeep（克莱斯勒中国、斯泰兰蒂斯上海）、广汽丰田、大众、一汽丰田等 8 条召回信息，共 81.59 万辆汽车、695 辆摩托车。大众系三家合计 610,297 辆，其中一汽-大众奥迪 Q3 单车型 388,258 辆（副车架与转向机右侧螺栓锈蚀可能断裂，2027-01-15 起实施）；丰田系因燃油管快接接头脱落风险召回 55,477 辆，系总局启动缺陷调查后开展；广汽丰田 121,260 辆；克莱斯勒 / 斯泰兰蒂斯牧马人、角斗士 28,156 辆（转向助力泵连接器针脚不合规，极端情况过热起火）。",
+   imp:"单日 81.59 万辆量级罕见，且以合资与进口品牌为主。奥迪 Q3 一处螺栓锈蚀缺陷覆盖 2014—2026 年产品，是典型的跨代设计寿命问题；丰田系在总局缺陷调查下启动召回，说明监管主动介入的力度在上升。",
+   url:"https://www.cls.cn/detail/2525456", verified:"ok", seen:"09:56"},
+
+
+  {ts:"2026-11-04T17:30:00+08:00", cat:"重大事件", weight:4,
+   title:"宝马三季度营收降 5.8%、EBIT 降 29.7%，年内第二次下调指引",
+   src:"宝马集团财报 / 财联社",
+   sum:"Q3 汽车交付 551,075 辆（同比 -6.3%），摩托车 46,605 辆（-12.5%）；营收 304.52 亿欧元（-5.8%），EBIT 15.89 亿欧元（-29.7%）。集团再次下调 2026 年业绩指引。",
+   imp:"豪华品牌利润端下滑幅度远大于销量，价格战与电动化投入双重挤压；二次下调指引意味着管理层对下半年中国与欧洲市场判断继续转弱。",
+   url:"https://newsroom.bmwgroup.com/global/bmw-group-accelerates-realignment/", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T17:00:00+08:00", cat:"重大事件", weight:4,
+   title:"沃尔沃 8—10 月全球销量同比降 16%，坦言中国市场严峻",
+   src:"沃尔沃汽车 / 财联社",
+   sum:"三个月全球销量 141,656 辆，同比 -16%。公司称中国市场本土竞争压力加大、宏观走弱，美国市场消费者信心处于历史低位且电动车与插混补贴取消，共同抑制需求。",
+   imp:"二线豪华品牌在中美两个最大市场同时失速，是合资与外资阵营收缩的又一样本。",
+   url:"https://news.cision.com/volvo-car-ab--publ-/r/volvo-cars-reports-rolling-three-month-sales-for-the-period-ending-october-2026,c4419774", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T16:00:00+08:00", cat:"政策与数据", weight:4, title:"五部门印发全面节约战略行动方案，建动力电池全生命周期管理体系",
+   src:"国家发展改革委等五部门",
+   sum:"《实施全面节约战略行动方案》提出大力推动「新三样」等固废回收利用，构建新能源汽车动力电池全生命周期管理体系，完善风电、光伏设备退役报废管理规定。",
+   imp:"动力电池回收从倡导进入制度化管理，将改变电池资产归属、梯次利用与回收渠道的商业模式。",
+   url:"http://m.toutiao.com/group/7704268349789815334/", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T15:30:00+08:00", cat:"政策与数据", weight:3,
+   title:"乘联分会：10 月零售 169.3 万辆同比降 25%，新能源渗透率 67.8%",
+   src:"乘联分会",
+   sum:"10 月 1—31 日乘用车零售 169.3 万辆，同比 -25%、环比 +5%；新能源零售 114.8 万辆，同比 -10%，渗透率 67.8%；厂商新能源批发渗透率 68.6%。年内累计零售 1,502.7 万辆，同比 -22%。",
+   imp:"同比大幅下滑、环比小幅回升，说明「银十」靠车展、地方补贴与促销支撑，需求端并未真正修复；渗透率逼近 68% 意味着增量结构已彻底电动化。",
+   url:"https://cj.sina.com.cn/articles/view/1826017320/6cd6d02802001yopu?froms=ttmp", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T14:10:00+08:00", cat:"延伸行业", weight:4,
+   title:"博世半导体业务 2028 年独立成部，目标 50 亿欧元并开放代工",
+   src:"博世新闻稿 / 电子工程专辑",
+   sum:"博世计划自 2028 年 1 月起将半导体业务整合进独立部门 Semiconductors，力争 2030 年实现约 50 亿欧元半导体销售额，并向外部客户开放更多制造产能、系统性扩展代工业务。此举是其 10 月底宣布的架构与移动出行业务重组的一部分。",
+   imp:"Tier1 巨头把半导体从汽车电子中拆出来单列，等于承认芯片是独立利润中心；开放代工将改变车规功率半导体的供给格局。",
+   url:"https://finance.sina.com.cn/tech/roll/2026-11-04/doc-inixprpf8124474.shtml", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T14:00:00+08:00", cat:"延伸行业", weight:3,
+   title:"赛力斯：正积极准备 L3 自动驾驶相关工作",
+   src:"赛力斯互动平台",
+   sum:"公司 11 月 4 日在互动平台表示，L3 级有条件自动驾驶需要满足国家法规标准、产品准入等多重要求，公司正积极准备相关工作。",
+   imp:"L3 落地的瓶颈在法规与责任划分，主机厂提前表态意味着在等准入窗口；一旦开闸，智驾供应链会重新定价。",
+   url:"https://cj.sina.com.cn/articles/view/2868676035/aafc85c302001zccq", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T13:00:00+08:00", cat:"延伸行业", weight:3, tags:["投融资"],
+   title:"后摩智能完成数十亿元 B 轮融资，押注端侧推理算力",
+   src:"通信世界",
+   sum:"存算一体 AI 芯片企业后摩智能 11 月 4 日宣布完成数十亿元 B 轮融资，资金用于 M50 规模化交付、M6X 与下一代 3D CIM 产品研发。",
+   imp:"在芯片一级市场估值回归的背景下仍拿到大额 B 轮，反映资本对端侧推理路线的集中表态——具身智能与智能座舱的算力底座正在被提前卡位。",
+   url:"http://www.cnstock.com/commonDetail/823751", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T12:30:00+08:00", cat:"延伸行业", weight:3,
+   title:"世界互联网大会蓝皮书：中国具身智能市场规模约 9150 亿元",
+   src:"中国互联网发展报告 2026",
+   sum:"11 月 4 日发布的蓝皮书显示，2025 年中国企业级 AI 智能体市场规模升至 212 亿元，具身智能市场规模约 9150 亿元。",
+   imp:"具身智能被纳入官方统计口径，规模量级远超多数机构预期，后续政策与算力资源分配大概率向此倾斜。",
+   url:"http://m.toutiao.com/group/7704463623695876623/", verified:"pend", seen:"09:56"},
+
+  {ts:"2026-11-04T12:00:00+08:00", cat:"延伸行业", weight:3, tags:["新技术·产品"],
+   title:"现代汽车集团展示机器人自动加氢与升级版燃料电池系统",
+   src:"2026 世界氢能展",
+   sum:"11 月 4 日在韩国高阳 KINTEX 举行的世界氢能展上，现代汽车集团首次公开可为氢燃料商用车自动加氢的机器人，并展出升级版燃料电池系统。",
+   imp:"商用车加氢自动化是氢能补能成本的关键一环，也把「机器人 + 能源补给」并入具身智能的应用清单。",
+   url:"https://www.hyundai.com/worldwide/en/newsroom/detail/hyundai-motor-group-showcases-hydrogen-technologies-across-the-value-chain-at-world-hydrogen-expo-in-korea-0000001084", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T11:00:00+08:00", cat:"延伸行业", weight:2,
+   title:"SKF 汽车业务拆分品牌 Vertevo 亮相，计划 12 月 1 日上市",
+   src:"网通社",
+   sum:"SKF 旗下汽车业务拆分后的新公司 Vertevo 于 11 月 3 日正式发布品牌，同步上线官网与社媒，并公布新的视觉体系，计划 12 月 1 日挂牌上市。",
+   imp:"老牌轴承巨头剥离汽车业务独立上市，是传统零部件板块估值重估的代表案例。",
+   url:"http://auto.news18a.com/news/storys_311186.html", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T10:30:00+08:00", cat:"延伸行业", weight:2,
+   title:"上海汇众许昌工厂正式投产",
+   src:"网通社",
+   sum:"上海汇众汽车制造有限公司许昌子公司 11 月 4 日正式投产，投产后将与上海汇众郑州基地协同布局。",
+   imp:"底盘与转向系统供应商在中部扩产，对应的是区域整车产能与本地配套率提升。",
+   url:"http://auto.news18a.com/news/storys_311359.html", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T10:00:00+08:00", cat:"人物动态", weight:3,
+   title:"李斌乌镇演讲：AI 的价值是让人的工作更轻松更安全",
+   src:"2026 世界互联网大会乌镇峰会",
+   sum:"蔚来创始人、董事长、CEO 李斌在互联网企业家论坛表示，AI 的价值应让人的工作更轻松、更安全，而非剥夺人类存在的意义；蔚来将持续推动 AI 从研发走向规模化应用。",
+   imp:"「领先的汽车公司一定是领先的 AI 公司」正成为头部新势力的统一叙事，可观察其与具身智能、智驾投入的对应动作。",
+   url:"https://finance.sina.com.cn/tech/digi/2026-11-04/doc-inixqnss6093510.shtml", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-04T09:30:00+08:00", cat:"政策与数据", weight:3,
+   title:"德国 10 月纯电注册量同比 +79.5%，占新车 37%，进口车占纯电一半",
+   src:"德国联邦机动车运输管理局（KBA）",
+   sum:"10 月新注册乘用车 25.45 万辆（+1.7%），其中纯电 9.41 万辆（+79.5%），占比 37%；汽油车 -40.5%、柴油车 -21.6%。国际品牌纯电注册 4.70 万辆（+107.6%），占纯电市场 50%。",
+   imp:"欧洲最大市场的电动化拐点已现，且增量的一半被国际品牌（含中国车企）拿走，是出海逻辑的直接验证。",
+   url:"https://tech.ifeng.com/c/8xnXUPjh4cs", verified:"ok", seen:"09:56"},
+
+  {ts:"2026-11-03T18:00:00+08:00", cat:"人物动态", weight:3,
+   title:"Stellantis 集团高管到访东风汽车总部，推进神龙科技运营与海外合作",
+   src:"行业公开信息（早报转引）",
+   sum:"11 月 3 日，Stellantis 集团高管到访东风汽车总部，双方围绕推进神龙科技运营、深化海外市场合作等议题展开交流。",
+   imp:"合资体系内的资产与运营重构仍在继续，海外产能与渠道合作可能成为下一阶段谈判重点。",
+   url:"https://www.iesdouyin.com/share/video/7704468724845642107", verified:"pend", seen:"09:56"},
+
+  {ts:"2026-11-01T16:18:00+08:00", cat:"政策与数据", weight:2,
+   title:"长城汽车 10 月销量 12.04 万辆同比降 15.87%，为已披露车企中降幅较大者",
+   src:"长城汽车产销快报（财联社汇总）",
+   sum:"长城汽车 11 月 1 日发布 10 月产销快报，当月销量 12.04 万辆，同比下降 15.87%。同期披露 10 月交付/销量的还有比亚迪、小米汽车、鸿蒙智行、小鹏、极氪、零跑等。",
+   imp:"长城的下滑集中在其燃油基盘与皮卡出口节奏，和广汽同属「合资/燃油依赖型」承压样本；两家合计说明 10 月车市的增长几乎全部由新能源新势力贡献。",
+   url:"https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100011.pdf", verified:"ok", seen:"19:04",
+   tags:[]},
+
+  {ts:"2026-10-30T17:32:00+08:00", cat:"人物动态", weight:3,
+   title:"北京现代总经理李凤刚将于 11 月 1 日离任，上任刚满一年",
+   src:"第一财经（新浪财经转载）",
+   sum:"10 月 30 日第一财经独家获悉，北京现代总经理李凤刚将于 11 月 1 日正式离任，距其 2025 年 11 月 10 日出任该职刚满一年。他是北京现代首位中国籍总经理。",
+   imp:"合资车企中方一把手任满一年即离场，说明股东双方对销量与转型路径的分歧尚未收敛；北京现代的渠道与产品节奏可能再度调整。",
+   url:"https://finance.sina.com.cn/wm/2026-10-30/doc-iniwzazt8152864.shtml", verified:"ok", seen:"16:55",
+   tags:[]},
+
+  {ts:"2026-10-27T00:00:00+08:00", cat:"政策与数据", weight:2,
+   title:"工信部召开汽车产业国际合作圆桌会，讨论海外市场与合规协同",
+   src:"工业和信息化部",
+   sum:"工信部装备工业一司 10 月 27 日组织召开汽车产业国际合作圆桌会，围绕海外市场拓展、国际规则对接与合规协同等议题与企业、行业机构交流。",
+   imp:"在欧盟价格承诺、美国网联汽车限制同时收紧的节点上，主管部门开始把「出海合规」当作产业政策议题来抓，后续可能配套出口侧的协调机制。",
+   url:"https://www.miit.gov.cn/jgsj/zbgyys/", verified:"ok", seen:"16:55",
+   tags:[]},
+
+  {ts:"2026-10-23T20:54:00+08:00", cat:"延伸行业", weight:3,
+   title:"物理 AI 算力芯片公司新芯航途完成战略轮，累计融资近 50 亿元，雷诺首次入股",
+   src:"上海证券报（天天基金转载）",
+   sum:"10 月 23 日新芯航途宣布完成战略轮融资，历史累计融资近 50 亿元。投资方含上汽、奇瑞、长鑫科技、中金雷诺、均胜，以及鼎晖、IDG、纪源、蔚来资本、顺为、蓝湖等。此前 10 月 16 日已披露雷诺集团首次投资、奇瑞追加、长鑫科技参与。其 X7 芯片首发车型为上汽大众车型。",
+   imp:"车企「造芯」进入合流阶段：一家芯片公司同时装进雷诺、上汽、奇瑞、蔚来的钱和订单，意味着智驾算力的竞争已从单打独斗变成联盟作战。",
+   url:"http://fund.eastmoney.com/a/202610233906567094.html", verified:"ok", seen:"16:55",
+   tags:["投融资","新技术·产品"]},
+
+  {ts:"2026-10-23T07:46:00+08:00", cat:"政策与数据", weight:3,
+   title:"工信部：第二批 L3 级自动驾驶准入试点正在推进，制度配套待跟进",
+   src:"中国经济网（2026 世界智能网联汽车大会）",
+   sum:"10 月 22 日世界智能网联汽车大会政策法规论坛上，工信部装备工业一司司长郭守刚表示，第二批 L3 级自动驾驶产品准入试点工作正在进行。2025 年 12 月长安、北汽各一款 L3 产品已获附条件许可，现行产品仍限定封闭路段、单车道等条件。",
+   imp:"L3 从「两家试点」扩到第二批，是准入制度从个案走向常态化的信号；但配套责任认定与保险规则未落地前，车企放量的意愿仍受约束。",
+   url:"http://www.ce.cn/xwzx/gnsz/gdxw/202610/t20261023_3268745.shtml", verified:"ok", seen:"16:55",
+   tags:[]},
+
+  {ts:"2026-10-22T17:53:00+08:00", cat:"人物动态", weight:3,
+   title:"阿维塔负责产品与营销的副总裁孙百功即将离职，去向为 AI 与出海领域",
+   src:"界面新闻（引光子星球）",
+   sum:"10 月 22 日消息，阿维塔副总裁孙百功将于近期离职，其负责产品操盘与营销。孙有超 20 年科技与汽车经验，曾任华为荣耀中东非洲总裁、理想汽车销服副总裁，2024 年底加入阿维塔。",
+   imp:"阿维塔正处在产品密集投放与销量爬坡期，主抓产品定义与营销的副总裁离开，短期会影响新车节奏；其转向 AI 与出海，也印证人才正从整车流向具身智能与海外业务。",
+   url:"https://www.jiemian.com/article/15224553.html", verified:"pend", seen:"16:55",
+   tags:[]},
+
+  {ts:"2026-10-22T00:00:00+08:00", cat:"供应链", weight:2,
+   title:"继峰座椅获某新能源主机厂整车座椅总成定点，2027 年 8 月量产",
+   src:"继峰股份公告（上海证券报）",
+   sum:"继峰股份全资子公司继峰座椅（合肥）近期收到《定点通知函》，获某新能源汽车主机厂座椅总成项目定点，将为客户开发、生产整车座椅总成。项目预计 2027 年 8 月量产，生命周期 2.3 年，客户名称因保密协议未披露。",
+   imp:"座椅总成是内饰件里单车价值最高的品类之一，国产品牌从「供零件」转向「供总成」，直接冲击外资座椅厂在新能源客户里的份额。",
+   url:"http://paper.cnstock.com/html/2026-10/22/content_2279677.htm", verified:"ok", seen:"16:55",
+   tags:["定点"]},
+
+  {ts:"2026-10-20T13:50:00+08:00", cat:"延伸行业", weight:2,
+   title:"四川具身人形机器人科技完成超亿元 Pre-A 轮，成都国资集体下注",
+   src:"中国网四川",
+   sum:"10 月 20 日消息，四川具身人形机器人科技有限公司完成超亿元 Pre-A 轮融资，投资方包括成都未来产业天使基金（成都科创投管理）、德阳投控集团、凯州新城产业基金、中江高新区产业基金（四川兴川管理）。",
+   imp:"地方政府基金接力投人形机器人，是「以投带产」的典型：钱跟着本地产业园与场景走，成都—德阳这条链正在形成区域性的具身智能集群。",
+   url:"http://sc.china.com.cn/2026-10/20/content_43498750.html", verified:"ok", seen:"16:55",
+   tags:["投融资"]},
+
+  {ts:"2026-10-20T00:00:00+08:00", cat:"政策与数据", weight:3,
+   title:"工信部就《汽车数据安全要求》等五项强制性国家标准公开征求意见",
+   src:"工业和信息化部",
+   sum:"10 月 20 日，工信部就《汽车数据安全要求》等五项强制性国家标准公开征求意见。同期工信部还在推进汽车产品创新设计与研发测试验证、生产一致性和质量提升专项行动等监管动作。",
+   imp:"汽车数据从「推荐性」走向「强制性」，车端数据出境、座舱采集与智驾数据留存都会被写进硬约束，出海车企的合规成本将同步上升。",
+   url:"https://www.miit.gov.cn/jgsj/zbys/qcgy/index.html", verified:"ok", seen:"16:55",
+   tags:[]},
+
+  {ts:"2026-10-19T12:41:00+08:00", cat:"重大事件", weight:4,
+   title:"零跑欧洲首座独立电池工厂投产，中国车企首次在欧洲自建电池产能",
+   src:"新浪财经（零跑 B10 萨拉戈萨下线同期）",
+   sum:"零跑首辆欧洲本地生产的量产车 B10 在西班牙萨拉戈萨工厂下线，同一天距整车厂约 30 公里的马连电池工厂投产，由零跑团队负责核心运营，两厂形成配套体系。这是中国车企在欧洲落地的首座独立电池工厂；零跑称年内萨拉戈萨工厂预计生产 9,000 辆。",
+   imp:"从「整车出口」到「整车+电池双本地化」，这一步把欧盟关税与碳足迹规则的压力转成了本地制造能力；后续中国车企在欧洲的竞争门槛，将从价格变成产能与合规。",
+   url:"https://finance.sina.com.cn/roll/2026-10-19/doc-inivtuep7582355.shtml", verified:"ok", seen:"16:55",
+   tags:["新技术·产品"]}
+
+];
+
+/* ===== 渲染 ===== */
+const NOW = new Date(REFRESH_TS);
+const fmt = d => String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const hhmm = d => String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+const dayKey = d => d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+const WEEK = ["周日","周一","周二","周三","周四","周五","周六"];
+
+const TAGS = ["投融资","新技术·产品","定点"];
+const TAG_DESC = {"投融资":"融资 · 并购 · 股权变动","新技术·产品":"技术路线与量产落地","定点":"量产定点 · 独家供应"};
+
+const state = { cat:"all", q:"", sort:"time", day:"all" };
+
+function ageText(ts){
+  const mins = Math.round((NOW - new Date(ts))/60000);
+  if(mins < 60) return "距今 " + Math.max(mins,1) + " 分钟";
+  const h = Math.floor(mins/60), m = mins%60;
+  if(h < 24) return "距今 " + h + " 小时" + (m?" "+m+" 分":"");
+  return "距今 " + Math.floor(h/24) + " 天";
+}
+
+function render(){
+  const list = document.getElementById("list");
+  let items = DATA.slice();
+  if(state.cat !== "all") items = TAGS.includes(state.cat)
+    ? items.filter(i => (i.tags||[]).includes(state.cat))
+    : items.filter(i => i.cat === state.cat);
+  if(state.day && state.day !== "all") items = items.filter(i => dayKey(new Date(i.ts)) === state.day);
+  if(state.q){
+    const q = state.q.toLowerCase();
+    items = items.filter(i => (i.title+i.sum+i.imp+i.src).toLowerCase().includes(q));
+  }
+  items.sort((a,b)=> state.sort==="weight"
+    ? (b.weight-a.weight) || (new Date(b.ts)-new Date(a.ts))
+    : (new Date(b.ts)-new Date(a.ts)));
+
+  document.getElementById("empty").classList.toggle("on", items.length===0);
+
+  let html = "", lastDay = "";
+  items.forEach(it => {
+    const d = new Date(it.ts), key = dayKey(d);
+    if(key !== lastDay){
+      lastDay = key;
+      const isToday = key === dayKey(NOW);
+      html += '<div class="day"><h2>' + fmt(d) + '　' + WEEK[d.getDay()] + '</h2>'
+           + '<span class="cnt">' + items.filter(x=>dayKey(new Date(x.ts))===key).length + ' 条</span>'
+           + (isToday ? '<span class="today">TODAY</span>' : '') + '</div>';
+    }
+    const catCls = {"重大事件":"cat-event","人物动态":"cat-people","延伸行业":"cat-ext","政策与数据":"cat-policy"}[it.cat];
+    html += '<article class="item">'
+      + '<div class="tm">' + hhmm(d) + '</div>'
+      + '<div class="body">'
+      +   '<div class="meta"><span class="cat ' + catCls + '">' + it.cat + '</span>'
+      +     (it.tags||[]).map(t=>'<span class="tag">'+t+'</span>').join('')
+      +     '<span class="src">' + it.src + '</span></div>'
+      +   '<h3>' + it.title + '</h3>'
+      +   '<p class="sum">' + it.sum + '</p>'
+      +   '<p class="impact"><b>影响判断</b> ' + it.imp + '</p>'
+      +   '<div class="foot">'
+      +     (it.verified==="ok"
+              ? '<span class="badge b-ok">原文时间已核</span>'
+              : '<span class="badge b-pend">待确认 · 单一信源</span>')
+      +     '<span class="age">' + ageText(it.ts) + ' · 收录于 ' + it.seen + '</span>'
+      +     '<a class="link" href="' + it.url + '" target="_blank" rel="noopener">查看原文</a>'
+      +     '<div class="src-url">原文 ' + it.url + '</div>'
+      +   '</div>'
+      + '</div></article>';
+  });
+  list.innerHTML = html;
+
+  // 计数
+  const counts = {all:DATA.length};
+  DATA.forEach(i=>counts[i.cat]=(counts[i.cat]||0)+1);
+  DATA.forEach(i=>(i.tags||[]).forEach(t=>counts[t]=(counts[t]||0)+1));
+  document.querySelectorAll("[data-n]").forEach(el=>{
+    el.textContent = counts[el.dataset.n] || 0;
+  });
+  document.getElementById("s-count").textContent = DATA.length + " 条";
+
+  // 日期导航：最近 6 个有数据的日期
+  const days = [];
+  DATA.forEach(i=>{ const k=dayKey(new Date(i.ts)); if(!days.includes(k)) days.push(k); });
+  days.sort((a,b)=>b.localeCompare(a));
+  const dn = document.getElementById("daynav");
+  if(dn){
+    dn.innerHTML = '<button class="chip" data-day="all" aria-pressed="' + (state.day==="all") + '">全部日期</button>'
+      + days.slice(0,6).map(k=>{
+          const n = DATA.filter(i=>dayKey(new Date(i.ts))===k).length;
+          return '<button class="chip" data-day="' + k + '" aria-pressed="' + (state.day===k) + '">'
+            + k.slice(5) + '<span class="n">' + n + '</span></button>';
+        }).join("");
+  }
+  const vb = document.getElementById("verbar");
+  if(vb){
+    const newest = DATA.slice().sort((a,b)=>new Date(b.ts)-new Date(a.ts))[0];
+    vb.textContent = "数据版本 " + REFRESH_TS.slice(5,16).replace("T"," ") + "　·　共 " + DATA.length + " 条　·　最新一条 " + (newest ? newest.ts.slice(5,10) + " " + newest.ts.slice(11,16) : "—") + "　·　最新 " + DATA.filter(i=>dayKey(new Date(i.ts))===dayKey(NOW)).length + " 条为今日";
+  }
+}
+
+/* ===== 交互 ===== */
+document.getElementById("daynav").addEventListener("click", e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  state.day = b.dataset.day;
+  render();
+});
+document.getElementById("chips").addEventListener("click", e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  state.cat = b.dataset.cat;
+  render();
+});
+document.querySelectorAll(".sort button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll(".sort button").forEach(x=>x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed","true");
+    state.sort = b.dataset.sort; render();
+  });
+});
+let qTimer;
+document.getElementById("q").addEventListener("input", e=>{
+  clearTimeout(qTimer);
+  qTimer = setTimeout(()=>{ state.q = e.target.value.trim(); render(); }, 200);
+});
+
+const toast = document.getElementById("toast");
+let toastTimer;
+function say(msg){
+  toast.textContent = msg; toast.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove("on"), 3200);
+}
+const rfPop = document.getElementById("rfPop");
+document.getElementById("refresh").addEventListener("click", (e)=>{
+  e.stopPropagation();
+  rfPop.hidden = !rfPop.hidden;
+});
+rfPop.addEventListener("click", e=>e.stopPropagation());
+document.addEventListener("click", ()=>{ rfPop.hidden = true; });
+async function probeRemote(){
+  try{
+    const r = await fetch(location.pathname + "?probe=" + Date.now(), {cache:"no-store"});
+    if(!r.ok) return null;
+    const t = await r.text();
+    const m = t.match(/REFRESH_TS\s*=\s*"([^"]+)"/);
+    const n = t.match(/DATA\s*=\s*\[/) ? (t.match(/\{ts:/g)||[]).length : 0;
+    return m ? {ts:m[1], n:n} : null;
+  }catch(e){ return null; }
+}
+function forceFresh(tag){
+  location.replace(location.pathname + "?v=" + Date.now() + (tag ? "&t=" + encodeURIComponent(tag) : ""));
+}
+document.getElementById("rfReload").addEventListener("click", async ()=>{
+  rfPop.hidden = true;
+  say("正在向服务器校验最新采集版…");
+  const rem = await probeRemote();
+  if(rem && rem.ts && rem.ts !== REFRESH_TS){
+    say("服务器已有更新版本（" + rem.ts.slice(5,16).replace("T"," ") + " · " + rem.n + " 条），正在加载…");
+    setTimeout(()=>forceFresh("btn"), 300);
+    return;
+  }
+  if(rem && rem.ts === REFRESH_TS){
+    say("本页确为线上最新版（" + rem.ts.slice(5,16).replace("T"," ") + " · " + rem.n + " 条）。清空本地缓存重新加载…");
+  } else {
+    say("无法读取服务器版本（可能离线）。强制重新加载本页…");
+  }
+  setTimeout(()=>forceFresh("btn2"), 300);
+});
+/* 打开即自检：若本地是缓存旧版，自动跳到线上真实版本 */
+window.addEventListener("load", async ()=>{
+  if(location.search.indexOf("v=") > -1) return;
+  const rem = await probeRemote();
+  if(rem && rem.ts && rem.ts !== REFRESH_TS){
+    forceFresh("auto");
+  }
+});
+document.getElementById("rfCopy").addEventListener("click", ()=>{
+  const t = "刷新看板";
+  const done = ()=>say("已复制「刷新看板」。回到对话粘贴发送，我会立刻采集并重发这一版。");
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(done).catch(()=>say("请手动记住指令：「刷新看板」，发到对话里即可。"));
+  } else {
+    say("请手动记住指令：「刷新看板」，发到对话里即可。");
+  }
+  rfPop.hidden = true;
+});
+
+/* ===== 侧栏 ===== */
+document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
+document.getElementById("s-next").textContent = "11-09 18:00";
+document.getElementById("tCount");
+
+const pend = DATA.filter(i=>i.verified==="pend");
+document.getElementById("pend").innerHTML = pend.map(i =>
+  "<li><b>" + hhmm(new Date(i.ts)) + "</b> " + i.title + "<br>信源：" + i.src + "</li>"
+).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
+
+document.getElementById("log").innerHTML =
+   '<div><span>11-09 09:01</span> 第 42 期 · 新增 4 条（麦格纳格拉茨代工 / 李云飞 / 比亚迪葡萄牙 / FF OmniMind）</div>'
+ + '<div><span>11-09 14:18</span> 第 43 期 · 新增 3 条（马斯克 Optimus 出租 / 公安部交管便民措施 / 现代意大利换帅）</div>'
+ + '<div><span>11-09 15:03</span> 第 43 期补 · 新增 4 条（Hi-WBC / 乘联分会出口 58.2 万辆 / 智元入股泉智博 / 英伟达首尔 AI Day）</div>'
+ + '<div><span>11-09 15:56</span> 第 44 期 · 新增 4 条</div>'
+ + '<div>新增：传玛莎拉蒂与尊界合作定名「玛莎拉蒂 Design」（江淮制造＋华为赋能，均未回应）；天翼电信终端与优必选签约共推 10 万台人形机器人销售；三星 SDI 将为波士顿动力 Atlas 供电池；优理奇机器人完成 5 亿元 Pre-A 轮</div>'
+ + '<div>已排除：通用汽车与上汽续约至 2047 年（进博会访谈口径，非当日新事件）；特斯拉 Optimus「出租而非出售」与 11-07 已收条目重复</div>'
+ + '<div>官方渠道：总局召回列表最新仍为 11-06，无 11-09 新公告</div>'
+ + '<div>下一轮 11-09 18:00 · 窗口 15:56 至今</div>';
+
+/* ===== 专栏渲染 ===== */
+function renderCols(){
+  TAGS.forEach(t=>{
+    const all = DATA.filter(i=>(i.tags||[]).includes(t))
+      .sort((a,b)=> new Date(b.ts)-new Date(a.ts));
+    const box = document.getElementById("col-"+t);
+    document.getElementById("c-"+t).textContent = all.length + " 条";
+    if(!all.length){ box.innerHTML = '<div class="col-empty">本期暂无，下一轮继续采集。</div>'; return; }
+    box.innerHTML = all.slice(0,4).map(i =>
+      '<a class="col-row" href="' + i.url + '" target="_blank" rel="noopener">'
+      + '<div><span class="when">' + fmt(new Date(i.ts)) + ' ' + hhmm(new Date(i.ts)) + '</span>'
+      + '<span class="ct">' + i.title + '</span></div>'
+      + '<div class="cs">' + i.sum + '</div></a>'
+    ).join("");
+  });
+}
+document.querySelectorAll(".col h4").forEach(h=>{
+  h.style.cursor="pointer";
+  h.addEventListener("click",()=>{
+    const t=h.parentElement.dataset.col;
+    state.cat=t; state.q="";
+    document.getElementById("q").value="";
+    document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", String(c.dataset.cat===t)));
+    render();
+    document.getElementById("list").scrollIntoView({behavior:"smooth",block:"start"});
+    say("已筛选「"+t+"」全部条目");
+  });
+});
+renderCols();
+
+render();
+</script>
+</body>
+</html>
