@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-10 20:00</b></li>
+        <li>下一轮<b id="s-next">11-11 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -338,10 +338,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-10T18:06:00+08:00";
-const NEXT_TS    = "2026-11-10T20:00:00+08:00";
+const REFRESH_TS = "2026-11-10T19:56:00+08:00";
+const NEXT_TS    = "2026-11-11T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T19:39:00+08:00", cat:"出海", weight:3,
+   title:"理想汽车与香港、泰国、新加坡、菲律宾、越南五国合作伙伴签约，12 月泰国车展首发右舵 MEGA",
+   src:"微博（理想官方）",
+   sum:"11 月 10 日，理想汽车正式与香港、泰国、新加坡、菲律宾和越南的合作伙伴签署合作协议，标志亚太市场布局快速扩张。12 月，理想将在泰国国际车展首发右舵版理想 MEGA，并随后在香港进行品牌发布及右舵版 MEGA 上市。",
+   imp:"理想从国内市场正式进军东南亚+香港高端电动车市场——右舵 MEGA 是理想首款右舵车型，意味着产品定义开始为海外市场定制；泰国作为东盟汽车制造中心，是理想出海的关键跳板。",
+   url:"https://m.weibo.cn/detail/5363790424047799", verified:"pend", seen:"19:56", tags:["出海","销量"]},
+
+  {ts:"2026-11-10T19:52:00+08:00", cat:"具身智能", weight:2,
+   title:"云深处科技与中国铁塔北京分公司战略合作，联合研发无人巡护巡检方案",
+   src:"环球网（今日头条）",
+   sum:"11 月 10 日，云深处科技与中国铁塔北京市分公司举行战略合作签约。双方将融合共创技术产品：云深处发挥具身智能硬件、算法与自主巡检技术能力，结合北京铁塔视频整合、系统集成、AI 算法、边缘计算等优势，瞄准多场景巡检痛点，联合研发标准化无人巡护巡检方案。",
+   imp:"四足机器人+通信基站巡检是具身智能落地的高价值垂直场景——中国铁塔全国数百万座基站，若跑通标准化方案，将成为云深处最大规模的行业订单渠道。",
+   url:"http://m.toutiao.com/group/7706509384351891994/", verified:"pend", seen:"19:56", tags:["具身智能","出海"]},
+
+  {ts:"2026-11-10T19:46:00+08:00", cat:"具身智能", weight:2,
+   title:"清析智研完成近亿元天使轮，中芯聚源、高瓴创投、智元机器人联合投资",
+   src:"证券之星（今日头条）",
+   sum:"11 月 10 日，据天眼查信息，北京清析智研科技有限公司完成近亿元天使轮融资，投资方包括中芯聚源、高瓴创投、智元机器人、风物资本、东方嘉富等。清析智研成立于 2026 年，致力于打造面向物理世界的 AI 研发超级工厂（AI Science SuperFactory）。",
+   imp:"智元机器人作为产业方连续出手投资物理世界 AI 公司——「AI for Science」+具身智能的组合正在成为新的投资赛道，高瓴/中芯聚源持续加码机器人上游。",
+   url:"http://m.toutiao.com/group/7706507714251194921/", verified:"pend", seen:"19:56", tags:["具身智能","投融资"]},
+
   {ts:"2026-11-10T17:00:00+08:00", cat:"重大事件", weight:3,
    title:"NHTSA 对 123 万辆福特 Explorer 展开调查：侧气囊起爆致严重烧伤",
    src:"Anadolu Agency（转 NHTSA）",
@@ -1835,7 +1856,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-10 20:00";
+document.getElementById("s-next").textContent = "11-11 08:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1844,12 +1865,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-10 14:02</span> 第 50 期 · 新增 1 条（Hitch Open 物理智能开源平台）</div>'
- + '<div><span>11-10 15:56</span> 第 51 期 · 新增 3 条（SAMR 44 万召回 / NHTSA Waymo / 比亚迪阿布扎比闪充）</div>'
- + '<div><span>11-10 18:06</span> 第 52 期 · 新增 3 条</div>'
- + '<div>新增：NHTSA 对 123 万辆福特 Explorer 展开调查（侧气囊烧伤）；比亚迪李云飞预计全年海外 180 万辆；大晓机器人双脑架构落地酒店洗衣场景（商汤王晓刚任董事长）</div>'
- + '<div>已排除：云深处×北京铁塔签约事件发生在 11-7，早于窗口；JLR 韩国换帅量级不够；星动纪元 A+ 轮为 2025 年旧闻；宝马×SDI/LG 已收</div>'
- + '<div>下一轮 11-10 20:00 · 窗口 18:06 至今（今日最后一轮）</div>';
+   '<div><span>11-10 15:56</span> 第 51 期 · 新增 3 条（SAMR 44 万召回 / NHTSA Waymo / 比亚迪阿布扎比闪充）</div>'
+ + '<div><span>11-10 18:06</span> 第 52 期 · 新增 3 条（NHTSA 福特 Explorer / 比亚迪海外 180 万 / 大晓机器人双脑）</div>'
+ + '<div><span>11-10 19:56</span> 第 53 期 · 新增 3 条</div>'
+ + '<div>新增：理想汽车亚太五国签约、12 月泰国车展首发右舵 MEGA；云深处×北京铁塔战略合作无人巡检；清析智研近亿元天使轮（中芯聚源/高瓴/智元）</div>'
+ + '<div>待确认：宁德时代印尼 Karawang 电池工厂开始生产（单信源，Segment Y，时间标 11-10）；Autoliv 任命 Rosenberg 为独立董事量级不够；泛函数智能 AI 芯片近亿元天使轮量级一般</div>'
+ + '<div>下一轮 11-11 08:00 · 回看前 12 小时（夜间不更新）</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
