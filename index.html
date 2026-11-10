@@ -181,7 +181,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-10 10:00</b></li>
+        <li>下一轮<b id="s-next">11-10 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -335,10 +335,17 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-10T07:56:00+08:00";
-const NEXT_TS    = "2026-11-10T10:00:00+08:00";
+const REFRESH_TS = "2026-11-10T10:01:00+08:00";
+const NEXT_TS    = "2026-11-10T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T08:57:00+08:00", cat:"具身智能", weight:2,
+   title:"宇树科技具身智能创新中心在天津经开区启用，全资子公司宇天科技同步开业",
+   src:"新华网天津频道",
+   sum:"11 月 10 日，新华网报道，宇树科技具身智能创新中心日前在天津经开区正式启用，作为其「宇创计划」在北方区域的实质性落地。宇树科技全资子公司天津宇天科技有限公司同步开业运营，成为承载宇树北方生态布局的核心载体。",
+   imp:"宇树继与中石油昆仑制造成立工业具身智能合资公司后，再落子北方区域创新中心——头部人形机器人企业正从「总部杭州」向全国分区域布局生态，天津/北方制造业场景是其重点拓展方向。",
+   url:"http://www.tj.xinhuanet.com/20261110/dfacfb5a540940679fced9d47c38dec5/c.html", verified:"pend", seen:"10:01", tags:[]},
+
   {ts:"2026-11-09T21:18:00+08:00", cat:"政策与数据", weight:3,
    title:"美国将 178 项对华 301 关税豁免延至 2027 年 1 月 9 日，11 月 10 日起生效",
    src:"财新网（USTR 公告）",
@@ -1755,7 +1762,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-10 10:00";
+document.getElementById("s-next").textContent = "11-10 12:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1764,12 +1771,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-09 18:02</span> 第 45 期 · 新增 3 条（比亚迪 1900 万 / 智蜂创元 / 杰思通讯）</div>'
- + '<div><span>11-09 19:56</span> 第 46 期 · 新增 2 条（奥迪虚假召回声明 / 智元 10—15 亿融资）</div>'
- + '<div><span>11-10 07:56</span> 第 47 期 · 新增 4 条（08:00 轮，回看 12 小时）</div>'
- + '<div>新增：美国将 178 项对华 301 关税豁免延至 2027-01-09；本田 30 亿美元俄亥俄新建整车厂 2029 年投产；固特异 CEO Stuart 即日退任；高瓴+智元+中芯聚源投 AI+材料（机器人关节电机永磁）</div>'
- + '<div>已排除：天翼×优必选 10 万台已收；优理奇 5 亿 Pre-A 已收；北京人形 Hi-WBC 已收；华为江淮 Stellantis 细节为解读非新事件；长安朱华荣/赵非为 10-16 旧闻</div>'
- + '<div>下一轮 11-10 10:00 · 窗口 07:56 至今</div>';
+   '<div><span>11-09 19:56</span> 第 46 期 · 新增 2 条（奥迪虚假召回声明 / 智元 10—15 亿融资）</div>'
+ + '<div><span>11-10 07:56</span> 第 47 期 · 新增 4 条（301 关税豁免 / 本田俄亥俄 / 固特异 CEO / 高瓴+智元 AI+材料）</div>'
+ + '<div><span>11-10 10:01</span> 第 48 期 · 新增 1 条（窗口短，宁少勿滥）</div>'
+ + '<div>新增：宇树科技具身智能创新中心在天津经开区启用，全资子公司宇天科技同步开业</div>'
+ + '<div>已排除：理想马赫心对外卖芯为 10-16 旧闻综述；优理奇 5 亿 Pre-A 已收；华为江淮 Stellantis 细节为解读；原力无限 A 轮为 8 月融资；进博会闭幕无重大汽车签约</div>'
+ + '<div>下一轮 11-10 12:00 · 窗口 10:01 至今</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
