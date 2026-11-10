@@ -181,7 +181,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-10 18:00</b></li>
+        <li>下一轮<b id="s-next">11-10 20:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -335,10 +335,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-10T15:56:00+08:00";
-const NEXT_TS    = "2026-11-10T18:00:00+08:00";
+const REFRESH_TS = "2026-11-10T18:06:00+08:00";
+const NEXT_TS    = "2026-11-10T20:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T17:00:00+08:00", cat:"重大事件", weight:3,
+   title:"NHTSA 对 123 万辆福特 Explorer 展开调查：侧气囊起爆致严重烧伤",
+   src:"Anadolu Agency（转 NHTSA）",
+   sum:"11 月 10 日，美国国家公路交通安全管理局（NHTSA）对超过 123.6 万辆福特 Explorer SUV 开启初步评估（PE）调查，覆盖 2021—2026 年款车型。此前收到多起侧气囊展开导致乘员严重烧伤的报告。",
+   imp:"单批 123 万辆、横跨 6 个年款，若最终升级为召回将是福特近年最大规模安全召回之一——侧气囊烧伤涉及产气剂/药剂配方问题，可能波及整个供应链。",
+   url:"https://m.aa.com.tr/en/economy/us-safety-regulator-opens-probe-following-reports-of-burn-injuries-involving-over-12m-ford-suvs/4118021", verified:"pend", seen:"18:06", tags:["召回","出海"]},
+
+  {ts:"2026-11-10T18:02:00+08:00", cat:"政策与数据", weight:2,
+   title:"比亚迪李云飞：全年海外销量预计 180 万辆，较去年 104 万辆增长近 73%",
+   src:"环球网（今日头条）",
+   sum:"11 月 10 日，比亚迪集团品牌及公关处总经理李云飞接受采访时表示：比亚迪海外销量从 2022 年 5 万多辆、2023 年 20 多万辆、2024 年 40 多万辆攀升至 2025 年 104 万辆；2026 年 1—9 月海外销量已达 133 万辆，预计全年海外销量在 180 万辆。",
+   imp:"比亚迪海外年销从 5 万到 180 万辆只用了 4 年——这是中国车企出海史上最快的量级跃迁，180 万辆已接近部分传统跨国车企全球年销规模。",
+   url:"http://m.toutiao.com/group/7706481179473625609/", verified:"ok", seen:"18:06", tags:["出海","销量"]},
+
+  {ts:"2026-11-10T17:54:00+08:00", cat:"具身智能", weight:2,
+   title:"大晓机器人双脑协同架构落地酒店洗衣场景，王晓刚任董事长",
+   src:"北京商报（搜狐）",
+   sum:"11 月 10 日，大晓机器人宣布双脑协同架构落地酒店洗衣场景，融合世界模型与通用模型，并引入专为具身智能设计的 RSI（递归自我改进）策略。大晓机器人由商汤科技联合创始人、执行董事王晓刚出任董事长，已推出面向酒店服务、零售、巡检等场景的商业化落地产品。",
+   imp:"商汤系王晓刚亲自下场做具身智能，双脑架构（世界模型+通用模型）+ RSI 是当下人形机器人落地的主流技术路线之一；酒店洗衣是高重复性、低风险的垂直场景，适合批量复制。",
+   url:"https://m.sohu.com/a/1099729259_115865/", verified:"pend", seen:"18:06", tags:["具身智能","人物动态"]},
+
   {ts:"2026-11-10T14:47:00+08:00", cat:"重大事件", weight:3,
    title:"市场监管总局新一批召回：超 44 万辆车涉及奇瑞、保时捷、斯巴鲁、奔驰",
    src:"国家市场监督管理总局 / 中国市场监管报",
@@ -1811,7 +1832,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-10 18:00";
+document.getElementById("s-next").textContent = "11-10 20:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1820,12 +1841,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-10 12:04</span> 第 49 期 · 新增 3 条（宝马×SDI/LG / 蚂蚁灵波触觉模型 / 刘斌长安马自达）</div>'
- + '<div><span>11-10 14:02</span> 第 50 期 · 新增 1 条（Hitch Open 物理智能开源平台）</div>'
- + '<div><span>11-10 15:56</span> 第 51 期 · 新增 3 条</div>'
- + '<div>新增：SAMR 新一批召回超 44 万辆（奇瑞/保时捷/斯巴鲁/奔驰）；NHTSA 对 Waymo 2895 辆 robotaxi 开启召回查询；比亚迪光储充闪充站落地阿布扎比、闪充机械臂全球首秀</div>'
- + '<div>已排除：JLR 韩国换帅量级不够；特斯拉 TerraFab 日本订单为间接报道待核；蚂蚁灵波触觉模型已收；湖南裕能西班牙扩产为 9 月旧闻</div>'
- + '<div>下一轮 11-10 18:00 · 窗口 15:56 至今</div>';
+   '<div><span>11-10 14:02</span> 第 50 期 · 新增 1 条（Hitch Open 物理智能开源平台）</div>'
+ + '<div><span>11-10 15:56</span> 第 51 期 · 新增 3 条（SAMR 44 万召回 / NHTSA Waymo / 比亚迪阿布扎比闪充）</div>'
+ + '<div><span>11-10 18:06</span> 第 52 期 · 新增 3 条</div>'
+ + '<div>新增：NHTSA 对 123 万辆福特 Explorer 展开调查（侧气囊烧伤）；比亚迪李云飞预计全年海外 180 万辆；大晓机器人双脑架构落地酒店洗衣场景（商汤王晓刚任董事长）</div>'
+ + '<div>已排除：云深处×北京铁塔签约事件发生在 11-7，早于窗口；JLR 韩国换帅量级不够；星动纪元 A+ 轮为 2025 年旧闻；宝马×SDI/LG 已收</div>'
+ + '<div>下一轮 11-10 20:00 · 窗口 18:06 至今（今日最后一轮）</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
