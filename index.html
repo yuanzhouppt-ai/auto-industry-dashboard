@@ -181,7 +181,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-10 12:00</b></li>
+        <li>下一轮<b id="s-next">11-10 14:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -335,10 +335,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-10T10:01:00+08:00";
-const NEXT_TS    = "2026-11-10T12:00:00+08:00";
+const REFRESH_TS = "2026-11-10T12:04:00+08:00";
+const NEXT_TS    = "2026-11-10T14:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T11:06:00+08:00", cat:"重大事件", weight:3,
+   title:"宝马官宣第六代高压电池新增三星 SDI、LG 新能源为电芯供应商，分别供欧洲与美国工厂",
+   src:"Newsis（宝马官方公告）",
+   sum:"11 月 10 日，宝马集团官宣为第六代高压电池新增三星 SDI、LG 新能源为电芯供应商。三星 SDI 将通过欧洲现有工厂、LG 新能源将通过美国本土工厂，从 2020 年代后期起向宝马供货，进一步完善其本地供应链布局。",
+   imp:"宝马在欧洲/美国电池本地化上新增韩系双供应商，与宁德时代匈牙利厂形成多源供应——这既是对电动车电池供应链安全的对冲，也说明韩系电池厂在欧美的本地化产能正在被欧洲车企加速接纳。",
+   url:"https://www.newsis.com/view/NISX20261110_0003861779?pc_view=1", verified:"ok", seen:"12:04", tags:["动力电池"]},
+
+  {ts:"2026-11-10T11:54:00+08:00", cat:"具身智能", weight:2,
+   title:"蚂蚁灵波开源 LingBot-Touch 触觉基础模型，近 5000 小时真实触觉数据预训练",
+   src:"澎湃新闻",
+   sum:"11 月 10 日，蚂蚁灵波科技开源触觉基础模型 LingBot-Touch，以近 5000 小时真实触觉数据完成预训练，兼容磁触觉、视触觉、压阻式三类主流传感器，将异构传感信号转换为统一触觉 Token，实现触觉能力跨传感器、灵巧手、动作模型复用，降低硬件适配成本。",
+   imp:"人形机器人「视觉+语言」大模型已拥挤，触觉是下一个被开源补齐的感知维度——蚂蚁灵波此举直接降低了机器人厂商在灵巧手触觉适配的工程门槛，可能加速具身智能从「看得见」到「摸得着」。",
+   url:"http://m.toutiao.com/group/7706386316409192987/", verified:"pend", seen:"12:04", tags:[]},
+
+  {ts:"2026-11-10T12:03:00+08:00", cat:"人物动态", weight:2,
+   title:"刘斌接任长安马自达汽车销售分公司执行副总经理，吴旭曦调任新岗位",
+   src:"财经网",
+   sum:"11 月 10 日，长安马自达宣布销售分公司执行副总经理吴旭曦因工作调整将接受新任命，刘斌即日起接任。吴旭曦自 2020 年任职以来推进两马整合、新能源转型与渠道升级，主导 EZ-6、EZ-60 两款全球化新能源车型上市。",
+   imp:"长安马自达完成两马整合后进入新能源转型关键期，销售一把手换帅——合资品牌在华电动化压力下的渠道与营销策略调整，是观察合资品牌生存状态的窗口。",
+   url:"http://m.toutiao.com/group/7706388587700322825/", verified:"pend", seen:"12:04", tags:[]},
+
   {ts:"2026-11-10T08:57:00+08:00", cat:"具身智能", weight:2,
    title:"宇树科技具身智能创新中心在天津经开区启用，全资子公司宇天科技同步开业",
    src:"新华网天津频道",
@@ -1762,7 +1783,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-10 12:00";
+document.getElementById("s-next").textContent = "11-10 14:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1771,12 +1792,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-09 19:56</span> 第 46 期 · 新增 2 条（奥迪虚假召回声明 / 智元 10—15 亿融资）</div>'
- + '<div><span>11-10 07:56</span> 第 47 期 · 新增 4 条（301 关税豁免 / 本田俄亥俄 / 固特异 CEO / 高瓴+智元 AI+材料）</div>'
- + '<div><span>11-10 10:01</span> 第 48 期 · 新增 1 条（窗口短，宁少勿滥）</div>'
- + '<div>新增：宇树科技具身智能创新中心在天津经开区启用，全资子公司宇天科技同步开业</div>'
- + '<div>已排除：理想马赫心对外卖芯为 10-16 旧闻综述；优理奇 5 亿 Pre-A 已收；华为江淮 Stellantis 细节为解读；原力无限 A 轮为 8 月融资；进博会闭幕无重大汽车签约</div>'
- + '<div>下一轮 11-10 12:00 · 窗口 10:01 至今</div>';
+   '<div><span>11-10 07:56</span> 第 47 期 · 新增 4 条（301 关税豁免 / 本田俄亥俄 / 固特异 CEO / 高瓴+智元 AI+材料）</div>'
+ + '<div><span>11-10 10:01</span> 第 48 期 · 新增 1 条（宇树天津创新中心）</div>'
+ + '<div><span>11-10 12:04</span> 第 49 期 · 新增 3 条</div>'
+ + '<div>新增：宝马第六代电池新增三星 SDI（欧洲）+LG 新能源（美国）为电芯供应商；蚂蚁灵波开源 LingBot-Touch 触觉基础模型；刘斌接任长安马自达销售公司执行副总</div>'
+ + '<div>已排除：特斯拉 Optimus 量产为马斯克 11-09 14:11 表态的延续报道；银河通用 25 亿融资日期模糊待核；长安朱华荣/赵非为 10-16 旧闻</div>'
+ + '<div>下一轮 11-10 14:00 · 窗口 12:04 至今</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
