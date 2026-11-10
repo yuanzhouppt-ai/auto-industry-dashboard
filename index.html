@@ -1651,7 +1651,7 @@ const DATA = [
 const NOW = new Date(REFRESH_TS);
 const fmt = d => String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const hhmm = d => String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
-const dayKey = d => d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+const dayKey = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const WEEK = ["周日","周一","周二","周三","周四","周五","周六"];
 
 const TAGS = ["投融资","新技术·产品","定点"];
