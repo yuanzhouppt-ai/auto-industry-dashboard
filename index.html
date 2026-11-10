@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-11 08:00</b></li>
+        <li>下一轮<b id="s-next">11-11 10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -338,10 +338,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-10T19:56:00+08:00";
-const NEXT_TS    = "2026-11-11T08:00:00+08:00";
+const REFRESH_TS = "2026-11-11T07:56:00+08:00";
+const NEXT_TS    = "2026-11-11T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T18:10:00+08:00", cat:"重大事件", weight:3,
+   title:"NHTSA：本田申请召回 63.6 万辆讴歌 TLX/MDX 与本田 Pilot，EPS 软件故障可致转向助力丧失",
+   src:"36氪（转 NHTSA Part 573 召回 26V721）",
+   sum:"11 月 10 日，美国国家公路交通安全管理局（NHTSA）在线提交的召回通知显示，美国本田汽车公司正在召回 635,808 辆汽车。车辆电动助力转向（EPS）辅助系统软件可能导致 EPS 进入故障保护模式，从而丧失动力转向辅助，增加碰撞风险。召回涵盖 2021-2025 款讴歌 TLX、2022-2024 款讴歌 MDX、2023-2025 款本田 Pilot。",
+   imp:"本田在美大规模召回——EPS 软件问题涉及主销 SUV/轿车，63.6 万辆量级直接影响本田北美 Q4 质量口碑与维修成本；软件 OTA 可修复但需逐台检查。",
+   url:"https://36kr.com/newsflashes/4063779609973632", verified:"pend", seen:"07:56", tags:["召回","出海"]},
+
+  {ts:"2026-11-11T07:45:00+08:00", cat:"具身智能", weight:2,
+   title:"模感科技（MoSense）完成亿元级天使+轮，鼎晖/绿洲领投，做 3D 打印机器人触觉皮肤",
+   src:"搜狐（长三角 G60 激光联盟）",
+   sum:"11 月 11 日消息，成立仅 5 个月的模感科技（MoSense）官宣完成亿元级天使+轮融资，鼎晖投资、绿洲资本联合领投，逐际动力、龙芯创投、中科创星、华山资本、浦东创投跟投，后浪资本担任长期独家财务顾问。公司用 3D 打印技术做机器人「皮肤」（触觉传感器），两轮累计融资近 2 亿元。",
+   imp:"触觉是具身智能「最后一公里」——3D 打印路线若跑通，可大幅降低电子皮肤成本并实现定制化；逐际动力作为人形机器人本体厂跟投，标志触觉传感器开始进入本体供应链。",
+   url:"https://m.sohu.com/a/1099799507_100034932/", verified:"pend", seen:"07:56", tags:["具身智能","投融资"]},
+
   {ts:"2026-11-10T19:39:00+08:00", cat:"出海", weight:3,
    title:"理想汽车与香港、泰国、新加坡、菲律宾、越南五国合作伙伴签约，12 月泰国车展首发右舵 MEGA",
    src:"微博（理想官方）",
@@ -1856,7 +1870,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-11 08:00";
+document.getElementById("s-next").textContent = "11-11 10:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1865,12 +1879,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-10 15:56</span> 第 51 期 · 新增 3 条（SAMR 44 万召回 / NHTSA Waymo / 比亚迪阿布扎比闪充）</div>'
- + '<div><span>11-10 18:06</span> 第 52 期 · 新增 3 条（NHTSA 福特 Explorer / 比亚迪海外 180 万 / 大晓机器人双脑）</div>'
- + '<div><span>11-10 19:56</span> 第 53 期 · 新增 3 条</div>'
- + '<div>新增：理想汽车亚太五国签约、12 月泰国车展首发右舵 MEGA；云深处×北京铁塔战略合作无人巡检；清析智研近亿元天使轮（中芯聚源/高瓴/智元）</div>'
- + '<div>待确认：宁德时代印尼 Karawang 电池工厂开始生产（单信源，Segment Y，时间标 11-10）；Autoliv 任命 Rosenberg 为独立董事量级不够；泛函数智能 AI 芯片近亿元天使轮量级一般</div>'
- + '<div>下一轮 11-11 08:00 · 回看前 12 小时（夜间不更新）</div>';
+   '<div><span>11-10 18:06</span> 第 52 期 · 新增 3 条（NHTSA 福特 Explorer / 比亚迪海外 180 万 / 大晓机器人双脑）</div>'
+ + '<div><span>11-10 19:56</span> 第 53 期 · 新增 3 条（理想亚太五国签约 / 云深处×北京铁塔 / 清析智研天使轮）</div>'
+ + '<div><span>11-11 07:56</span> 第 54 期 · 新增 2 条</div>'
+ + '<div>新增：NHTSA 本田/讴歌 63.6 万辆召回（EPS 软件）；模感科技亿元级天使+（3D 打印机器人触觉皮肤）</div>'
+ + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，中汽协尚未正式发布）；特斯拉将在约 8 个月后关停某产线并退订金（汽车早餐提及，未指明具体产线）；宁德时代印尼 Karawang 电池工厂开始生产（单信源 Segment Y）</div>'
+ + '<div>下一轮 11-11 10:00</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
