@@ -181,7 +181,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-10 14:00</b></li>
+        <li>下一轮<b id="s-next">11-10 16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -335,10 +335,17 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-10T12:04:00+08:00";
-const NEXT_TS    = "2026-11-10T14:00:00+08:00";
+const REFRESH_TS = "2026-11-10T14:02:00+08:00";
+const NEXT_TS    = "2026-11-10T16:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T13:58:00+08:00", cat:"具身智能", weight:2,
+   title:"Hitch Open 物理智能开源平台在进博会临港展示区全球发布，现场完成 AI 自主决策机器人乒乓对打",
+   src:"网易（机器人 ETF 报道）",
+   sum:"11 月 10 日，来自美国加州硅谷、学术底座源自加州大学伯克利分校的全球物理智能开源平台 Hitch Open，在进博会临港展示区举行全球发布会，正式面向全球开源发布物理智能平台，并现场完成 AI 自主决策机器人乒乓对打挑战，由上海交通大学-上海创智学院团队与 Hitch Open 联合演示。",
+   imp:"继具身智能「大脑」大模型开源潮后，物理智能开源平台开始把硬件-模型-场景打包开源——乒乓对打是高动态实时控制的标志性 demo，开源平台可能成为机器人创业公司的「安卓时刻」。",
+   url:"http://m.163.com/dy/article/LBCKVLB305199NPP.html", verified:"pend", seen:"14:02", tags:[]},
+
   {ts:"2026-11-10T11:06:00+08:00", cat:"重大事件", weight:3,
    title:"宝马官宣第六代高压电池新增三星 SDI、LG 新能源为电芯供应商，分别供欧洲与美国工厂",
    src:"Newsis（宝马官方公告）",
@@ -1783,7 +1790,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-10 14:00";
+document.getElementById("s-next").textContent = "11-10 16:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1792,12 +1799,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-10 07:56</span> 第 47 期 · 新增 4 条（301 关税豁免 / 本田俄亥俄 / 固特异 CEO / 高瓴+智元 AI+材料）</div>'
- + '<div><span>11-10 10:01</span> 第 48 期 · 新增 1 条（宇树天津创新中心）</div>'
- + '<div><span>11-10 12:04</span> 第 49 期 · 新增 3 条</div>'
- + '<div>新增：宝马第六代电池新增三星 SDI（欧洲）+LG 新能源（美国）为电芯供应商；蚂蚁灵波开源 LingBot-Touch 触觉基础模型；刘斌接任长安马自达销售公司执行副总</div>'
- + '<div>已排除：特斯拉 Optimus 量产为马斯克 11-09 14:11 表态的延续报道；银河通用 25 亿融资日期模糊待核；长安朱华荣/赵非为 10-16 旧闻</div>'
- + '<div>下一轮 11-10 14:00 · 窗口 12:04 至今</div>';
+   '<div><span>11-10 10:01</span> 第 48 期 · 新增 1 条（宇树天津创新中心）</div>'
+ + '<div><span>11-10 12:04</span> 第 49 期 · 新增 3 条（宝马×SDI/LG / 蚂蚁灵波触觉模型 / 刘斌长安马自达）</div>'
+ + '<div><span>11-10 14:02</span> 第 50 期 · 新增 1 条（窗口短，宁少勿滥）</div>'
+ + '<div>新增：Hitch Open 物理智能开源平台进博会临港全球发布，现场 AI 自主决策机器人乒乓对打</div>'
+ + '<div>已排除：Autoliv 任命 Rosenberg 为独立董事量级不够；湖南裕能西班牙扩产为 9 月旧闻；宝马×SDI/LG 已收；进博会闭幕数据尚未公布</div>'
+ + '<div>下一轮 11-10 16:00 · 窗口 14:02 至今</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
