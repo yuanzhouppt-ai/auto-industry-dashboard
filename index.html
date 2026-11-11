@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-11 10:00</b></li>
+        <li>下一轮<b id="s-next">11-11 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -338,10 +338,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-11T07:56:00+08:00";
-const NEXT_TS    = "2026-11-11T10:00:00+08:00";
+const REFRESH_TS = "2026-11-11T10:04:00+08:00";
+const NEXT_TS    = "2026-11-11T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T16:43:00+08:00", cat:"重大事件", weight:2,
+   title:"理想汽车法务部澄清「理想 i6 团购返佣」活动与公司无关，已向警方报案",
+   src:"新浪财经（转理想汽车法务部微博）",
+   sum:"11 月 10 日，理想汽车法务部发文称，关于网络社群以「理想 i6 团购返佣」为名招募人员下单的情况，该活动与理想汽车无关，公司未组织或授权任何组织、个人开展。理想已就相关情况向警方报案并将配合调查；同时提醒用户警惕「下单返佣」承诺，勿向不明身份人员提供订单信息、验证码。",
+   imp:"车企主动对渠道灰色交易报警，是维护订单秩序与品牌信用的信号；「返佣团购」类灰色营销若扩散，可能扰乱直营定价体系并引发虚假交付风险。",
+   url:"https://finance.sina.com.cn/stock/t/2026-11-10/doc-iniyfzhw2663427.shtml", verified:"pend", seen:"10:04", tags:["重大事件"]},
+
+  {ts:"2026-11-10T23:00:00+08:00", cat:"具身智能", weight:3,
+   title:"谷歌 DeepMind 发布 Gemini Robotics 2.5 VLA 模型，奔驰工厂 Apollo 2 零件分拣试点成功率 96%",
+   src:"凤凰网科技（转 DeepMind 官方博客）",
+   sum:"当地时间 11 月 10 日，谷歌 DeepMind 发布视觉-语言-动作（VLA）模型 Gemini Robotics 2.5，称其为迄今能力最强的 VLA 模型，已面向谷歌机器人合作伙伴开放。200 多项真实任务评测中成功率较基线提高 30%–100%、完成速度提升 20%–30%。落地方面，DeepMind 与 Apptronik、梅赛德斯-奔驰合作，在匈牙利凯奇凯梅特与德国辛德尔芬根产线开展概念验证：Apollo 2 人形机器人自主完成零件分拣（kitting），Gemini Robotics ER 跟踪流程、2.5 控制手臂与手部，试点成功率 96%；同步开源越狱测试基准 ASIMOV-Jailbreak。",
+   imp:"头部大模型厂 VLA 模型进入整车厂在用产线做 PoC，标志人形机器人从演示走向车间分拣等结构化场景；但目前仍为概念验证，未披露节拍、时长与工程化指标。",
+   url:"http://m.toutiao.com/group/7706725792655180328/", verified:"pend", seen:"10:04", tags:["具身智能","智驾"]},
+
+  {ts:"2026-11-10T16:55:00+08:00", cat:"重大事件", weight:2,
+   title:"流通协会：10 月经销商综合库存系数 1.38，环比降 17.9%、同比升 17.9%，银十旺季成色偏弱",
+   src:"中国汽车流通协会（搜狐号/头条转载）",
+   sum:"11 月 10 日，中国汽车流通协会发布 2026 年 10 月「汽车经销商库存」调查结果：10 月经销商综合库存系数 1.38，环比下降 17.9%，同比上升 17.9%；高端豪华及进口、合资、自主品牌库存系数环比均下降。流通协会指出，10 月虽处「银十」传统旺季，但旺季效应明显偏弱，「金九银十」成色不及预期；10 月库存预警指数为 62.2%，仍位于荣枯线之上。",
+   imp:"库存同比抬升叠加零售走弱，渠道承压仍是下半年行业主线；环比去库主要受季节性批发节奏影响，终端需求复苏力度仍待观察。",
+   url:"http://m.toutiao.com/group/7706468887478436352/", verified:"ok", seen:"10:04", tags:["重大事件"]},
+
   {ts:"2026-11-10T18:10:00+08:00", cat:"重大事件", weight:3,
    title:"NHTSA：本田申请召回 63.6 万辆讴歌 TLX/MDX 与本田 Pilot，EPS 软件故障可致转向助力丧失",
    src:"36氪（转 NHTSA Part 573 召回 26V721）",
@@ -1870,7 +1891,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-11 10:00";
+document.getElementById("s-next").textContent = "11-11 12:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1879,12 +1900,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-10 18:06</span> 第 52 期 · 新增 3 条（NHTSA 福特 Explorer / 比亚迪海外 180 万 / 大晓机器人双脑）</div>'
- + '<div><span>11-10 19:56</span> 第 53 期 · 新增 3 条（理想亚太五国签约 / 云深处×北京铁塔 / 清析智研天使轮）</div>'
- + '<div><span>11-11 07:56</span> 第 54 期 · 新增 2 条</div>'
- + '<div>新增：NHTSA 本田/讴歌 63.6 万辆召回（EPS 软件）；模感科技亿元级天使+（3D 打印机器人触觉皮肤）</div>'
- + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，中汽协尚未正式发布）；特斯拉将在约 8 个月后关停某产线并退订金（汽车早餐提及，未指明具体产线）；宁德时代印尼 Karawang 电池工厂开始生产（单信源 Segment Y）</div>'
- + '<div>下一轮 11-11 10:00</div>';
+   '<div><span>11-10 19:56</span> 第 53 期 · 新增 3 条（理想亚太五国签约 / 云深处×北京铁塔 / 清析智研天使轮）</div>'
+ + '<div><span>11-11 07:56</span> 第 54 期 · 新增 2 条（NHTSA 本田 63.6 万召回 / 模感科技天使+）</div>'
+ + '<div><span>11-11 10:04</span> 第 55 期 · 新增 3 条</div>'
+ + '<div>新增：理想法务部澄清 i6 团购返佣并报警；DeepMind 发布 Gemini Robotics 2.5（奔驰工厂 Apollo 2 分拣 96%）；流通协会 10 月经销商库存系数 1.38</div>'
+ + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，尚未正式发布）；特斯拉将在约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；神龙科技×火山引擎战略合作（仅微博现场图，待官方通稿）</div>'
+ + '<div>下一轮 11-11 12:00</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
