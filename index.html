@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-11 16:00</b></li>
+        <li>下一轮<b id="s-next">11-11 18:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -338,10 +338,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-11T14:00:00+08:00";
-const NEXT_TS    = "2026-11-11T16:00:00+08:00";
+const REFRESH_TS = "2026-11-11T16:00:00+08:00";
+const NEXT_TS    = "2026-11-11T18:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-11T14:34:00+08:00", cat:"政策法规", weight:3,
+   title:"北京市经信局印发《具身智能机器人产业高质量发展行动方案（2026—2028年）》：2028 年培育 5 家国际一流人形整机企业、在京形成 20 万台/年整机产能",
+   src:"北京市经济和信息化局（中国基金报/凤凰网转载全文）",
+   sum:"11 月 11 日，北京市经信局发布行动方案，将具身智能机器人作为高精尖产业与未来产业关键突破口。目标到 2028 年：培育不少于 5 家国际一流、10 家国内领先人形机器人整机企业；京津冀区域整机产能占全国 25%、关键零部件配套率超 60%；在京形成 20 万台/年整机生产能力；新建超 5 万 P 具身智能专用算力集群，形成覆盖不少于 100 个真实场景、超 100 万小时高质量数据；培育不少于 200 家创新企业，牵头参与不少于 8 项国际标准、30 项国家标准。配套六大工程（跃升、京津冀产业链协进、技术创新策源、规模应用推广、产业生态引领、安全治理先行），并对急需紧缺人才在进京落户、子女教育、住房就医给予支持。",
+   imp:"一线城市首个具身智能产业三年行动方案，明确整机产能、算力、数据、零部件攻关（触觉传感器、微型减速器、空心杯电机、RISC-V 智算芯片等）和标准话语权目标，将加速北京—津冀机器人产业集群成型，对全国具身智能投资与落地有标杆带动作用。",
+   url:"https://finance.ifeng.com/c/8xxvYm0RYfL", verified:"pend", seen:"16:00", tags:["政策法规","具身智能"]},
+
+  {ts:"2026-11-11T15:49:00+08:00", cat:"具身智能", weight:2,
+   title:"均胜电子向宇树科技交付首台机器人高算力大脑背包，Tier1 切入人形机器人核心部件进入产品交付阶段",
+   src:"财联社（网易转载）",
+   sum:"据财联社 11 月 11 日报道，均胜电子于 11 月 10 日向宇树科技交付首台机器人高算力大脑背包，双方战略合作迈入产品交付阶段，同时正推进机器人关键部件及工业场景应用共研。2026 年均胜电子与宇树科技达成战略合作，重点围绕机器人核心部件、工业场景和机器人应用共研与落地、产学研合作等。",
+   imp:"汽车 Tier1 从供应链供货走向人形机器人「大脑」级部件交付，是汽车零部件企业切入具身智能核心环节的标志性进展；均胜此前已披露机器人高算力控制器累计交付突破 2000 套，与宇树的绑定进一步验证头部本体厂开始向传统汽车电子供应链采购高算力计算单元。",
+   url:"http://m.163.com/dy/article/LBFDMC1G05198CJN.html", verified:"pend", seen:"16:00", tags:["具身智能","供应链"]},
+
   {ts:"2026-11-11T13:30:00+08:00", cat:"合资·股权", weight:3,
    title:"富士康旗下 Lin Yin 与三菱电机敲定汽车装备业务联盟，受让 Mitsubishi Electric Mobility 50% 股权（约 1150 亿日元）",
    src:"Evertiq（引三菱电机/富士康新闻稿）",
@@ -1926,7 +1940,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-11 16:00";
+document.getElementById("s-next").textContent = "11-11 18:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1935,12 +1949,12 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 document.getElementById("log").innerHTML =
-   '<div><span>11-11 10:04</span> 第 55 期 · 新增 3 条（理想 i6 返佣报警 / DeepMind Gemini Robotics 2.5 / 流通协会库存系数 1.38）</div>'
- + '<div><span>11-11 12:02</span> 第 56 期 · 新增 2 条（福特挖角前通用北美总裁 Marissa West / 源策未来 Anchor 1）</div>'
- + '<div><span>11-11 14:00</span> 第 57 期 · 新增 3 条</div>'
- + '<div>新增：富士康 Lin Yin 与三菱电机汽车装备业务联盟（受让 50% 股权约 1150 亿日元）；比亚迪大唐轮辋错装致歉；智元发布终身具身智能框架 LIFE 并开放 RoboBeats</div>'
- + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，尚未正式发布）；特斯拉约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；神龙科技×火山引擎战略合作（仅微博现场图）；某汽车测评活动涉嫌违反《网络测评活动规范》（财经网微博单信源，待回溯原文）；特斯拉 Project Crystal Sun 100 亿美元光伏工厂启动建设（财联社微博转述海外博主，待官方确认）</div>'
- + '<div>下一轮 11-11 16:00</div>';
+   '<div><span>11-11 12:02</span> 第 56 期 · 新增 2 条（福特挖角 Marissa West / 源策未来 Anchor 1）</div>'
+ + '<div><span>11-11 14:00</span> 第 57 期 · 新增 3 条（富士康×三菱电机联盟 / 比亚迪轮辋致歉 / 智元 LIFE）</div>'
+ + '<div><span>11-11 16:00</span> 第 58 期 · 新增 2 条</div>'
+ + '<div>新增：北京具身智能机器人产业三年行动方案（2026—2028）；均胜电子向宇树交付首台机器人高算力大脑背包</div>'
+ + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，尚未正式发布）；特斯拉约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；神龙科技×火山引擎战略合作（仅微博现场图）；某汽车测评活动涉嫌违反《网络测评活动规范》（待回溯原文）；特斯拉 Project Crystal Sun 100 亿美元光伏工厂（社媒转述，待官方确认）</div>'
+ + '<div>下一轮 11-11 18:00</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
