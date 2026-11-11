@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-11 18:00</b></li>
+        <li>下一轮<b id="s-next">11-11 20:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -338,10 +338,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-11T16:00:00+08:00";
-const NEXT_TS    = "2026-11-11T18:00:00+08:00";
+const REFRESH_TS = "2026-11-11T18:00:00+08:00";
+const NEXT_TS    = "2026-11-11T20:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-11T15:13:00+08:00", cat:"具身智能", weight:2,
+   title:"成都人形机器人创新中心发布第五代贡嘎人形机器人，搭载自研一体化具身智能系统、瞄准家庭场景",
+   src:"四川观察（川观新闻/四川日报）",
+   sum:"11 月 11 日，成都人形机器人创新中心正式发布第五代贡嘎人形机器人。作为创新中心具身智能大脑技术集大成之作，五代贡嘎搭载自研一体化具身智能系统，在场景感知、时空记忆、因果推理规划、动作世界模型等核心模块完成系统性迭代；可连续理解、连续决策、连续执行，能认家庭环境、记住物品位置、自主寻位充电，家庭场景是其首要落地方向。",
+   imp:"继北京、上海、深圳之后，成都地方创新中心拿出第五代人形整机并主打家庭场景，国产人形机器人从「展会演示」走向「连续决策+自主充电」的家庭助手方向；与北京 14:34 发布的具身智能三年行动方案形成政策+产品呼应。",
+   url:"https://www.sctv.com/news/2120415164683980801", verified:"pend", seen:"18:00", tags:["具身智能"]},
+
+  {ts:"2026-11-11T17:04:00+08:00", cat:"智驾/座舱", weight:2,
+   title:"神龙科技与火山引擎达成全面战略合作，将成合资品牌首家全链路深度共创车企、新车搭载火山最新 AI 座舱",
+   src:"人民财讯（同花顺/今日头条转载）",
+   sum:"11 月 11 日，神龙科技与火山引擎举行全面战略合作签约仪式。双方围绕企业 AI 转型、产品技术共创、用户全周期服务三大维度合作；神龙科技将在全新新能源车型上搭载火山引擎最新一代 AI 座舱解决方案，成为合资品牌首家与火山引擎全链路深度共创的车企。",
+   imp:"东风—Stellantis 合资体系神龙科技在新能源转型上引入字节跳动火山引擎 AI 座舱，是合资品牌在智能化上向中国本土大模型厂商深度绑定的标志性动作，与此前华为/百度/阿里主导的合资座舱合作形成新变量。",
+   url:"http://m.toutiao.com/group/7706837069590495778/", verified:"pend", seen:"18:00", tags:["智驾/座舱","大模型"]},
+
   {ts:"2026-11-11T14:34:00+08:00", cat:"政策法规", weight:3,
    title:"北京市经信局印发《具身智能机器人产业高质量发展行动方案（2026—2028年）》：2028 年培育 5 家国际一流人形整机企业、在京形成 20 万台/年整机产能",
    src:"北京市经济和信息化局（中国基金报/凤凰网转载全文）",
@@ -1940,7 +1954,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-11 18:00";
+document.getElementById("s-next").textContent = "11-11 20:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -1951,10 +1965,11 @@ document.getElementById("pend").innerHTML = pend.map(i =>
 document.getElementById("log").innerHTML =
    '<div><span>11-11 12:02</span> 第 56 期 · 新增 2 条（福特挖角 Marissa West / 源策未来 Anchor 1）</div>'
  + '<div><span>11-11 14:00</span> 第 57 期 · 新增 3 条（富士康×三菱电机联盟 / 比亚迪轮辋致歉 / 智元 LIFE）</div>'
- + '<div><span>11-11 16:00</span> 第 58 期 · 新增 2 条</div>'
- + '<div>新增：北京具身智能机器人产业三年行动方案（2026—2028）；均胜电子向宇树交付首台机器人高算力大脑背包</div>'
- + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，尚未正式发布）；特斯拉约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；神龙科技×火山引擎战略合作（仅微博现场图）；某汽车测评活动涉嫌违反《网络测评活动规范》（待回溯原文）；特斯拉 Project Crystal Sun 100 亿美元光伏工厂（社媒转述，待官方确认）</div>'
- + '<div>下一轮 11-11 18:00</div>';
+ + '<div><span>11-11 16:00</span> 第 58 期 · 新增 2 条（北京具身智能三年行动方案 / 均胜×宇树大脑背包）</div>'
+ + '<div><span>11-11 18:00</span> 第 59 期 · 新增 2 条</div>'
+ + '<div>新增：成都第五代贡嘎人形机器人发布（15:13，上轮窗口漏收补录）；神龙科技×火山引擎全面战略合作、合资品牌首家全链路 AI 座舱共创</div>'
+ + '<div>待确认：中汽协 10 月汽车出口数据（汽车早餐称 +37.6%，尚未正式发布）；特斯拉约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；某汽车测评活动涉嫌违反《网络测评活动规范》（待回溯原文）；特斯拉 Project Crystal Sun 100 亿美元光伏工厂（社媒转述，待官方确认）</div>'
+ + '<div>下一轮 11-11 20:00</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
