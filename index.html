@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-12 20:00</b></li>
+        <li>下一轮<b id="s-next">11-13 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-12T18:00:00+08:00";
-const NEXT_TS    = "2026-11-12T20:00:00+08:00";
+const REFRESH_TS = "2026-11-12T20:00:00+08:00";
+const NEXT_TS    = "2026-11-13T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-12T19:47:00+08:00", cat:"具身智能", weight:1,
+   title:"一微科技港交所主板挂牌，成 18C 章智能机器人芯片级全栈平台硬科技企业",
+   src:"深圳商报",
+   sum:"11 月 12 日，珠海一微科技股份有限公司正式在香港联合交易所主板挂牌交易，成为港交所第 18C 章特专科技板块又一家具备核心自主技术的硬科技企业。公司以智能移动机器人解决方案为核心业务，本次上市为国内智能机器人核心技术赛道注入资本化新动力。",
+   imp:"18C 章再落一子，智能移动机器人芯片级公司进入港股融资通道；与曦选创智、地平线机器人一起构成「机器人芯片+具身大脑」的上市集群。",
+   url:"http://m.toutiao.com/group/7707250211086303753/", verified:"ok", seen:"19:47", tags:["具身智能","机器人芯片","IPO"]},
+
+  {ts:"2026-11-12T19:49:00+08:00", cat:"供应链", weight:1,
+   title:"亿维特航空与宁德时代战略合作：宁德时代作为独家电池伙伴为 eVTOL 提供航空动力电池",
+   src:"证券时报 e 公司",
+   sum:"11 月 12 日，亿维特航空与宁德时代签署战略合作协议，双方携手推进全国产自主可控 eVTOL（电动垂直起降飞行器）动力链。宁德时代作为亿维特的独家电池合作伙伴，为其载人、载物 eVTOL 提供高能量密度、长续航、高安全的航空动力电池。",
+   imp:"宁德时代把车规级电池能力向低空经济延伸，eVTOL 动力链成为继储能、船舶之后的又一新场景；这与亿纬锂能、孚能科技在低空赛道的布局形成正面对标。",
+   url:"http://m.toutiao.com/group/7707250684478898688/", verified:"ok", seen:"19:49", tags:["供应链","宁德时代","低空经济","eVTOL"]},
+
   {ts:"2026-11-12T17:01:00+08:00", cat:"充换电", weight:1,
    title:"比亚迪机构调研披露：海外规划 6000 座闪充站，2026 年底规模化落地",
    src:"金融界（申万宏源/浙商证券调研纪要）",
@@ -2110,7 +2124,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-12 20:00";
+document.getElementById("s-next").textContent = "11-13 08:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
