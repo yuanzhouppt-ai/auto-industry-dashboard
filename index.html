@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-12 10:00</b></li>
+        <li>下一轮<b id="s-next">11-12 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -338,10 +338,17 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-12T08:00:00+08:00";
-const NEXT_TS    = "2026-11-12T10:00:00+08:00";
+const REFRESH_TS = "2026-11-12T10:00:00+08:00";
+const NEXT_TS    = "2026-11-12T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-10T10:46:00+08:00", cat:"政策法规", weight:2,
+   title:"FIA 主席本·苏莱姆：已与比亚迪、吉利接触谈判，希望 F1 第 12 支车队来自中国",
+   src:"IT之家 / 新浪科技（援引 Grande Prêmio 当地时间 11-09 报道）",
+   sum:"国际汽联（FIA）主席穆罕默德·本·苏莱姆在马德里新经济论坛上证实，FIA 已与比亚迪、吉利就可能成为 F1 第 12 支车队进行过接触谈判；他表示希望 F1 的下一支新车队来自中国，认可中国拥有强大的电动汽车技术。FIA 目前并未主动寻求扩编第 12 支车队，只会考虑符合现有规则的可信项目；比亚迪与 FIA 之间的对话已遭遇战略层面分歧，双方尚未达成协议。",
+   imp:"中国头部车企（比亚迪、吉利）被 FIA 主席公开点名接触 F1，意味着中国汽车工业从电动化赛道向全球顶级赛车运动延伸的可能性浮出水面；若落地，将是中国车企首次以厂商身份进入 F1，对品牌全球化与技术输出有标志性意义。（补录：事件时间为 11-10 中文首发，前几期漏收，本轮补录）",
+   url:"https://finance.sina.com.cn/tech/digi/2026-11-10/doc-iniyfkmf2733481.shtml", verified:"原文时间已核", seen:"10:00", tags:["F1","出海","比亚迪","吉利"]},
+
   {ts:"2026-11-11T16:30:00+08:00", cat:"政策法规", weight:3,
    title:"中汽协：10 月汽车出口 106.6 万辆同比 +60.2%，连续 5 个月超百万；新能源新车销量占比达 64.3%",
    src:"中新经纬 / 上海证券报（中汽协 11 月信息发布会）",
@@ -1996,7 +2003,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-12 10:00";
+document.getElementById("s-next").textContent = "11-12 12:00";
 document.getElementById("tCount");
 
 const pend = DATA.filter(i=>i.verified==="pend");
@@ -2009,10 +2016,11 @@ document.getElementById("log").innerHTML =
  + '<div><span>11-11 16:00</span> 第 58 期 · 新增 2 条（北京具身智能三年行动方案 / 均胜×宇树大脑背包）</div>'
  + '<div><span>11-11 18:00</span> 第 59 期 · 新增 2 条（成都第五代贡嘎 / 神龙×火山引擎 AI 座舱）</div>'
  + '<div><span>11-11 20:00</span> 第 60 期 · 新增 4 条（辉羲科技光至 R1 IPO / 奔驰 CEO 降本 20% / 物原科技过亿美元 / 优必选×永达 400 台 U1 Pro）</div>'
- + '<div><span>11-12 08:00</span> 第 61 期 · 新增 2 条</div>'
- + '<div>新增：中汽协 10 月出口 106.6 万辆同比 +60.2%、新能源渗透率 64.3%（补录）；沐曦×优必选合资曦选创智完成 5 亿元天使轮</div>'
+ + '<div><span>11-12 08:00</span> 第 61 期 · 新增 2 条（中汽协 10 月出口数据补录 / 曦选创智 5 亿天使轮）</div>'
+ + '<div><span>11-12 10:00</span> 第 62 期 · 新增 1 条</div>'
+ + '<div>新增：FIA 主席证实已与比亚迪、吉利接触谈判 F1 第 12 支车队（补录 11-10）</div>'
  + '<div>待确认：特斯拉约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；某汽车测评活动涉嫌违反《网络测评活动规范》（待回溯原文）；特斯拉 Project Crystal Sun 100 亿美元光伏工厂（社媒转述，待官方确认）</div>'
- + '<div>下一轮 11-12 10:00</div>';
+ + '<div>下一轮 11-12 12:00</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
