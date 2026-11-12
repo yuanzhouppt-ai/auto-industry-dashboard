@@ -304,28 +304,6 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
     </main>
 
     <aside>
-      <div class="panel">
-        <h4>新鲜度校验规则</h4>
-        <div class="rule"><i>01</i><span>以<b>原文发布时间</b>为准，不以聚合页、搜索结果的「今日 / 刚刚」标签为准。</span></div>
-        <div class="rule"><i>02</i><span>聚合早报里的「今日消息」，逐条回溯原始报道；原文早于窗口即降级或剔除。</span></div>
-        <div class="rule"><i>03</i><span>同一事件被多家转载时，取最早信源时间，其余只作交叉验证。</span></div>
-        <div class="rule"><i>04</i><span>仅单一信源、且无原文可核的，标注「待确认」，不写成结论。</span></div>
-      </div>
-
-      <div class="panel">
-        <h4>待确认清单</h4>
-        <ul class="pend-list" id="pend"></ul>
-      </div>
-
-      <div class="panel">
-        <h4>本期信源</h4>
-        <div class="srcline"><span>市场监管总局 / 工信部 / 发改委</span><em>官方</em></div>
-        <div class="srcline"><span>财联社 · 中国汽车报</span><em>财经</em></div>
-        <div class="srcline"><span>网通社 · 第一电动</span><em>行业</em></div>
-        <div class="srcline"><span>KBA · 宝马 / 沃尔沃财报</span><em>海外</em></div>
-        <div class="srcline"><span>企业公告与官方账号</span><em>一手</em></div>
-      </div>
-
     </aside>
   </div>
 </div>
@@ -2050,11 +2028,6 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
 document.getElementById("s-next").textContent = "11-12 14:00";
 document.getElementById("tCount");
-
-const pend = DATA.filter(i=>i.verified==="pend");
-document.getElementById("pend").innerHTML = pend.map(i =>
-  "<li><b>" + hhmm(new Date(i.ts)) + "</b> " + i.title + "<br>信源：" + i.src + "</li>"
-).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
