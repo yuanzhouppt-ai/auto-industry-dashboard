@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-12 16:00</b></li>
+        <li>下一轮<b id="s-next">11-12 18:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,38 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-12T14:00:00+08:00";
-const NEXT_TS    = "2026-11-12T16:00:00+08:00";
+const REFRESH_TS = "2026-11-12T16:00:00+08:00";
+const NEXT_TS    = "2026-11-12T18:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-12T14:44:00+08:00", cat:"具身智能", weight:2,
+   title:"软银领投慕尼黑 Agile Robots 5 亿美元融资，累计融资约 20 亿美元",
+   src:"IT 之家（Agile Robots 官方声明）",
+   sum:"总部位于慕尼黑的人形机器人公司 Agile Robots 宣布完成 5 亿美元新一轮融资，由软银集团领投，英伟达、日立等参投。公司累计融资总额约 20 亿美元（约 133.7 亿元人民币），本轮资金用于扩大 AI 机器人规模化生产。",
+   imp:"欧洲人形机器人独角兽再获软银重仓，与国内智元、宇树、傅利叶形成跨洋资本竞速；软银在 ARM、Pepper 之后再次重注具身智能，等于把日本资本的机器人叙事压到慕尼黑制造路线上。",
+   url:"http://m.toutiao.com/group/7707172252558623282/", verified:"ok", seen:"14:44", tags:["具身智能","人形机器人","融资"]},
+
+  {ts:"2026-11-12T14:51:00+08:00", cat:"安全事件", weight:1,
+   title:"奇瑞官方警示：不法分子冒用奇瑞及监管部门名义发送虚假召回通知实施诈骗",
+   src:"凤凰网汽车（奇瑞官方微博）",
+   sum:"11 月 12 日，奇瑞汽车通过官方微博发文称，近日有不法分子冒用奇瑞旗下各品牌名义（部分甚至冒用监管部门名义），向车主发送附带链接或二维码的虚假「召回通知」，诱导用户填写个人信息、银行卡号及验证码。奇瑞提醒官方召回仅通过短信、挂号信、电话或授权服务商等渠道送达。",
+   imp:"召回通知成为钓鱼新入口，意味着车企数据安全与车主教育的边界正在被诈骗团伙试探；对所有车企的召回触达通道都是一次公开预警。",
+   url:"https://auto.ifeng.com/c/8xzcHWfHxjV", verified:"ok", seen:"14:51", tags:["安全事件","召回","奇瑞"]},
+
+  {ts:"2026-11-12T15:00:00+08:00", cat:"具身智能", weight:2,
+   title:"广汽孵化人形机器人公司汇伦科技完成超 1 亿元融资，中车国创/建银国际等参投",
+   src:"GMT Eight（广汽集团）",
+   sum:"据广汽集团消息，广汽集团孵化的人形机器人公司广东汇伦科技近日宣布完成超 1 亿元融资，由中车国创基金、建银国际、四川科创等联合投资。资金将用于垂直模型持续优化、汽车生产线扩展及综合服务。",
+   imp:"车企系人形机器人再落一子，广汽从整车厂切入具身智能的路径与优必选×永达、比亚迪×宇树形成对照；中车系产业资本入场，意味着轨道交通制造场景也在被纳入人形机器人落地版图。",
+   url:"https://gmteight.com/flash/detail/1509284", verified:"ok", seen:"15:00", tags:["具身智能","人形机器人","广汽","融资"]},
+
+  {ts:"2026-11-12T15:45:00+08:00", cat:"供应链", weight:1,
+   title:"宝马国产新世代 iX3 月底交付，第六代 eDrive 三大核心部件实现国产，宁德时代/爱信协同保供",
+   src:"每日经济新闻（宝马集团）",
+   sum:"宝马集团宣布新世代 BMW iX3 将于 11 月 25 日正式上市并开启客户交付；新世代 BMW i3 将于 11 月 27 日广州车展上市。第六代 eDrive 三大核心部件已实现国产，宁德时代国内有 3-4 条产线专门服务宝马新世代平台，匈牙利工厂也有专门产线配套。",
+   imp:"宝马新世代从全球首发进入量产交付阶段，第六代电驱系统的国产化率直接决定其在中国市场对新势力的成本反击能力；宁德时代的多产线保供等于把「车企深度绑定电池厂」的范式再推一层。",
+   url:"http://m.toutiao.com/group/7707187864433377855/", verified:"ok", seen:"15:45", tags:["供应链","宝马","宁德时代"]},
+
   {ts:"2026-11-12T13:56:00+08:00", cat:"自动驾驶", weight:2,
    title:"特斯拉 Robotaxi 宣布 24 小时全天候运营，美国 8 座城市已覆盖",
    src:"CNMO科技（特斯拉 Robotaxi 官方账号）",
@@ -2061,7 +2089,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-12 16:00";
+document.getElementById("s-next").textContent = "11-12 18:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
