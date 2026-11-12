@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 08:00</b></li>
+        <li>下一轮<b id="s-next">11-13 10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-12T20:00:00+08:00";
-const NEXT_TS    = "2026-11-13T08:00:00+08:00";
+const REFRESH_TS = "2026-11-13T08:00:00+08:00";
+const NEXT_TS    = "2026-11-13T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-12T21:00:00+08:00", cat:"股权变动", weight:2,
+   title:"长安汽车挂牌转让阿维塔 10% 股权，转让底价 31.83 亿元",
+   src:"上海联合产权交易所 / 鞭牛士",
+   sum:"11 月 12 日，重庆长安汽车股份有限公司在上海联合产权交易所挂牌转让阿维塔科技（重庆）股份有限公司 30651.4667 万股股份（占总股本 10%），转让底价 318280 万元，披露期自 2026 年 11 月 12 日起。这是长安在阿维塔引入华为、宁德时代后首次在公开市场减持股权。",
+   imp:"长安在阿维塔销量爬坡期减持 10%，一方面回笼资金优化资本结构，另一方面也为华为、宁德时代进一步增持或引入外部投资者打开空间；阿维塔股权结构可能因此生变。",
+   url:"http://m.toutiao.com/group/7707436669645062683/", verified:"ok", seen:"07:50", tags:["股权变动","长安","阿维塔","华为"]},
+
+  {ts:"2026-11-12T22:00:00+08:00", cat:"人物动态", weight:2,
+   title:"黄仁勋辞去 NVIDIA 总裁/CEO/董事职务即刻生效，CFO Colette Kress 任临时 CEO",
+   src:"NVIDIA 官网 / Car Watch",
+   sum:"NVIDIA 官网 11 月 12 日发布声明，创始人黄仁勋已辞去总裁、首席执行官及董事会成员职务，即刻生效。执行副总裁兼 CFO Colette Kress 出任临时 CEO，Harvey C. 等继续担任董事。此前黄仁勋卷入婚外情风波。马斯克在社媒回应「聘请黄仁勋将是我的荣幸」。",
+   imp:"NVIDIA 是全球智驾 AI 算力的核心供应商（Orin/Thor 平台），黄仁勋离任直接影响智驾芯片路线图与车企合作节奏；临时 CEO 过渡期内汽车客户的 Thor 量产进度或生变数。",
+   url:"https://m.weibo.cn/detail/5364699699087058", verified:"ok", seen:"07:52", tags:["人物动态","智驾芯片","NVIDIA","黄仁勋"]},
+
   {ts:"2026-11-12T19:47:00+08:00", cat:"具身智能", weight:1,
    title:"一微科技港交所主板挂牌，成 18C 章智能机器人芯片级全栈平台硬科技企业",
    src:"深圳商报",
@@ -2124,7 +2138,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 08:00";
+document.getElementById("s-next").textContent = "11-13 10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
