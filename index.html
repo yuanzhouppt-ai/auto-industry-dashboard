@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-12 18:00</b></li>
+        <li>下一轮<b id="s-next">11-12 20:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-12T16:00:00+08:00";
-const NEXT_TS    = "2026-11-12T18:00:00+08:00";
+const REFRESH_TS = "2026-11-12T18:00:00+08:00";
+const NEXT_TS    = "2026-11-12T20:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-12T17:01:00+08:00", cat:"充换电", weight:1,
+   title:"比亚迪机构调研披露：海外规划 6000 座闪充站，2026 年底规模化落地",
+   src:"金融界（申万宏源/浙商证券调研纪要）",
+   sum:"11 月 12 日，比亚迪在机构调研中披露：随闪充车型批量出海，闪充生态同步启动全球化布局，公司将在 2026 年底于海外规模化落地闪充站，并规划海外建设 6000 座闪充站，目前已在欧洲、美洲等区域落地；闪充站面向全品牌开放，与属地车型投放节奏相互匹配。",
+   imp:"比亚迪把补能网络从车型出海升级到生态出海，6000 座的海外规划意味着它要在欧洲/美洲复制国内的「刀片电池+兆瓦闪充」闭环；这对宁德时代巧克力换电、华为全液冷超充都是正面迎战。",
+   url:"http://m.toutiao.com/group/7707207510470246922/", verified:"ok", seen:"17:01", tags:["充换电","比亚迪","出海"]},
+
+  {ts:"2026-11-12T17:53:00+08:00", cat:"行业格局", weight:1,
+   title:"中汽数研 1-10 月新能源轿车榜：吉利星愿 36.06 万第一、小米 SU7 14.68 万第二、比亚迪海豚 13.38 万第三",
+   src:"CNMO（中汽数研）",
+   sum:"11 月 12 日，中汽数研公布 1-10 月新能源轿车销量榜单：吉利星愿以 36.06 万辆位居榜首，小米 SU7 以 14.68 万辆位列第二，比亚迪海豚以 13.38 万辆排第三；MG4 等车型进入前十。",
+   imp:"10 个月累计榜显示 A 级新能源轿车的格局已经从「比亚迪一家独大」切到「吉利/小米/比亚迪三强」，吉利星愿的体量相当于两个半小米 SU7，是 2026 年最被低估的爆款。",
+   url:"https://m.weibo.cn/detail/5364488641710738", verified:"ok", seen:"17:53", tags:["销量格局","吉利","小米","比亚迪"]},
+
+  {ts:"2026-11-12T18:01:00+08:00", cat:"人物动态", weight:2,
+   title:"长城魏建军公开混动超跑对标法拉利 SF90：自研 4.0L 双涡轮 V8+插混，GF 架构 2026 年上市",
+   src:"42 号车库（魏建军微博）",
+   sum:"11 月 12 日，长城汽车董事长魏建军发布动态，公开首台混动超跑对标法拉利 SF90 的测试，直言现阶段整车综合素质仍有差距，团队会继续打磨。该车搭载国内首款自研 4.0L 双涡轮 V8+插混系统，基于 GF 高性能架构开发，计划 2026 年上市。",
+   imp:"长城从硬派越野直接切到百万级超跑赛道，魏建军亲自官宣等于把坦克的 V8 技术储备向超豪华品牌兑现；与仰望 U9、小米 SU7 Ultra 一起构成中国车企冲击性能天花板的新叙事。",
+   url:"https://m.weibo.cn/detail/5364490634002850", verified:"ok", seen:"18:01", tags:["人物动态","长城","魏建军","技术路线"]},
+
   {ts:"2026-11-12T14:44:00+08:00", cat:"具身智能", weight:2,
    title:"软银领投慕尼黑 Agile Robots 5 亿美元融资，累计融资约 20 亿美元",
    src:"IT 之家（Agile Robots 官方声明）",
@@ -2089,7 +2110,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-12 18:00";
+document.getElementById("s-next").textContent = "11-12 20:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
