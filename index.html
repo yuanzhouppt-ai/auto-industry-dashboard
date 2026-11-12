@@ -326,10 +326,6 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
         <div class="srcline"><span>企业公告与官方账号</span><em>一手</em></div>
       </div>
 
-      <div class="panel">
-        <h4>刷新记录</h4>
-        <div class="log" id="log"></div>
-      </div>
     </aside>
   </div>
 </div>
@@ -2024,18 +2020,6 @@ const pend = DATA.filter(i=>i.verified==="pend");
 document.getElementById("pend").innerHTML = pend.map(i =>
   "<li><b>" + hhmm(new Date(i.ts)) + "</b> " + i.title + "<br>信源：" + i.src + "</li>"
 ).join("") || "<li>本期所有条目均已核对原文发布时间。</li>";
-
-document.getElementById("log").innerHTML =
-   '<div><span>11-11 14:00</span> 第 57 期 · 新增 3 条（富士康×三菱电机联盟 / 比亚迪轮辋致歉 / 智元 LIFE）</div>'
- + '<div><span>11-11 16:00</span> 第 58 期 · 新增 2 条（北京具身智能三年行动方案 / 均胜×宇树大脑背包）</div>'
- + '<div><span>11-11 18:00</span> 第 59 期 · 新增 2 条（成都第五代贡嘎 / 神龙×火山引擎 AI 座舱）</div>'
- + '<div><span>11-11 20:00</span> 第 60 期 · 新增 4 条（辉羲科技光至 R1 IPO / 奔驰 CEO 降本 20% / 物原科技过亿美元 / 优必选×永达 400 台 U1 Pro）</div>'
- + '<div><span>11-12 08:00</span> 第 61 期 · 新增 2 条（中汽协 10 月出口数据补录 / 曦选创智 5 亿天使轮）</div>'
- + '<div><span>11-12 10:00</span> 第 62 期 · 新增 1 条（FIA 主席比亚迪吉利 F1 接洽补录）</div>'
- + '<div><span>11-12 11:30</span> 第 62 期补录 · 追加 2 条</div>'
- + '<div>新增：纬钛机器人完成数亿元 A 轮（中车资本领投）；捷豹路虎诉比亚迪抄袭案反转，海牙法院撤销证据扣押令</div>'
- + '<div>待确认：特斯拉约 8 个月后关停某产线并退订金（未指明产线）；宁德时代印尼 Karawang 电池工厂投产（单信源）；某汽车测评活动涉嫌违反《网络测评活动规范》（待回溯原文）；特斯拉 Project Crystal Sun 100 亿美元光伏工厂（社媒转述，待官方确认）</div>'
- + '<div>下一轮 11-12 12:00</div>';
 
 /* ===== 专栏渲染 ===== */
 function renderCols(){
