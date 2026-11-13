@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 12:00</b></li>
+        <li>下一轮<b id="s-next">11-13 14:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T10:00:00+08:00";
-const NEXT_TS    = "2026-11-13T12:00:00+08:00";
+const REFRESH_TS = "2026-11-13T12:00:00+08:00";
+const NEXT_TS    = "2026-11-13T14:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T08:00:00+08:00", cat:"并购", weight:2,
+   title:"SpaceX 与特斯拉合并谈判推进，最快 12 月宣布，合计市值约 3.45 万亿美元",
+   src:"彭博社 / 新浪财经",
+   sum:"据彭博社 11 月 12 日报道，马斯克旗下 SpaceX 与特斯拉正在推进合并谈判，双方董事会及顾问正就交易条款、合并后治理架构磋商，最快可能于 12 月宣布交易，备选方案为推迟至 2027 年初。截至最近交易日收盘，SpaceX 估值约 1.9 万亿美元、特斯拉市值约 1.55 万亿美元，合并后实体将整合马斯克的 AI、机器人、电动车与航空航天业务。",
+   imp:"若成行将是史上规模最大并购；特斯拉与 SpaceX 的合并将重塑全球汽车+航天+具身智能（Optimus）的资本与战略边界，也将引发美监管对马斯克商业帝国反垄断审查的关注。",
+   url:"https://finance.sina.com.cn/roll/2026-11-13/doc-iniypzqk8025950.shtml", verified:"ok", seen:"08:44", tags:["并购","特斯拉","SpaceX","马斯克"]},
+
+  {ts:"2026-11-13T11:00:00+08:00", cat:"融资", weight:1,
+   title:"机器人租赁平台擎天租完成数亿元战略融资，从租赁转向机器人生产力服务",
+   src:"界面新闻 / 头条",
+   sum:"11 月 13 日，机器人租赁平台擎天租宣布完成数亿元战略融资交割，投资方包括和达投资、芒果产业投资方（厚为资本）、中联即送等。同期擎天租升级商业模式，从机器人租赁转向机器人生产力服务，引入 Worken 计量框架，按有效作业量衡量机器人服务价值。目前平台已接入近 20 家机器人本体品牌，20 家全国运营中心投入运营。",
+   imp:"具身智能正从「卖本体」走向「卖工时/卖生产力」，机器人运营服务网络的成型将加速工业场景机器人规模化落地。",
+   url:"http://m.toutiao.com/group/7707486398802100799/", verified:"ok", seen:"11:03", tags:["融资","具身智能","机器人运营"]},
+
   {ts:"2026-11-13T09:00:00+08:00", cat:"供应链", weight:1,
    title:"特斯拉将 Cybertruck 停产时间从 2027 年年中推迟至 2027 年夏末",
    src:"腾讯新闻 / 马斯克 X 表态",
@@ -2152,7 +2166,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 12:00";
+document.getElementById("s-next").textContent = "11-13 14:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
