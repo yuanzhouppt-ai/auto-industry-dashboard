@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 16:00</b></li>
+        <li>下一轮<b id="s-next">11-13 18:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,17 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T14:00:00+08:00";
-const NEXT_TS    = "2026-11-13T16:00:00+08:00";
+const REFRESH_TS = "2026-11-13T16:00:00+08:00";
+const NEXT_TS    = "2026-11-13T18:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T15:00:00+08:00", cat:"战略调整", weight:2,
+   title:"余承东宣布问界进入「新的合作阶段」：华为主导技术与产品定义，赛力斯主导制造与销售服务",
+   src:"财联社 / 微博",
+   sum:"华为常务董事、终端 BG 董事长余承东 11 月 13 日在重庆问界新 M8 发布会现场表示，问界是鸿蒙智行第一个合作品牌，未来华为终端将继续主导核心技术、产品定义与产品设计；赛力斯将主导整车制造、研发工程实施、营销销售与服务、升级与服务。这是华为与赛力斯合作关系首次以书面形式明确双方分工边界。",
+   imp:"华为车 BU 从「全栈参与」退到「技术+定义」、赛力斯拿到更多制造与销售主导权，标志华为智选车模式走向「轻资产、品牌共享」新阶段，或为后续与奇瑞、北汽、江淮合作定模板。",
+   url:"https://m.weibo.cn/detail/5364820569492385", verified:"ok", seen:"15:52", tags:["华为","赛力斯","问界","余承东","智选车"]},
+
   {ts:"2026-11-13T09:00:00+08:00", cat:"战略收缩", weight:2,
    title:"梅赛德斯-奔驰冻结德国所有新投资并考虑关停工厂，称在德投资已不可行",
    src:"金融时报 / 新华社 / 新浪财经",
@@ -2187,7 +2194,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 16:00";
+document.getElementById("s-next").textContent = "11-13 18:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
