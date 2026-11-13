@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-14 08:00</b></li>
+        <li>下一轮<b id="s-next">11-14 10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,52 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T20:00:00+08:00";
-const NEXT_TS    = "2026-11-14T08:00:00+08:00";
+const REFRESH_TS = "2026-11-14T08:00:00+08:00";
+const NEXT_TS    = "2026-11-14T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-14T07:00:00+08:00", cat:"召回", weight:2,
+   title:"宝马北美公司向 NHTSA 申请召回约 72 万辆汽车",
+   src:"中国汽车报 / 早餐",
+   sum:"据中国汽车报 11 月 14 日早餐报道，宝马北美公司已向美国国家公路交通安全管理局（NHTSA）申请召回约 72 万辆汽车，涉及安全隐患。这是近期规模最大的一次海外车企召回申请。",
+   imp:"72 万辆量级远超常规季度召回，宝马在美质量与成本压力叠加；与奔驰冻结德国投资、一汽大众业绩暴跌形成欧系车企收缩链。",
+   url:"http://m.toutiao.com/group/7707803503191687695/", verified:"ok", seen:"07:34", tags:["宝马","召回","NHTSA","北美","72万辆"]},
+
+  {ts:"2026-11-14T07:00:00+08:00", cat:"政策法规", weight:2,
+   title:"两部门印发「十五五」新型储能实施方案：研制大容量宽温域锂/钠离子电池，研究本质安全固态电池",
+   src:"中国汽车报 / 早餐",
+   sum:"两部门印发《「十五五」新型储能实施方案》，提出发展中短时能量型电池储能技术；研制大容量、宽温域、高安全、抗干扰锂/钠离子电池储能系统；优化固液混合态电池核心部件，研究本质安全固态电池技术；开发水系、有机、无氟等新型电解液及多价离子、阴离子等新型正负极材料体系储能电池技术。",
+   imp:"国家层面为下一代电池技术路线定调，固态电池、钠电池、无氟电解液获得明确政策支持；动力电池企业研发方向将受直接影响。",
+   url:"http://m.toutiao.com/group/7707803503191687695/", verified:"ok", seen:"07:34", tags:["十五五","储能","固态电池","钠离子电池","政策","两部门"]},
+
+  {ts:"2026-11-13T22:00:00+08:00", cat:"充换电", weight:1,
+   title:"北汽极狐发布「极+时代」全民换电生态，与宁德时代共建 3 万座换电站",
+   src:"上海证券报",
+   sum:"11 月 13 日晚，北汽极狐举办全民换电生态暨贝塔系列新品发布会，发布「极+时代」全民换电生态。北汽集团与宁德时代已签署全面深化换电业务合作协议，双方在整车与电池产品研发、换电站网络建设、电池能源服务、商业模式创新等领域全面深化合作，共同推动换电标准统一，目标共建 3 万座换电站。贝塔 T1/S3 换电双子星售价 5.2 万元起。",
+   imp:"继宁德时代巧克力电池管家发布后，北汽极狐成为换电生态落地的首个整车合作方；换电从宁德时代单家推动升级为车企+电池厂联合标准。",
+   url:"http://m.toutiao.com/group/7707663839038407218/", verified:"ok", seen:"22:32", tags:["北汽","极狐","换电","宁德时代","极+时代","贝塔"]},
+
+  {ts:"2026-11-14T00:00:00+08:00", cat:"供应链", weight:1,
+   title:"宝马集团美国 Woodruff 高压电池组装工厂开业，标志宝马在美全面电动车生产开始",
+   src:"BMW Group Newsroom",
+   sum:"据宝马集团官网 11 月 13 日 17:01（阿姆斯特丹时间）报道，宝马集团在美国南卡州 Woodruff 的高压电池组装工厂正式开业，同时标志宝马在美国全面电动车生产的开始。",
+   imp:"宝马在美电池本土化生产落地，与奔驰冻结德国投资形成对比——欧系车企一边收缩欧洲一边押注美国产能；72 万辆召回申请同日披露，质量与扩产并行。",
+   url:"https://newsroom.bmwgroup.com/global/", verified:"ok", seen:"00:01", tags:["宝马","Woodruff","电池工厂","美国","电动车","供应链"]},
+
+  {ts:"2026-11-13T20:00:00+08:00", cat:"出海", weight:1,
+   title:"小鹏深化英国市场：首次公布新车型、零售扩张与 Physical AI 生态计划",
+   src:"GlobeNewswire / XPENG",
+   sum:"据小鹏汽车官方 11 月 13 日 08:36（美东时间）发布，小鹏在英国举办首次品牌活动，公布下一阶段英国市场增长计划：新车型引入、零售网络扩张、以及 Physical AI 生态布局。",
+   imp:"中国车企出海从产品销售升级为全生态布局；小鹏在英国将智驾/机器人技术与销售同步推进，与比亚迪欧洲建厂、零跑德国销量第一形成中国品牌出海矩阵。",
+   url:"https://www.globenewswire.com/news-release/2026/11/13/3402583/0/en/xpeng-deepens-uk-commitment-with-new-models-retail-expansion-and-physical-ai-ecosystem.html", verified:"ok", seen:"20:36", tags:["小鹏","英国","出海","Physical AI","零售扩张"]},
+
+  {ts:"2026-11-13T18:00:00+08:00", cat:"出海", weight:1,
+   title:"零跑 10 月在德国售出近 3700 辆，成为中国 BEV 品牌在德国销量第一",
+   src:"Stellantis Media / KBA",
+   sum:"据 Stellantis 集团 11 月 13 日发布，德国机动车运输管理局（KBA）数据显示，零跑 10 月在德国售出近 3700 辆电动车，创单月纪录，成为中国纯电动品牌在德国销量第一。",
+   imp:"与 R74 Stellantis CEO 确认与零跑合资形成呼应——合资尚未官宣，零跑已在德国跑出销量第一；中国品牌技术输出欧洲从「合作」走向「实绩」。",
+   url:"https://www.media.stellantis.com/de-de/press#automotive-tab", verified:"ok", seen:"18:00", tags:["零跑","德国","出海","BEV","销量第一","Stellantis"]},
+
   {ts:"2026-11-13T19:00:00+08:00", cat:"动力电池", weight:2,
    title:"宁德时代发布「巧克力电池管家」：车上 53 项自检+换电站 66 项深度检测，承诺在网电池终身监测/质保/免费维修更换",
    src:"每日经济新闻 / 微博",
@@ -2222,7 +2264,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-14 08:00";
+document.getElementById("s-next").textContent = "11-14 10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
