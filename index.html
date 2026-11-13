@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 18:00</b></li>
+        <li>下一轮<b id="s-next">11-13 20:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T16:00:00+08:00";
-const NEXT_TS    = "2026-11-13T18:00:00+08:00";
+const REFRESH_TS = "2026-11-13T18:00:00+08:00";
+const NEXT_TS    = "2026-11-13T20:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T17:00:00+08:00", cat:"劳资矛盾", weight:2,
+   title:"一汽大众员工公开喊话少发 20 万奖金：10 月国内零售同比暴跌 40.9%，1-10 月累计跌 30%",
+   src:"新浪财经头条 / 微博",
+   sum:"据新浪财经头条 11 月 13 日报道，有一汽大众员工表示保单奖金基本是每年到手工资的一半，取消之后「还我血汗钱」。乘联会数据显示，今年 10 月一汽大众国内零售量同比暴跌 40.9%，1-10 月累计同比下跌约 30%，一汽大众在华经营压力持续加大。",
+   imp:"合资龙头业绩断崖与劳资矛盾公开化，是传统合资模式在新能源转型中溃败的又一信号；与奔驰冻结德国投资、大众放弃 Wolfsburg Gamechanger 形成欧系车企收缩链。",
+   url:"https://m.weibo.cn/detail/5364852472152350", verified:"ok", seen:"17:59", tags:["一汽大众","大众","劳资","在华业绩","零售暴跌"]},
+
+  {ts:"2026-11-13T17:00:00+08:00", cat:"具身智能", weight:1,
+   title:"地瓜机器人与无问芯穹达成战略合作，推进具身智能开源工具与旭日计算平台适配",
+   src:"42号电波 / 微博",
+   sum:"11 月 13 日，地瓜机器人（地平线旗下）与无问芯穹达成战略合作，推进 RLark、RLinf、RPent、APXInf 等具身智能开源工具与旭日系列计算平台、RoboGo 软件平台适配。目前 RLinf 后训练镜像已上架 RoboGo；旭日 5、旭日 S100、旭日 S100P、旭日 S600 已完成 RLark 适配。",
+   imp:"地平线系机器人芯片与大模型推理优化公司绑定，国产具身智能算力栈从芯片到开源工具链开始打通。",
+   url:"https://m.weibo.cn/detail/5364848848539675", verified:"ok", seen:"17:45", tags:["具身智能","地瓜机器人","地平线","无问芯穹","芯片"]},
+
   {ts:"2026-11-13T15:00:00+08:00", cat:"战略调整", weight:2,
    title:"余承东宣布问界进入「新的合作阶段」：华为主导技术与产品定义，赛力斯主导制造与销售服务",
    src:"财联社 / 微博",
@@ -2194,7 +2208,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 18:00";
+document.getElementById("s-next").textContent = "11-13 20:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
