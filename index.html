@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 14:00</b></li>
+        <li>下一轮<b id="s-next">11-13 16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T12:00:00+08:00";
-const NEXT_TS    = "2026-11-13T14:00:00+08:00";
+const REFRESH_TS = "2026-11-13T14:00:00+08:00";
+const NEXT_TS    = "2026-11-13T16:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T09:00:00+08:00", cat:"战略收缩", weight:2,
+   title:"梅赛德斯-奔驰冻结德国所有新投资并考虑关停工厂，称在德投资已不可行",
+   src:"金融时报 / 新华社 / 新浪财经",
+   sum:"据英国《金融时报》11 月 12 日报道，梅赛德斯-奔驰执行董事会已共同决定暂停对德国境内生产设施的所有进一步投资，并准备评估德国哪些工厂仍有能力维持运营、考虑关停部分工厂。分管生产、质量与供应链的董事会成员迈克尔·希贝表示，鉴于当前成本结构，在德国投资已不可行；分管人力资源的布丽塔·泽格称正处于关税、价格压力、需求疲软及来自中国激烈竞争的极其艰难环境中。这是与工会围绕劳动力成本削减谈判陷入僵局后作出的决定。",
+   imp:"德国本土豪华车制造模式出现结构性裂痕，传统豪华品牌在华竞争压力与本土成本双重挤压下首次公开讨论关停德国工厂，标志欧洲汽车业收缩进入新阶段。",
+   url:"https://finance.sina.com.cn/roll/2026-11-13/doc-iniypzqc1035505.shtml", verified:"ok", seen:"09:23", tags:["奔驰","德国","工厂关停","战略收缩"]},
+
+  {ts:"2026-11-13T10:00:00+08:00", cat:"融资", weight:1,
+   title:"优必选与沐曦合资具身智能端侧芯片公司曦选创智完成 5 亿元天使轮，投后估值 40 亿元",
+   src:"每日经济新闻 / 头条",
+   sum:"据优必选方面消息，由优必选与沐曦股份联合发起成立的具身智能端侧芯片公司曦选创智完成 5 亿元天使轮融资，投后估值达 40 亿元。优必选与沐曦是芯片厂商与机器人本体厂商中绑定程度最深的一家，合资公司专注具身智能端侧芯片自研，对标英伟达 Thor 平台。",
+   imp:"人形机器人厂商向上游芯片自研延伸，与国产 GPU 厂商深度绑定，具身智能算力链从「采购英伟达」走向「国产自研+本体绑定」。",
+   url:"http://m.toutiao.com/group/7707482017240809993/", verified:"ok", seen:"10:46", tags:["融资","具身智能","芯片","优必选","沐曦"]},
+
+  {ts:"2026-11-13T13:00:00+08:00", cat:"出海", weight:1,
+   title:"众泰汽车「复活」重心转向出海：与印度签 3 万辆 KD 工厂、印尼 BPKN 战略合作，2026 年底完成 25 国代理商",
+   src:"贝壳财经 / 头条",
+   sum:"众泰汽车「复活」后重心未放在国内市场，前期已与印度合作伙伴签订年产 3 万辆 KD 工厂合作协议，并与印尼 BPKN 签署战略合作协议，未来以南亚、东南亚为核心开拓印度、印尼市场，远期规划覆盖全球 55 个国家，力争 2026 年底完成 25 个国家代理商合作。",
+   imp:"退市重整车企借 KD 模式出海低端市场，成为中国汽车产能溢出的又一通道；但「复活」后离量产交付仍有距离。",
+   url:"http://m.toutiao.com/group/7707529198637826596/", verified:"ok", seen:"13:49", tags:["众泰","出海","KD工厂","印度","印尼"]},
+
   {ts:"2026-11-13T08:00:00+08:00", cat:"并购", weight:2,
    title:"SpaceX 与特斯拉合并谈判推进，最快 12 月宣布，合计市值约 3.45 万亿美元",
    src:"彭博社 / 新浪财经",
@@ -2166,7 +2187,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 14:00";
+document.getElementById("s-next").textContent = "11-13 16:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
