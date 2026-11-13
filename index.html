@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 20:00</b></li>
+        <li>下一轮<b id="s-next">11-14 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T18:00:00+08:00";
-const NEXT_TS    = "2026-11-13T20:00:00+08:00";
+const REFRESH_TS = "2026-11-13T20:00:00+08:00";
+const NEXT_TS    = "2026-11-14T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T19:00:00+08:00", cat:"动力电池", weight:2,
+   title:"宁德时代发布「巧克力电池管家」：车上 53 项自检+换电站 66 项深度检测，承诺在网电池终身监测/质保/免费维修更换",
+   src:"每日经济新闻 / 微博",
+   sum:"11 月 13 日，宁德时代发布电池可视化全生命周期检测系统「巧克力电池管家」。车上可实现 53 项自检、换电站内 66 项深度检测，并承诺在网电池终身监测、终身质保、终身免费维修与更换。按规划，2027 年巧克力换电将累计建成 6000 座换电站，覆盖全国 297 座城市。",
+   imp:"宁德时代换电业务从「建站规模」竞争升级到「电池全生命周期服务承诺」，与比亚迪海外 6000 座闪充站形成补能体系正面对标。",
+   url:"https://m.weibo.cn/detail/5364877570081620", verified:"ok", seen:"19:39", tags:["宁德时代","换电","巧克力电池","动力电池","补能"]},
+
+  {ts:"2026-11-13T15:00:00+08:00", cat:"合资出海", weight:1,
+   title:"Stellantis CEO Filosa 在米兰投资者活动上确认与零跑汽车电动车合资，并警告成本上升",
+   src:"Automotive News / Reuters",
+   sum:"据 Automotive News 11 月 13 日（美东 03:55，北京时间 15:55）报道，Stellantis CEO Antonio Filosa 在米兰投资者活动上正式确认与零跑汽车的电动车合资项目，并警告集团成本持续上升。Opel 已发布与零跑联合开发的电动 SUV 草图。",
+   imp:"Stellantis 高层首次在投资者场合官方确认零跑合资落地，中国车企技术输出欧洲又一案例；与比亚迪匈牙利、奇瑞-Ebro、上汽西班牙形成欧洲本地化矩阵。",
+   url:"https://www.autonews.com/stellantis/ane-stellantis-costs-leapmotor-jv-e-cars-1113/", verified:"ok", seen:"15:55", tags:["Stellantis","零跑","合资","出海","欧洲","Filosa"]},
+
   {ts:"2026-11-13T17:00:00+08:00", cat:"劳资矛盾", weight:2,
    title:"一汽大众员工公开喊话少发 20 万奖金：10 月国内零售同比暴跌 40.9%，1-10 月累计跌 30%",
    src:"新浪财经头条 / 微博",
@@ -2208,7 +2222,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 20:00";
+document.getElementById("s-next").textContent = "11-14 08:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
