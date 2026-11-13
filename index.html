@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-13 10:00</b></li>
+        <li>下一轮<b id="s-next">11-13 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-13T08:00:00+08:00";
-const NEXT_TS    = "2026-11-13T10:00:00+08:00";
+const REFRESH_TS = "2026-11-13T10:00:00+08:00";
+const NEXT_TS    = "2026-11-13T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T09:00:00+08:00", cat:"供应链", weight:1,
+   title:"特斯拉将 Cybertruck 停产时间从 2027 年年中推迟至 2027 年夏末",
+   src:"腾讯新闻 / 马斯克 X 表态",
+   sum:"11 月 12 日消息，马斯克在 X 上宣布，因消费者需求强劲以及此前宣布停产后在社交平台引发争议，特斯拉决定延长 Cybertruck 生产时间至 2027 年夏末，以便处理更多尚未交付的积压订单。此前 11 月 6 日特斯拉刚宣布将于 2027 年年中在得州超级工厂逐步停产 Cybertruck、产线让位 Cybercab。",
+   imp:"Cybertruck 停产计划反复调整，说明特斯拉在 Robotaxi 转型与现有皮卡现金流之间仍在权衡；推迟半年也意味着得州产线让位 Cybercab 的节奏被延后。",
+   url:"http://news.qq.com/rain/a/20261113A03TXJ00", verified:"ok", seen:"09:01", tags:["特斯拉","Cybertruck","产能策略"]},
+
+  {ts:"2026-11-13T09:00:00+08:00", cat:"融资", weight:1,
+   title:"灵睿智芯完成数亿元 Pre-A+ 轮融资，美团战投领投，尚颀/商汤国香/京东等跟投",
+   src:"大河财立方 / 搜狐",
+   sum:"上海灵睿智芯计算技术有限公司宣布完成数亿元 Pre-A+ 轮融资，本轮由美团战投领投，京东关联基金、干杯基金、力合算芯基金、钧犀资本、商汤国香资本、尚颀资本（上汽 CVC）、深信服科技产业投资基金等跟投。灵睿智芯聚焦智能计算芯片，应用方向覆盖具身智能与自动驾驶。",
+   imp:"美团、上汽（尚颀）、商汤同时押注一家智驾/具身智能芯片初创，反映 CVC 正在加速锁定端侧算力供应链；汽车与本地生活平台在具身智能芯片层的资本绑定加深。",
+   url:"https://m.sohu.com/a/1100897344_120109837/", verified:"ok", seen:"09:01", tags:["融资","智驾芯片","具身智能","美团","上汽"]},
+
   {ts:"2026-11-12T21:00:00+08:00", cat:"股权变动", weight:2,
    title:"长安汽车挂牌转让阿维塔 10% 股权，转让底价 31.83 亿元",
    src:"上海联合产权交易所 / 鞭牛士",
@@ -2138,7 +2152,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-13 10:00";
+document.getElementById("s-next").textContent = "11-13 12:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
