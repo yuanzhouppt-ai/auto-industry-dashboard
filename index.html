@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-14 10:00</b></li>
+        <li>下一轮<b id="s-next">11-14 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-14T08:00:00+08:00";
-const NEXT_TS    = "2026-11-14T10:00:00+08:00";
+const REFRESH_TS = "2026-11-14T10:00:00+08:00";
+const NEXT_TS    = "2026-11-14T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-14T09:00:00+08:00", cat:"重大事件", weight:2,
+   title:"特斯拉开始面向个人用户销售 Cybercab：无方向盘无踏板双座 Robotaxi 首次开放订单",
+   src:"腾讯新闻 / 财闻",
+   sum:"特斯拉公司表示，已开始接受部分客户的 Cybercab 订单，标志这款没有方向盘和脚踏板的双座无人驾驶汽车从奥斯汀 Robotaxi 试运营走向普通消费者。特斯拉自动驾驶出租车官方账号周五在 X 平台发帖称，目前 Cybercab 面向受支持服务区域内的「特定客户」开放购买。",
+   imp:"全球首款无方向盘无踏板量产车首次面向个人消费者交付，自动驾驶商业化从 Robotaxi 运营走向私人购车，监管与责任划分面临全新挑战。",
+   url:"http://news.qq.com/rain/a/20261114A05N3Z00", verified:"ok", seen:"08:59", tags:["特斯拉","Cybercab","Robotaxi","自动驾驶","无方向盘","商业化"]},
+
+  {ts:"2026-11-14T09:00:00+08:00", cat:"出海与法规", weight:2,
+   title:"EU 议员推动对比亚迪联网汽车进行安全威胁评估，提议限制其进入关键基础设施与公共采购",
+   src:"Reuters",
+   sum:"据路透社 11 月 14 日报道，欧盟议员正敦促欧盟委员会评估中国车企联网汽车带来的安全风险，担忧集中在数据访问与间谍活动，并提议限制比亚迪进入关键基础设施和公共采购领域。",
+   imp:"继反补贴关税后，欧盟对中国电动车的监管从贸易层面升级到国家安全层面；比亚迪在欧扩张面临新的制度性壁垒，可能波及其他中国车企。",
+   url:"https://runway.airforce.gov.au/EU-lawmakers-push-for-bloc-to-assess-security-threat-from-BYD-cars", verified:"ok", seen:"09:00", tags:["比亚迪","欧盟","安全威胁","数据安全","公共采购","出海"]},
+
   {ts:"2026-11-14T07:00:00+08:00", cat:"召回", weight:2,
    title:"宝马北美公司向 NHTSA 申请召回约 72 万辆汽车",
    src:"中国汽车报 / 早餐",
@@ -2264,7 +2278,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-14 10:00";
+document.getElementById("s-next").textContent = "11-14 12:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
