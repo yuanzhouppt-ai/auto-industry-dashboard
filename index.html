@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-14 20:00</b></li>
+        <li>下一轮<b id="s-next">11-15 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-14T18:00:00+08:00";
-const NEXT_TS    = "2026-11-14T20:00:00+08:00";
+const REFRESH_TS = "2026-11-14T20:00:00+08:00";
+const NEXT_TS    = "2026-11-15T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T17:59:00+08:00", cat:"智驾芯片", weight:2,
+   title:"亿咖通 ECARX 与 May Mobility 选定大众 ID. Buzz 为平台，计划到 2031 年部署超 1 万辆 Robotaxi",
+   src:"Gasgoo 汽车新闻（May Mobility 官方公告）",
+   sum:"11 月 12 日，美国自动驾驶公司 May Mobility 宣布与亿咖通（ECARX）合作，选定大众 ID. Buzz 作为自动驾驶车辆平台，计划到 2031 年在全球 Robotaxi 平台部署超 1 万辆。美国道路测试将于 2027 年初开始，首批量产车目标 2028 年交付。May Mobility 去年营收约 900 万欧元、亏损约 8000 万欧元。",
+   imp:"中国背景的亿咖通通过绑定 May Mobility 和大众 ID. Buzz 切入全球 Robotaxi 运营，吉利系智驾方案借美国自动驾驶公司落地欧洲市场。",
+   url:"http://autonews.gasgoo.com/articles/news/ecarx-may-mobility-select-volkswagen-id-buzz-for-10000-vehicle-robotaxi-plan-2121181120791748609", verified:"ok", seen:"17:59", tags:["亿咖通","ECARX","May Mobility","大众","ID.Buzz","Robotaxi","自动驾驶"]},
+
+  {ts:"2026-11-14T18:00:00+08:00", cat:"海外市场", weight:1,
+   title:"俄罗斯 10 月汽车销量同比下降 20.1%，前 10 个月累计 120.2 万辆",
+   src:"MarkLines（SIGMA EXPO Group 数据）",
+   sum:"据 MarkLines 11 月 14 日援引 SIGMA EXPO Group 数据，俄罗斯 2026 年 10 月新车销量 145,834 辆，同比下降 20.1%；前 10 个月累计销量 1,202,257 辆。中国品牌在俄份额持续，但整体市场因经济承压和高利率出现明显下滑。",
+   imp:"俄罗斯作为中国车企出海重要市场，10 月销量骤降 20% 可能影响比亚迪、哈弗、吉利等在俄排产和出口预期。",
+   url:"https://www.marklines.com/en/news/tag/768/vehicles-oems?page=1", verified:"ok", seen:"18:00", tags:["俄罗斯","销量","海外市场","SIGMA EXPO","MarkLines"]},
+
   {ts:"2026-11-14T15:14:00+08:00", cat:"监管与合规", weight:2,
    title:"德国图林根州宪法保卫局局长警告特斯拉汽车可能构成间谍风险，建议公务员勿在联网车内讨论机密",
    src:"中新社（新浪财经 7x24）",
@@ -2355,7 +2369,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-14 20:00";
+document.getElementById("s-next").textContent = "11-15 08:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
