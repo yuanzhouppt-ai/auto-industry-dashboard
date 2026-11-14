@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 08:00</b></li>
+        <li>下一轮<b id="s-next">11-15 10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-14T20:00:00+08:00";
-const NEXT_TS    = "2026-11-15T08:00:00+08:00";
+const REFRESH_TS = "2026-11-15T08:00:00+08:00";
+const NEXT_TS    = "2026-11-15T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-14T23:46:00+08:00", cat:"智驾芯片", weight:2,
+   title:"特斯拉 Cybercab 个人购车设硬约束：电子围栏限区域、禁商业用途、马斯克称 299 美元月费太高应降到 115 美元",
+   src:"财联社（援引订购条款）/鞭牛士（马斯克 X 帖）",
+   sum:"11 月 14 日财联社报道，特斯拉向部分客户开放个人版 Cybercab 预订后，媒体梳理条款发现：车主不得将车辆用于网约车、配送、租赁等商业用途，也不能接入特斯拉自营 Robotaxi 网络；需支付 1000 美元不可退订金，强制订阅 299 美元/月自动驾驶服务，断订即无法行驶；车辆带电子围栏仅在奥斯汀 Robotaxi 覆盖区自动驾驶，禁止改装和贴膜，转售需品牌审批。马斯克随后在 X 上回应称月费「太高了」，应该与其他车型 FSD 费用持平，即每月约 115 美元。",
+   imp:"Cybercab 从「卖车」变成「车+订阅」强绑定模式，299 美元月费约为普通 FSD 两倍，马斯克自砍价格预期说明特斯拉在 Robotaxi 商业化定价上仍在试探；禁商业用途和电子围栏也意味着个人车主无法靠载客回本。",
+   url:"http://m.toutiao.com/group/7708053940386726463/", verified:"ok", seen:"23:46", tags:["特斯拉","Cybercab","Robotaxi","订阅","马斯克","电子围栏","FSD"]},
+
+  {ts:"2026-11-15T07:30:00+08:00", cat:"海外市场", weight:1,
+   title:"大众在巴西发布基于上汽大通 MAXUS V90 换标的 Tempest 轻客，预售超 1000 辆",
+   src:"网通社汽车（援引大众巴西官方）",
+   sum:"当地时间 11 月 13 日，大众汽车在巴西发布全新 Tempest 轻型商用车，该车为上汽大通 MAXUS V90 的换标版，是大众与上汽集团在南美市场合作的一部分。发布后预售订单已超 1000 辆，标志着大众在巴西轻型商用车市场补上电动化空白。",
+   imp:"大众直接换标上汽大通产品在巴西销售，说明中国新能源车在南美的成本优势已反向输出到合资外方；这也是上汽大通出海从自有品牌扩展到为国际车企代工换标的新范式。",
+   url:"http://auto.news18a.com/news/xinwen/638/", verified:"ok", seen:"07:30", tags:["大众","巴西","上汽大通","MAXUS V90","Tempest","换标","出海","轻客"]},
+
   {ts:"2026-11-13T17:59:00+08:00", cat:"智驾芯片", weight:2,
    title:"亿咖通 ECARX 与 May Mobility 选定大众 ID. Buzz 为平台，计划到 2031 年部署超 1 万辆 Robotaxi",
    src:"Gasgoo 汽车新闻（May Mobility 官方公告）",
@@ -2369,7 +2383,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 08:00";
+document.getElementById("s-next").textContent = "11-15 10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
