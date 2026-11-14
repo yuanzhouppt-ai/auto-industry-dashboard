@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-14 18:00</b></li>
+        <li>下一轮<b id="s-next">11-14 20:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-14T16:00:00+08:00";
-const NEXT_TS    = "2026-11-14T18:00:00+08:00";
+const REFRESH_TS = "2026-11-14T18:00:00+08:00";
+const NEXT_TS    = "2026-11-14T20:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-14T15:14:00+08:00", cat:"监管与合规", weight:2,
+   title:"德国图林根州宪法保卫局局长警告特斯拉汽车可能构成间谍风险，建议公务员勿在联网车内讨论机密",
+   src:"中新社（新浪财经 7x24）",
+   sum:"11 月 14 日据中新社报道，德国图林根州宪法保卫局（BfV）局长斯特凡·克雷默（Stephan Kramer）警告称，马斯克旗下特斯拉汽车可能构成间谍风险。克雷默指出联网汽车上的摄像头和定位追踪系统会捕捉敏感信息，并建议公务员和公共雇员不要在联网车辆内讨论机密事项。他呼吁限制联网车辆靠近政府和军事设施停车，无论品牌。此番表态正值德国官方对联网汽车数据安全的讨论升温。",
+   imp:"欧洲情报机构首次公开点名特斯拉数据安全风险，可能推动德国及欧盟出台联网汽车停车/数据使用限制，影响特斯拉在欧洲政企市场。",
+   url:"https://finance.sina.com.cn/7x24/2026-11-14/doc-iniysvkz0511956.shtml", verified:"ok", seen:"15:14", tags:["德国","特斯拉","间谍风险","数据安全","宪法保卫局","联网汽车"]},
+
+  {ts:"2026-11-14T13:49:00+08:00", cat:"合资合作", weight:1,
+   title:"Stellantis 与塔塔汽车乘用车庆祝 20 年合作并签署 MOU，探索印度及海外制造/工程/供应链进一步合作",
+   src:"Stellantis 官方新闻稿（ForPressRelease）",
+   sum:"11 月 14 日，Stellantis 与塔塔汽车乘用车（Tata Motors Passenger Vehicles）在庆祝双方合资企业菲亚特印度汽车（FIAPL）成立 20 周年之际，签署谅解备忘录（MoU），探索在印度本土及海外市场的制造、工程和供应链领域进一步合作。FIAPL 已在印度运营 20 年。",
+   imp:"Stellantis 借印度第二大车企塔塔的本地化能力补强新兴市场，同时为其在欧洲产能压力下寻找低成本制造出口基地。",
+   url:"https://www.forpressrelease.com/forpressrelease/666422/2/stellantis-and-tata-motors-passenger-vehicles-celebrate-20-years-of-partnership-by-signing-mou-to-explore-further-collaboration", verified:"ok", seen:"13:49", tags:["Stellantis","塔塔汽车","印度","合资","MOU","出海"]},
+
+  {ts:"2026-11-14T17:46:00+08:00", cat:"动力电池", weight:1,
+   title:"国瑞协创与印度 Pai Kane Energy 合作拿下 5GWh 电池储能大单，拟在印度本地组装并探讨建厂",
+   src:"新浪财经（今日头条转载）",
+   sum:"11 月 14 日报道，国瑞协创与印度 Pai Kane Energy 达成 5GWh 电池储能合作，国瑞协创负责产品技术、工程设计和系统集成，Pai Kane 负责印度本地产品开发、销售、项目交付和售后服务。随着项目规模扩大，双方计划先在印度本地组装，再商讨共同投资建设本地工厂，配合印度「印度制造」政策。",
+   imp:"中国储能电池企业借印度本地化生产绕开关税壁垒，印度储能市场成为继欧洲后中国电池产业链出海新热点。",
+   url:"http://m.toutiao.com/group/7707961171659325971/", verified:"ok", seen:"17:46", tags:["国瑞协创","印度","储能","5GWh","出海","本地化"]},
+
   {ts:"2026-11-13T17:09:00+08:00", cat:"战略调整", weight:2,
    title:"大众 SSP 平台开发再度受阻，纯电奥迪 A4 推迟至 2029 年投产",
    src:"Autocar（IT之家转载）",
@@ -2334,7 +2355,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-14 18:00";
+document.getElementById("s-next").textContent = "11-14 20:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
