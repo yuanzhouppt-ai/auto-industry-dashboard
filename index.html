@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-14 16:00</b></li>
+        <li>下一轮<b id="s-next">11-14 18:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-14T14:00:00+08:00";
-const NEXT_TS    = "2026-11-14T16:00:00+08:00";
+const REFRESH_TS = "2026-11-14T16:00:00+08:00";
+const NEXT_TS    = "2026-11-14T18:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-13T17:09:00+08:00", cat:"战略调整", weight:2,
+   title:"大众 SSP 平台开发再度受阻，纯电奥迪 A4 推迟至 2029 年投产",
+   src:"Autocar（IT之家转载）",
+   sum:"英媒 Autocar 11 月 13 日报道，大众备受期待的可扩展系统平台 SSP 开发再度受阻，导致奥迪全新纯电 A4（A4 e-tron）从原计划 2028 年推迟至 2029 年才在英戈尔施塔特工厂投产。此前大众品牌已因成本限制推迟基于 SSP 的第九代纯电高尔夫项目；奥迪要求大众集团重新调整平台架构是延期原因之一。奥迪将在纯电中型轿车市场出现一年以上空窗期，直接对手为 BMW i3、奔驰 C 级纯电版和特斯拉 Model 3。",
+   imp:"大众系纯电平台 SSP 连续两次延期，德国传统豪华品牌电动化节奏进一步落后于中国新势力和特斯拉。",
+   url:"http://m.toutiao.com/group/7707580603503329826/", verified:"ok", seen:"17:09", tags:["大众","奥迪","SSP","纯电平台","延期","电动化"]},
+
+  {ts:"2026-11-14T15:50:00+08:00", cat:"具身智能", weight:1,
+   title:"大寰机器人启动上市辅导，字节跳动曾参投",
+   src:"新京报贝壳财经",
+   sum:"11 月 14 日据深圳证监局公开信息，大寰机器人科技股份有限公司于 2026 年 11 月 13 日正式启动上市辅导备案，国泰海通证券担任辅导机构。大寰机器人成立于 2016 年，专注工业智能制造精密运动控制核心零部件（电动夹爪），客户覆盖华为、富士康、比亚迪、宁德时代、三星电子、德国大众、丰田汽车、中国航天等，销售网络覆盖国内及海外 30 多个国家和地区，字节跳动曾参投。",
+   imp:"具身智能/机器人核心零部件企业在 IPO 窗口收紧背景下仍启动辅导，电动夹爪作为人形机器人核心执行器赛道获资本持续关注。",
+   url:"https://news.qq.com/rain/a/20261114A0B28H00", verified:"ok", seen:"15:50", tags:["大寰机器人","上市辅导","电动夹爪","具身智能","字节跳动","国泰海通"]},
+
+  {ts:"2026-11-14T07:48:00+08:00", cat:"自动驾驶法规", weight:2,
+   title:"公安部交管局披露青岛交警查处案例：司机高速开智驾躺倒睡觉、载一家四口、副驾未满 12 岁",
+   src:"公安部交通管理局（新浪科技/IT之家）",
+   sum:"11 月 14 日公安部交通管理局披露，11 月 7 日山东青岛一名驾驶人在高速公路上使用智能辅助驾驶功能时躺倒睡觉，被高速交警查处。经查该驾驶人当日载一家四口出行，认为路况平稳便放倒座椅闭目休息，且此前多次存在开着智驾玩手机、闭眼等危险操作；交警另发现副驾驶乘坐人员未满 12 周岁。",
+   imp:"交管部门首次公开点名智驾睡觉违法案例，将对车企宣传「脱手脱眼」形成监管压力，智驾滥用边界执法趋严。",
+   url:"https://finance.sina.com.cn/tech/digi/2026-11-14/doc-iniysepi0731351.shtml", verified:"ok", seen:"07:48", tags:["青岛交警","智能辅助驾驶","睡觉","公安部交管局","自动驾驶法规","监管"]},
+
   {ts:"2026-11-14T13:39:00+08:00", cat:"企业动态", weight:2,
    title:"比亚迪网络举报中心辟谣：网传「某数字能源出售给比亚迪」不实",
    src:"界面新闻（微博）",
@@ -2313,7 +2334,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-14 16:00";
+document.getElementById("s-next").textContent = "11-14 18:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
