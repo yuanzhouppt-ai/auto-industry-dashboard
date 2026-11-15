@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 16:00</b></li>
+        <li>下一轮<b id="s-next">11-15 18:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,17 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T14:00:00+08:00";
-const NEXT_TS    = "2026-11-15T16:00:00+08:00";
+const REFRESH_TS = "2026-11-15T16:00:00+08:00";
+const NEXT_TS    = "2026-11-15T18:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-15T15:37:00+08:00", cat:"人物动态", weight:1,
+   title:"上汽大众傅强：明年下半年新能源渗透率有望超 80%，购置税 2027 年底到期将前置释放需求",
+   src:"IT之家（每日经济新闻专访）",
+   sum:"上汽大众销售与市场执行副总经理、上汽大众销售公司总经理傅强 11 月 15 日接受每经采访时表示，新能源汽车购置税优惠 2027 年底到期，可能促使原计划 2028 年上半年购车的消费者提前释放需求；明年市场「先抑后扬」，下半年新能源渗透率有望超过 80%（对比乘联分会 10 月零售渗透率 67.5%）。全年行业增速预测：乐观 +3%~3.5%、中性持平、悲观 -3%~-4%。",
+   imp:"合资车企一把手首次公开给出明年下半年 80% 渗透率判断，比 10 月实际值 67.5% 再提 12 个百分点；购置税退坡前置效应被摆上台面。",
+   url:"http://m.toutiao.com/group/7708299013614797362/", verified:"ok", seen:"15:37", tags:["上汽大众","傅强","渗透率","购置税","2027","新能源"]},
+
   {ts:"2026-11-15T11:05:00+08:00", cat:"海外市场", weight:2,
    title:"比亚迪欧洲首个乘用车基地匈牙利塞格德工厂马上进入大批量生产，一期产能 15 万辆",
    src:"新浪财经（援引电动知家 / 比亚迪执行副总裁何志奇）",
@@ -2411,7 +2418,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 16:00";
+document.getElementById("s-next").textContent = "11-15 18:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
