@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 10:00</b></li>
+        <li>下一轮<b id="s-next">11-15 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T08:00:00+08:00";
-const NEXT_TS    = "2026-11-15T10:00:00+08:00";
+const REFRESH_TS = "2026-11-15T10:00:00+08:00";
+const NEXT_TS    = "2026-11-15T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-15T09:41:00+08:00", cat:"供应链", weight:1,
+   title:"小米 SU7 整车与泰坦合金 2.0 材料获国际 EPD 双认证，为国内车企首次，已量产应用于 SU7/YU7",
+   src:"36氪（援引小米公司官方微博 / COP31 现场）",
+   sum:"当地时间 11 月 14 日，在第 31 届联合国气候变化大会（COP31）上，小米 SU7 整车与泰坦合金 2.0 材料获国际环境产品声明（EPD）双项认证，为国内车企首次。泰坦合金 2.0 实现 100% 消费后再生铝量产，材料碳排放较传统原铝降低约 93%，单车全生命周期减碳约 800kg CO₂，已量产应用于新一代 SU7 和 YU7。",
+   imp:"小米成为首家完成整车+材料国际 EPD 双认证的中国车企，在欧洲碳边境调节机制（CBAM）和绿色供应链要求下提前卡位；再生铝一体化压铸工艺也为其他中国车企出海提供低碳范本。",
+   url:"https://36kr.com/newsflashes/4070350990251140", verified:"ok", seen:"09:41", tags:["小米","SU7","YU7","泰坦合金","再生铝","EPD","COP31","低碳","供应链"]},
+
+  {ts:"2026-11-11T17:47:00+08:00", cat:"海外市场", weight:2,
+   title:"奇瑞在南非召回 23667 辆（Tiggo 4/Omoda C5/Tiggo 8 Pro Max），南非 NCC 调查其涉嫌未向监管通报部分召回",
+   src:"观察者网（援引彭博社 / 南非国家消费者委员会 NCC 公告）",
+   sum:"据彭博社 11 月 11 日报道，奇瑞南非公司召回 23667 辆汽车，排查后轴焊接、制动管路磨损泄漏等缺陷，其中 17508 辆 Tiggo 4、2685 辆 Omoda C5、3474 辆 Tiggo 8 Pro Max 2.0。南非国家消费者委员会（NCC）同步披露，已就奇瑞涉嫌未向监管机构通报部分车辆召回一事展开正式调查。",
+   imp:"这是中国车企在非洲最大市场遭遇的罕见合规风险事件——未通报召回在成熟监管体系下属红线；奇瑞出海从「卖车」转向「本地化合规运营」阶段，后续或影响其他中国品牌在南非的召回通报流程。",
+   url:"http://m.toutiao.com/group/7707500043997168179/", verified:"ok", seen:"08:55", tags:["奇瑞","南非","召回","NCC","出海合规","Tiggo","Omoda","后轴","制动"]},
+
   {ts:"2026-11-14T23:46:00+08:00", cat:"智驾芯片", weight:2,
    title:"特斯拉 Cybercab 个人购车设硬约束：电子围栏限区域、禁商业用途、马斯克称 299 美元月费太高应降到 115 美元",
    src:"财联社（援引订购条款）/鞭牛士（马斯克 X 帖）",
@@ -2383,7 +2397,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 10:00";
+document.getElementById("s-next").textContent = "11-15 12:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
