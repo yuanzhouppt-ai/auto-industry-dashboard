@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 20:00</b></li>
+        <li>下一轮<b id="s-next">11-16 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,17 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T18:00:00+08:00";
-const NEXT_TS    = "2026-11-15T20:00:00+08:00";
+const REFRESH_TS = "2026-11-15T20:00:00+08:00";
+const NEXT_TS    = "2026-11-16T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-15T19:42:00+08:00", cat:"供应链", weight:1,
+   title:"蔚来中国最北换电站落地黑龙江黑河自贸区，直面 -48℃ 极寒工况",
+   src:"汽车之心（微博）/ C114Pro",
+   sum:"蔚来位于黑龙江黑河自贸区的第五代换电站 11 月 15 日正式上线，为中国最北地级市换电站；当地全年结冰期约 200 天，极端最低温 -48℃，站体采用独立恒温仓+电池仓 7×24 小时热管理系统做极寒适配。",
+   imp:"换电网络从季风区/温带延伸至寒极，验证第五代站在 -48℃ 工况下的可用性，为东北/内蒙电动重卡与私家车补能网络铺路。",
+   url:"https://m.weibo.cn/detail/5365603105508704", verified:"ok", seen:"19:42", tags:["蔚来","换电","黑河","极寒","第五代换电站","补能"]},
+
   {ts:"2026-11-15T17:02:00+08:00", cat:"重大事件", weight:1,
    title:"一汽解放与 8 家伙伴签署 1000 辆新能源牵引车战略协议，106 辆 J6G Pro 交付鄂尔多斯矿区",
    src:"澎湃新闻",
@@ -2432,7 +2439,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 20:00";
+document.getElementById("s-next").textContent = "11-16 08:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
