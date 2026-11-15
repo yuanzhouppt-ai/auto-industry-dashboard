@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-16 08:00</b></li>
+        <li>下一轮<b id="s-next">11-16 10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T20:00:00+08:00";
-const NEXT_TS    = "2026-11-16T08:00:00+08:00";
+const REFRESH_TS = "2026-11-16T08:00:00+08:00";
+const NEXT_TS    = "2026-11-16T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-15T22:34:00+08:00", cat:"供应链", weight:2,
+   title:"*ST闻泰：荷兰企业法庭裁定安世半导体相关，罚金上限 3 亿欧元，公司将上诉",
+   src:"财联社 / 每日经济新闻",
+   sum:"*ST闻泰 11 月 15 日晚公告：荷兰阿姆斯特丹上诉法院企业法庭 11 月 11 日作出临时措施裁定，责令公司、裕成控股、安世中国及相关人员尊重管理人职责、准许并容忍安世半导体及管理人接洽市场主体、撤回部分中国境内诉讼诉求、禁止执行东莞中院部分行为保全裁定；违反禁令最高罚金总额 3 亿欧元。公司称裁定无事实依据，实质构成跨境禁诉令，将提起上诉。",
+   imp:"安世半导体（Nexperia）是闻泰 100% 控股的车规级半导体龙头，荷兰法庭裁定直接剥夺股东权利并打开股权处置窗口，跨境司法博弈升级，车规芯片供应链风险外溢。",
+   url:"http://m.toutiao.com/group/7708406482009621002/", verified:"ok", seen:"22:34", tags:["闻泰科技","安世半导体","Nexperia","荷兰","跨境禁诉令","车规半导体","供应链"]},
+
+  {ts:"2026-11-16T07:34:00+08:00", cat:"行业格局", weight:1,
+   title:"特斯拉 Robotaxi 得州登记车辆首超 Waymo，1302 辆 vs 1297 辆",
+   src:"中国汽车报（汽车早餐）",
+   sum:"据得克萨斯州机动车辆管理局公开登记数据，截至 11 月 10 日，特斯拉旗下 Robotaxi 运营主体在得州登记车辆总数达 1302 辆，以 5 辆微弱优势首次超过 Waymo 的 1297 辆；其中 Cybercab 占近半数。这是自得州要求自动驾驶运营商披露车队规模以来特斯拉首次登顶。",
+   imp:"Waymo 长期把持的 Robotaxi 运营规模王座被特斯拉以 Cybercab 规模化投放打破，得州成为 Robotaxi 双雄格局的首个分水岭。",
+   url:"http://m.toutiao.com/group/7708545671996932648/", verified:"ok", seen:"07:34", tags:["特斯拉","Robotaxi","Waymo","得州","Cybercab","自动驾驶"]},
+
   {ts:"2026-11-15T19:42:00+08:00", cat:"供应链", weight:1,
    title:"蔚来中国最北换电站落地黑龙江黑河自贸区，直面 -48℃ 极寒工况",
    src:"汽车之心（微博）/ C114Pro",
@@ -2439,7 +2453,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-16 08:00";
+document.getElementById("s-next").textContent = "11-16 10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
