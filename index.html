@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 12:00</b></li>
+        <li>下一轮<b id="s-next">11-15 14:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T10:00:00+08:00";
-const NEXT_TS    = "2026-11-15T12:00:00+08:00";
+const REFRESH_TS = "2026-11-15T12:00:00+08:00";
+const NEXT_TS    = "2026-11-15T14:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-15T11:05:00+08:00", cat:"海外市场", weight:2,
+   title:"比亚迪欧洲首个乘用车基地匈牙利塞格德工厂马上进入大批量生产，一期产能 15 万辆",
+   src:"新浪财经（援引电动知家 / 比亚迪执行副总裁何志奇）",
+   sum:"11 月 15 日，比亚迪执行副总裁何志奇透露，比亚迪在欧洲的首个乘用车制造基地——匈牙利塞格德工厂马上进入大批量生产。该厂占地约 300 万平方米，一期年产能 15 万辆、远期 30 万辆，今年 1 月启动试生产，首批投产 Dolphin Surf（海鸥）、Atto 2、Atto 3 等车型，是中国车企在欧盟落地的首个乘用车整车项目。",
+   imp:"比亚迪从「整车出口」切换到「欧洲本地化大规模制造」，对冲欧盟反补贴关税；后续奇瑞-Ebro、零跑-Stellantis、上汽西班牙将形成中欧本地化产能矩阵。",
+   url:"https://finance.sina.com.cn/roll/2026-11-15/doc-iniyuuae6491578.shtml", verified:"ok", seen:"11:05", tags:["比亚迪","匈牙利","塞格德","出海","欧洲","本地化制造","何志奇"]},
+
+  {ts:"2026-11-13T02:50:00+08:00", cat:"具身智能", weight:1,
+   title:"华硕 ASUS 发布首款人形机器人 Gallop，搭载 NVIDIA Jetson Thor，已在自有 EMS 工厂主板包装工位上岗",
+   src:"ASUS 官方新闻稿（Co-CEO S.Y. Hsu 亮相 CNBC Squawk Box Asia）",
+   sum:"华硕（ASUS）正式推出首款双臂人形机器人 Gallop，采用 NVIDIA Jetson Thor 计算平台，跳过展会首秀直接部署到华硕集团自有 EMS 工厂的主板配件包装工位：15 个小零件、约 20 秒/板，目标 99.5% 成功率（对标人工）。计划 2027 年启动客户试点，2028 年下半年商用上市。",
+   imp:"PC/电子制造巨头正式切入人形机器人，与特斯拉 Optimus、Figure、Apptronik 形成新玩家；电子 OEM 自用产线验证模式可能成为人形机器人 B 端落地捷径。",
+   url:"https://press.asus.com/blog/factory-proven-physical-ai-asus-gallop-humanoid-robot/", verified:"ok", seen:"11:00", tags:["华硕","ASUS","Gallop","人形机器人","具身智能","NVIDIA","Jetson Thor","EMS"]},
+
   {ts:"2026-11-15T09:41:00+08:00", cat:"供应链", weight:1,
    title:"小米 SU7 整车与泰坦合金 2.0 材料获国际 EPD 双认证，为国内车企首次，已量产应用于 SU7/YU7",
    src:"36氪（援引小米公司官方微博 / COP31 现场）",
@@ -2397,7 +2411,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 12:00";
+document.getElementById("s-next").textContent = "11-15 14:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
