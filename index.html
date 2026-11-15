@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 14:00</b></li>
+        <li>下一轮<b id="s-next">11-15 16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,8 +312,8 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T12:00:00+08:00";
-const NEXT_TS    = "2026-11-15T14:00:00+08:00";
+const REFRESH_TS = "2026-11-15T14:00:00+08:00";
+const NEXT_TS    = "2026-11-15T16:00:00+08:00";
 
 const DATA = [
   {ts:"2026-11-15T11:05:00+08:00", cat:"海外市场", weight:2,
@@ -2411,7 +2411,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 14:00";
+document.getElementById("s-next").textContent = "11-15 16:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
