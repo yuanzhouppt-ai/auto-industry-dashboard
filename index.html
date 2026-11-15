@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-15 18:00</b></li>
+        <li>下一轮<b id="s-next">11-15 20:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-15T16:00:00+08:00";
-const NEXT_TS    = "2026-11-15T18:00:00+08:00";
+const REFRESH_TS = "2026-11-15T18:00:00+08:00";
+const NEXT_TS    = "2026-11-15T20:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-15T17:02:00+08:00", cat:"重大事件", weight:1,
+   title:"一汽解放与 8 家伙伴签署 1000 辆新能源牵引车战略协议，106 辆 J6G Pro 交付鄂尔多斯矿区",
+   src:"澎湃新闻",
+   sum:"一汽解放、钜辉煤炭「暖城绿动 智领运力」106 辆 J6G Pro 新能源牵引车交付盛典在内蒙古鄂尔多斯举行；同期一汽解放与 8 家合作伙伴签署 1000 辆新能源牵引车战略合作协议，J6G Pro 专为矿区场景定制。",
+   imp:"矿区/短倒场景成为重卡电动化最快落地的细分市场，一汽解放以百辆级交付+千辆级协议锁定年内订单。",
+   url:"https://m.thepaper.cn/newsDetail_forward_34485881", verified:"ok", seen:"17:02", tags:["一汽解放","新能源重卡","矿区","J6G Pro","换电"]},
+
+  {ts:"2026-11-15T17:55:00+08:00", cat:"政策法规", weight:1,
+   title:"加拿大总理卡尼：不会与美国签署不利于加拿大汽车产业可持续发展的协议",
+   src:"CGTN / 国际在线",
+   sum:"加拿大总理卡尼 11 月 15 日表示，美加汽车产业贸易谈判正在取得进展，但本届政府绝不会接受不利于加拿大汽车产业可持续发展的协议；他强调美国汽车产业的长期竞争力与加拿大汽车产业一体化程度密切相关。",
+   imp:"美加汽车产业链一体化是北美 USMCA 框架核心议题，卡尼强硬表态为 2027 年关税与原产地规则谈判定调，可能影响底特律-安大略供应链布局。",
+   url:"https://news.cri.cn/2026-11-15/864aa5be-550b-806b-640d-13655145cba2.html", verified:"ok", seen:"17:55", tags:["加拿大","卡尼","美国","汽车贸易","USMCA","关税"]},
+
   {ts:"2026-11-15T15:37:00+08:00", cat:"人物动态", weight:1,
    title:"上汽大众傅强：明年下半年新能源渗透率有望超 80%，购置税 2027 年底到期将前置释放需求",
    src:"IT之家（每日经济新闻专访）",
@@ -2418,7 +2432,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-15 18:00";
+document.getElementById("s-next").textContent = "11-15 20:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
