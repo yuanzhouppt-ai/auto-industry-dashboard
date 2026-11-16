@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-17 08:00</b></li>
+        <li>下一轮<b id="s-next">11-17 10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-16T20:00:00+08:00";
-const NEXT_TS    = "2026-11-17T08:00:00+08:00";
+const REFRESH_TS = "2026-11-17T08:00:00+08:00";
+const NEXT_TS    = "2026-11-17T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-17T05:00:00+08:00", cat:"企业战略", weight:2,
+   title:"现代汽车集团完成Boston Dynamics 100%全资收购交割，加速人形机器人Atlas量产",
+   src:"韩媒 Newsis / Financial News",
+   sum:"11月17日韩媒报道，现代汽车集团已完成对波士顿动力（Boston Dynamics）剩余9.65%股权的收购，正式成为全资子公司。此前7月16日现代官宣收购软银持有的剩余股份，本次为交割完成。现代集团计划2028年前将Atlas年产能提升至3万台，首批应用于现代汽车美国工厂。",
+   imp:"现代集团人形机器人业务从合资参股转为100%控股，决策与大规模投资自主权完全释放；与小鹏、特斯拉、优必选、TARSBOT形成2026年人形机器人量产竞赛第二梯队。",
+   url:"https://mobile.newsis.com/view/NISX20261116_0003870194", verified:"ok", seen:"05:00", tags:["现代汽车","Boston Dynamics","波士顿动力","人形机器人","Atlas","具身智能","软银"]},
+
+  {ts:"2026-11-17T07:37:00+08:00", cat:"人物动态", weight:1,
+   title:"英伟达董事会：未在考虑让黄仁勋回任CEO，专注内部调查",
+   src:"财联社 / 微博",
+   sum:"11月17日财联社援引知情人士报道，英伟达董事会目前并未在考虑让创始人黄仁勋回任CEO，董事会当前专注于内部调查，未讨论让黄仁勋回归事宜。此前11月12日黄仁勋因婚外情风波宣布辞去总裁、CEO及董事职务，CFO Colette Kress出任临时CEO。",
+   imp:"黄仁勋回任可能性被官方排除，临时CEO Colette Kress过渡期延长；Thor智驾芯片路线图与车企合作节奏的不确定性持续。",
+   url:"https://m.weibo.cn/detail/5366145504774058", verified:"ok", seen:"07:37", tags:["英伟达","NVIDIA","黄仁勋","智驾芯片","人物动态","Colette Kress"]},
+
   {ts:"2026-11-16T17:14:00+08:00", cat:"政策法规与监管", weight:2,
    title:"中汽协对一汽、东风、比亚迪、蔚来等17家重点车企开展供应商账款支付调研评估",
    src:"财联社 / 央广网 / 新浪财经",
@@ -2565,7 +2579,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-17 08:00";
+document.getElementById("s-next").textContent = "11-17 10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
