@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-16 14:00</b></li>
+        <li>下一轮<b id="s-next">11-16 16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-16T12:00:00+08:00";
-const NEXT_TS    = "2026-11-16T14:00:00+08:00";
+const REFRESH_TS = "2026-11-16T14:00:00+08:00";
+const NEXT_TS    = "2026-11-16T16:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-16T13:30:00+08:00", cat:"智驾与定点", weight:1,
+   title:"禾赛科技斩获理想汽车全新一代辅助驾驶平台全系车型激光雷达独家定点",
+   src:"禾赛科技官网",
+   sum:"禾赛科技（NASDAQ: HSAI；HKEX: 2525）宣布获得理想汽车全新一代辅助驾驶平台全系车型激光雷达定点，覆盖 L 系列、i 系列和 MEGA，继续作为理想汽车独家激光雷达供应商。",
+   imp:"理想下一代 AD 平台继续锁定禾赛独家，国内新势力激光雷达供应商格局进一步固化，对速腾、图达通形成挤压。",
+   url:"https://www.hesaitech.com/cn/news/1380", verified:"ok", seen:"13:30", tags:["禾赛科技","Hesai","理想汽车","激光雷达","定点","智驾","L系列","i系列","MEGA"]},
+
+  {ts:"2026-11-16T13:46:00+08:00", cat:"供应链与软件", weight:2,
+   title:"丰田通商与电装成立车载软件子公司 Toyota Tsusho Definex，电装获 20% 股权",
+   src:"DENSO Global Newsroom",
+   sum:"丰田通商宣布已于 2026 年 9 月成立全资子公司 Toyota Tsusho Definex，专门运营车载软件业务，计划 2027 年 1 月正式启动；随后将通过第三方定向增发向电装发行新股，电装预计取得 20% 股权。双方将在丰田通商既有的汽车、商用车、农业设备客户网络上，整合车载软件、OSS 与 E/E 架构能力。",
+   imp:"丰田系把商社+Tier1 的车载软件能力单独拎出来做公司，对标博世/电装的软件整合，意味着丰田在 E/E 架构与 SDV 上补短板。",
+   url:"https://www.denso.com/global/en/newsroom/news/2026/20261116-g01/", verified:"ok", seen:"13:46", tags:["丰田通商","Toyota Tsusho","电装","DENSO","Definex","车载软件","SDV","E/E架构","商社","Tier1"]},
+
+  {ts:"2026-11-16T13:48:00+08:00", cat:"具身智能", weight:1,
+   title:"禾赛 Kosmo 与物理 AI 基础设施公司 Ropedia 达成战略合作，切入具身操作模型数据闭环",
+   src:"界面新闻 / 腾讯新闻",
+   sum:"禾赛科技旗下三维世界数据引擎 Kosmo 与物理 AI 基础设施公司 Ropedia 达成战略合作，双方围绕高质量真实世界空间数据的规模化采集、结构化、标准化交付与模型验证，面向 OpenAI、Meta、DeepMind、NVIDIA、Google、Microsoft 等全球大模型、具身移动操作模型、世界模型团队，提供可进入训练闭环的多模态空间数据产品。",
+   imp:"车载激光雷达龙头从卖传感器转向卖「物理世界训练数据」，直接切入具身智能/世界模型上游数据层，对标特斯拉标注车队与 Wayve 数据闭环。",
+   url:"http://news.qq.com/rain/a/20261116A08AIE00", verified:"ok", seen:"13:48", tags:["禾赛","Kosmo","Ropedia","物理AI","具身智能","世界模型","空间数据","OpenAI","英伟达","激光雷达"]},
+
   {ts:"2026-11-16T10:28:00+08:00", cat:"出海与补能", weight:1,
    title:"印尼国家石油Pertamina Patra Niaga 与比亚迪签 MoU：在绿色能源加油站试点闪充技术",
    src:"Suara.com",
@@ -2488,7 +2509,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-16 14:00";
+document.getElementById("s-next").textContent = "11-16 16:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
