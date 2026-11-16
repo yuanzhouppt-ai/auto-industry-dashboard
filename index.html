@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-16 10:00</b></li>
+        <li>下一轮<b id="s-next">11-16 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-16T08:00:00+08:00";
-const NEXT_TS    = "2026-11-16T10:00:00+08:00";
+const REFRESH_TS = "2026-11-16T10:00:00+08:00";
+const NEXT_TS    = "2026-11-16T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-16T09:02:00+08:00", cat:"供应链", weight:1,
+   title:"龙蟠科技 H 股公告：本年度宁德时代采购上限由 70 亿元上调至 90 亿元",
+   src:"上海证券报",
+   sum:"龙蟠科技 11 月 16 日早间 H 股公告，根据宁德时代采购框架协议，将 2026 年度宁德时代关联人士集团应付本集团产品采购总额上限由 70 亿元上调至 90 亿元，自 2026 年 1 月 1 日起生效。龙蟠为宁德时代磷酸铁锂正极材料核心供应商之一。",
+   imp:"上游材料采购上限单季再上调约 29%，侧面印证宁德时代出货量与储能需求超预期，磷酸铁锂产业链景气度延续。",
+   url:"http://m.toutiao.com/group/7708568410136904218/", verified:"ok", seen:"09:02", tags:["龙蟠科技","宁德时代","磷酸铁锂","正极材料","供应链"]},
+
+  {ts:"2026-11-16T10:00:00+08:00", cat:"具身智能", weight:2,
+   title:"TARSBOT × Aptiv 深化具身 AI 战略合作：年底部署 100 台工业人形机器人，目标车队规模 1000 台",
+   src:"PRNewswire / AAP",
+   sum:"第九届进博会期间，逐际动力 TARSBOT 与 Aptiv（安波福）签署深化战略合作协议：Aptiv 计划年底前完成 100 台 TARSBOT A 系列工业具身 AI 机器人部署，覆盖 8 大类制造工艺、33 个应用场景；首批机器人已进入 Aptiv 智能工厂真实产线。Aptiv 高性能计算平台将作为算力底座导入 TARSBOT 机器人，双方计划 2026 年量产。在嘉定区政府支持下，目标是打造中国首个千台级工业具身 AI 机器人大队。",
+   imp:"汽车 Tier-1 龙头 Aptiv 以千台级车队规模押注工业人形机器人，把具身智能从单机试点推进到多工艺规模化复制阶段，是汽车供应链跨界 AI 的标志性订单。",
+   url:"https://aap.com.au/aapreleases/cision20261115ae97310/", verified:"ok", seen:"10:00", tags:["TARSBOT","逐际动力","Aptiv","安波福","具身智能","人形机器人","汽车供应链","进博会"]},
+
   {ts:"2026-11-15T22:34:00+08:00", cat:"供应链", weight:2,
    title:"*ST闻泰：荷兰企业法庭裁定安世半导体相关，罚金上限 3 亿欧元，公司将上诉",
    src:"财联社 / 每日经济新闻",
@@ -2453,7 +2467,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-16 10:00";
+document.getElementById("s-next").textContent = "11-16 12:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
