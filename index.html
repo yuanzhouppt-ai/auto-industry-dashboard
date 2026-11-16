@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-16 20:00</b></li>
+        <li>下一轮<b id="s-next">11-17 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-16T18:00:00+08:00";
-const NEXT_TS    = "2026-11-16T20:00:00+08:00";
+const REFRESH_TS = "2026-11-16T20:00:00+08:00";
+const NEXT_TS    = "2026-11-17T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-16T17:14:00+08:00", cat:"政策法规与监管", weight:2,
+   title:"中汽协对一汽、东风、比亚迪、蔚来等17家重点车企开展供应商账款支付调研评估",
+   src:"财联社 / 央广网 / 新浪财经",
+   sum:"11月16日，中国汽车工业协会发布《关于开展汽车企业供应商账款支付调研评估工作的通知》，针对一汽、东风、长安、北汽、广汽、比亚迪、蔚来等17家重点车企开展供应商账款支付情况调研评估。调研每年一次，采取「车企定期报送+样本供应商抽查」相结合方式，车企需于每年1月31日前报送上一年度账款支付情况报告，落实工信部60天账期硬约束。",
+   imp:"60天账期从行业倡议升级为定期报送+抽查的硬监管，直接挤压强势车企对中小供应商的占款空间；与《保障中小企业款项支付条例》形成闭环，零部件企业现金流压力有望系统性缓解。",
+   url:"http://news.cnr.cn/native/gd/20261116/t20261116_527874786.shtml", verified:"ok", seen:"17:14", tags:["中汽协","工信部","60天账期","供应商账款","监管","17家车企","中小企业"]},
+
+  {ts:"2026-11-16T18:05:00+08:00", cat:"企业战略", weight:1,
+   title:"小鹏集团Q3财报：营收242.8亿创新高，何小鹏披露Robotaxi已获L4示范运营资质、人形机器人年底规模量产",
+   src:"港交所公告 / 新浪财经 / 小鹏IR",
+   sum:"小鹏集团11月16日港交所发布2026年Q3财报，单季营收242.8亿元、交付量创历史新高。何小鹏在业绩电话会披露：①小鹏Robotaxi业务已获批L4级示范运营资质；②新一代小鹏人形机器人正在向年底规模量产里程碑加速；③物理AI技术领先将在全球市场带来高毛利商业化机会。Q4交付指引16.9万–17.4万辆。",
+   imp:"小鹏从「造车」正式升级为「智能汽车+Robotaxi+人形机器人」三位一体物理AI公司，与比亚迪、蔚来、理想形成新势力第四极叙事；年底人形机器人量产是关键验证节点。",
+   url:"https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600842.pdf", verified:"ok", seen:"18:05", tags:["小鹏","Q3财报","Robotaxi","L4资质","人形机器人","物理AI","何小鹏"]},
+
   {ts:"2026-11-16T16:39:00+08:00", cat:"工厂投产与海外", weight:2,
    title:"现代·起亚重组全球生产基地：销往墨西哥的 Creta 从印尼移至越南以降低关税",
    src:"东亚日报（동아일보）",
@@ -2551,7 +2565,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-16 20:00";
+document.getElementById("s-next").textContent = "11-17 08:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
