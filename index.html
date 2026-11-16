@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-16 12:00</b></li>
+        <li>下一轮<b id="s-next">11-16 14:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-16T10:00:00+08:00";
-const NEXT_TS    = "2026-11-16T12:00:00+08:00";
+const REFRESH_TS = "2026-11-16T12:00:00+08:00";
+const NEXT_TS    = "2026-11-16T14:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-16T10:28:00+08:00", cat:"出海与补能", weight:1,
+   title:"印尼国家石油Pertamina Patra Niaga 与比亚迪签 MoU：在绿色能源加油站试点闪充技术",
+   src:"Suara.com",
+   sum:"印尼国有石油公司 Pertamina Patra Niaga 与比亚迪印尼分公司签署谅解备忘录，双方将在 Pertamina 绿色能源加油站（SPBU Green Energy）共同探索闪充技术落地，把比亚迪的光储充一体化与闪充机械臂接入印尼现有加油/补能网络。",
+   imp:"比亚迪闪充出海首次绑定东南亚国家级能源网络，绕开纯自建补能路径，借 Pertamina 现有站点快速铺开。",
+   url:"https://amp.suara.com/bisnis/2026/11/16/092842/pertamina-patra-niaga-gandeng-byd-jajaki-pengembangan-teknologi-flash-charging-di-spbu-green-energy", verified:"ok", seen:"10:28", tags:["比亚迪","Pertamina","印尼","闪充","出海","补能","SPBU"]},
+
+  {ts:"2026-11-16T11:52:00+08:00", cat:"人物动态", weight:1,
+   title:"东风云南汽车有限公司党委书记、总经理龚先华接受审查调查",
+   src:"财联社",
+   sum:"据中央纪委国家监委驻东风汽车集团纪检监察组、湖北省纪委监委消息，东风云南汽车有限公司党委书记、总经理龚先华涉嫌严重违纪违法，目前正接受纪律审查和监察调查。",
+   imp:"东风系反腐延伸到云南商用车板块，年内又一整车二级公司一把手被查，东风汽车体系治理风险持续释放。",
+   url:"https://www.cls.cn/detail/2535112", verified:"ok", seen:"11:52", tags:["东风汽车","龚先华","东风云南","反腐","审查调查","商用车"]},
+
+  {ts:"2026-11-16T12:00:00+08:00", cat:"智驾与Robotaxi", weight:2,
+   title:"丰田×小马智行第七代铂智4X Robotaxi 在广州南沙开启全无人商业示范运营",
+   src:"PRNewswire / 丰田中国微博",
+   sum:"丰田与小马智行共同宣布，基于第七代车型的 bZ4X Robotaxi 在广州南沙正式上线全无人驾驶商业服务，由小马智行提供自动驾驶出行服务。这是双方合资公司「骓丰」（丰田中国+广汽丰田+小马智行）千台级铂智4X Robotaxi 车队首次全无人商业化落地，也是丰田首款量产纯电 Robotaxi 在中国市场的规模化运营起点。",
+   imp:"跨国车企第一次把 L4 全无人 Robotaxi 以量产合资模式在中国规模化商用，与特斯拉得州首超 Waymo 形成中美同步对标。",
+   url:"https://www.prnewswire.com/news-releases/ponyai-and-toyota-launch-fully-driverless-commercial-services-with-gen-7-bz4x-robotaxi-302939910.html", verified:"ok", seen:"12:00", tags:["丰田","小马智行","Pony.ai","铂智4X","bZ4X","Robotaxi","L4","广州南沙","骓丰","全无人"]},
+
   {ts:"2026-11-16T09:02:00+08:00", cat:"供应链", weight:1,
    title:"龙蟠科技 H 股公告：本年度宁德时代采购上限由 70 亿元上调至 90 亿元",
    src:"上海证券报",
@@ -2467,7 +2488,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-16 12:00";
+document.getElementById("s-next").textContent = "11-16 14:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
