@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-17 14:00</b></li>
+        <li>下一轮<b id="s-next">11-17 16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-17T12:00:00+08:00";
-const NEXT_TS    = "2026-11-17T14:00:00+08:00";
+const REFRESH_TS = "2026-11-17T14:00:00+08:00";
+const NEXT_TS    = "2026-11-17T16:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-17T13:49:00+08:00", cat:"行业格局", weight:2,
+   title:"蔚来就财务经营传言报案，披露前10月交付同比+38.5%、现金储备567亿较2025年底+108亿",
+   src:"北京日报客户端",
+   sum:"11月17日蔚来汽车发布《关于针对蔚来公司恶意造谣信息的严正声明》，称网传涉及公司财务经营的传言纯属恶意捏造，已固定证据向公安机关报案。蔚来同时披露2026年1-10月交付量同比增长38.5%，截至二季度末现金储备达567亿元，较2025年底增长108亿元。",
+   imp:"新势力遭遇做空式谣言时主动报案+披露核心财务数据，是行业内少见的强硬应对；567亿现金储备+38.5%交付增速为蔚来短期经营状况提供官方背书。",
+   url:"https://news.qq.com/rain/a/20261117A07HLD00", verified:"ok", seen:"13:49", tags:["蔚来","辟谣","财务","报案","现金储备"]},
+
+  {ts:"2026-11-17T13:59:00+08:00", cat:"人物动态", weight:1,
+   title:"英伟达开发者技术总监Nader Khalil致信董事会呼吁黄仁勋复职，称不恢复将导致「不可替代人才」流失",
+   src:"科创板日报（财联社）",
+   sum:"11月17日《华尔街日报》援引知情人士报道，英伟达开发者技术总监Nader Khalil已致信公司高管及董事会，提出若不恢复黄仁勋首席执行官职务，可能导致「不可替代的人才」流失。信中指出黄仁勋具备领导英伟达的独特资质，理应在调查期间获得信任。此前董事会明确表示未在考虑让黄仁勋回任。",
+   imp:"黄仁勋辞任后首次出现内部高管公开施压复职，管理层裂痕公开化；临时CEO Colette Kress过渡期面临的内部压力远超外部预期。",
+   url:"https://www.cls.cn/detail/2536428", verified:"ok", seen:"13:59", tags:["英伟达","黄仁勋","Nader Khalil","复职","内部施压"]},
+
+  {ts:"2026-11-16T23:15:00+08:00", cat:"行业格局", weight:1,
+   title:"Stellantis出售加拿大安大略省布兰普顿装配厂给防务技术公司Roshel，预计年底前交割",
+   src:"新浪财经（电动内参）",
+   sum:"Stellantis与加拿大防务技术公司Roshel达成协议，Roshel接手Stellantis位于安大略省布兰普顿的装配厂及厂内相关设备，双方未透露交易金额，预计今年年底前完成交割。Roshel将把该厂用于生产装甲车辆。",
+   imp:"Stellantis持续收缩北美乘用车产能，将工厂转售给防务企业是传统车企资产向国防工业转移的典型案例；反映北美乘用车产能过剩与国防需求扩张的结构性切换。",
+   url:"https://finance.sina.com.cn/wm/2026-11-16/doc-iniyyeuv5789136.shtml", verified:"ok", seen:"13:59", tags:["Stellantis","Roshel","布兰普顿","工厂出售","北美产能"]},
+
   {ts:"2026-11-17T12:03:00+08:00", cat:"政策法规", weight:1,
    title:"商务部等9部门：推动新能源汽车「车电一体报废」回收拆解，研究制定动力电池数字身份证管理制度",
    src:"财联社",
@@ -2621,7 +2642,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-17 14:00";
+document.getElementById("s-next").textContent = "11-17 16:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
