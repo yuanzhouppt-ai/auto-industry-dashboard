@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-17 16:00</b></li>
+        <li>下一轮<b id="s-next">11-17 18:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-17T14:00:00+08:00";
-const NEXT_TS    = "2026-11-17T16:00:00+08:00";
+const REFRESH_TS = "2026-11-17T16:00:00+08:00";
+const NEXT_TS    = "2026-11-17T18:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-17T15:42:00+08:00", cat:"具身智能", weight:1,
+   title:"何小鹏：小鹏首条高阶通用人形机器人自动化产线启用，核心制程自动化率超80%，已完成供应链定点签署",
+   src:"新浪财经（小鹏Q3财报电话会）",
+   sum:"11月17日小鹏集团Q3财报电话会后，何小鹏向媒体透露：小鹏近期已启用首条高阶通用人形机器人自动化产线，核心制程自动化率超80%，以车规级质量标准打造机器人量产能力；小鹏已完成供应链企业的定点协议签署，获得头部零部件企业对量产爬坡的积极配合；新一代小鹏人形机器人正加速向年底硬件量产推进。",
+   imp:"人形机器人量产从PPT进入车规级产线阶段，80%自动化率+供应链定点意味着小鹏IR0N不再是demo，而是进入量产爬坡倒计时；车规制造体系正在向机器人迁移。",
+   url:"http://finance.sina.cn/2026-11-17/detail-iniyzswc5389121.d.html", verified:"ok", seen:"15:42", tags:["小鹏","何小鹏","人形机器人","IR0N","量产产线","供应链定点"]},
+
+  {ts:"2026-11-17T15:53:00+08:00", cat:"智驾芯片", weight:1,
+   title:"李想：理想多款新车标配马赫M100芯片，将逐步开放马赫M100芯片外供",
+   src:"铁骥视频（微博）",
+   sum:"11月17日李想在公开场合表示，今年理想多款新车都标配马赫M100芯片，在新架构上已实现泊车提前10米识别、红绿灯起步零犹豫；马赫M100支持全新3D ViT感知，前向感知距离300米，动态物体识别能力提升50%。李想同时透露，将逐步开放马赫M100芯片的外供。",
+   imp:"理想自研智驾芯片从自用走向外供，标志着国产大算力芯片从「车企自研自用」进入「对外出货」阶段；对英伟达Orin/Thor、地平线征程系列形成新的竞争变量。",
+   url:"https://m.weibo.cn/detail/5366270358718840", verified:"ok", seen:"15:53", tags:["理想","李想","马赫M100","智驾芯片","芯片外供"]},
+
+  {ts:"2026-11-17T15:55:00+08:00", cat:"召回质量", weight:1,
+   title:"宝马（中国）扩大召回部分进口5系/8系汽车，共计1482辆起",
+   src:"界面新闻（市场监管总局召回公告）",
+   sum:"11月17日市场监管总局发布召回公告，宝马（中国）汽车贸易有限公司扩大召回：自即日起，召回2020年6月17日至2021年3月12日期间生产的部分进口5系汽车，共计1482辆；召回2019年6月14日至2021年3月12日期间生产的部分进口8系汽车。召回原因为车辆相关部件存在安全隐患。",
+   imp:"宝马在华召回持续扩大，5系/8系作为高端进口车型，部件缺陷暴露的供应链质量问题对宝马品牌在华口碑有持续影响。",
+   url:"https://www.jiemian.com/lists/1330kb.html", verified:"ok", seen:"15:55", tags:["宝马","召回","5系","8系","市场监管总局"]},
+
   {ts:"2026-11-17T13:49:00+08:00", cat:"行业格局", weight:2,
    title:"蔚来就财务经营传言报案，披露前10月交付同比+38.5%、现金储备567亿较2025年底+108亿",
    src:"北京日报客户端",
@@ -2642,7 +2663,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-17 16:00";
+document.getElementById("s-next").textContent = "11-17 18:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
