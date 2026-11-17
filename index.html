@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-17 20:00</b></li>
+        <li>下一轮<b id="s-next">11-18 08:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-17T18:00:00+08:00";
-const NEXT_TS    = "2026-11-17T20:00:00+08:00";
+const REFRESH_TS = "2026-11-17T20:00:00+08:00";
+const NEXT_TS    = "2026-11-18T08:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-17T19:41:00+08:00", cat:"人物动态", weight:1,
+   title:"中国重汽：赵海辞任总经理，吕涛接任（1984年出生）",
+   src:"新浪财经",
+   sum:"11月17日中国重汽召开第十届董事会第三次会议，审议通过聘任吕涛为公司总经理；赵海因工作变动辞任总经理职务，辞任后不再在公司及其子公司任职。吕涛1984年5月出生，曾任中国重汽多个核心管理岗位。同时张燕申请辞任非独立董事职务。",
+   imp:"商用车龙头换帅，84后年轻高管接棒总经理，标志中国重汽管理层年轻化和新周期战略开启。",
+   url:"https://k.sina.cn/article_6192937794_17120bb4202002wkoo.html", verified:"ok", seen:"19:41", tags:["中国重汽","赵海","吕涛","总经理","商用车","人事变动"]},
+
+  {ts:"2026-11-17T19:45:00+08:00", cat:"具身智能", weight:1,
+   title:"雷军APEC峰会：未来具身机器人产业规模可能超越汽车产业，小米机器人已进工厂实习可连续工作8小时",
+   src:"动静贵州（微博）",
+   sum:"11月17日在2026年APEC工商领导人峰会现场，小米集团董事长雷军表示：未来具身机器人产业规模可能会超越汽车产业。雷军透露小米布局机器人研发已有6年，旗下具身智能机器人已进入工厂开展实习，可连续完整工作8小时，期间还能2次自主充电。",
+   imp:"雷军在APEC国际舞台首次明确判断具身机器人产业规模将超越汽车，小米机器人从实验室进入工厂实习阶段，6年研发布局开始进入产出期。",
+   url:"https://m.weibo.cn/detail/5366328720623181", verified:"ok", seen:"19:45", tags:["雷军","小米","APEC","具身智能","人形机器人","工厂实习"]},
+
+  {ts:"2026-11-17T18:56:00+08:00", cat:"智驾出海", weight:1,
+   title:"知行科技iFC4.0新获首批海外项目定点，为中欧合资整车企业欧式SUV和硬派越野提供智驾方案",
+   src:"新浪财经",
+   sum:"知行科技宣布获得中欧合资整车企业量产定点，将为中欧双方联合开发的欧式SUV和硬派越野两款车型提供iFC4.0智能前视行车辅助驾驶解决方案。这两款车型将作为两大主流国际品牌产品，于包括欧盟在内的海外市场销售，是iFC4.0的首批出海项目。",
+   imp:"智驾方案从国内车企配套走向中欧合资车型出海，中国智驾供应链开始进入国际品牌全球车型供应链体系。",
+   url:"https://cj.sina.com.cn/articles/view/5115326071/130e5ae77020034q4s", verified:"ok", seen:"18:56", tags:["知行科技","iFC4.0","智驾出海","中欧合资","海外定点"]},
+
   {ts:"2026-11-17T18:03:00+08:00", cat:"智驾芯片", weight:1,
    title:"理想马赫M100架构论文入选ISCA 2026，成台积电OIP论坛唯一特邀演讲大陆车企，上一家中国公司是DeepSeek",
    src:"深圳特区报（鞭牛士）",
@@ -2677,7 +2698,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-17 20:00";
+document.getElementById("s-next").textContent = "11-18 08:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
