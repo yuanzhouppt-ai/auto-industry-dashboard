@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-17 12:00</b></li>
+        <li>下一轮<b id="s-next">11-17 14:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-17T10:00:00+08:00";
-const NEXT_TS    = "2026-11-17T12:00:00+08:00";
+const REFRESH_TS = "2026-11-17T12:00:00+08:00";
+const NEXT_TS    = "2026-11-17T14:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-17T12:03:00+08:00", cat:"政策法规", weight:1,
+   title:"商务部等9部门：推动新能源汽车「车电一体报废」回收拆解，研究制定动力电池数字身份证管理制度",
+   src:"财联社",
+   sum:"11月17日商务部等9部门发布关于深入推进再生资源回收体系建设、促进回收行业高质量发展的意见：修订实施《报废机动车回收管理办法实施细则》，推动新能源汽车「车电一体报废」回收拆解；研究制定新能源汽车动力电池数字身份证管理制度，加强废旧动力电池回收处理。",
+   imp:"动力电池回收从政策倡导进入实操层面，「车电一体报废」将改变现有拆解企业资质与回收渠道格局；数字身份证与11-5工信部征求意见形成政策闭环。",
+   url:"http://m.toutiao.com/group/7708986088195228195/", verified:"ok", seen:"12:03", tags:["商务部","动力电池","回收","车电一体","数字身份证","政策"]},
+
+  {ts:"2026-11-17T11:04:00+08:00", cat:"行业格局", weight:1,
+   title:"中汽中心发布2027全球场景新能源汽车电安全技术验证体系，上线全球首个电安全国际官方网站",
+   src:"央视新闻",
+   sum:"11月17日中国汽车技术研究中心发布2027全球场景新能源汽车电安全技术验证体系，已累计完成700多个验证项目、覆盖近200类工况，并上线全球首个新能源汽车电安全国际官方网站。该体系将为中国新能源车出海提供电安全标准支撑。",
+   imp:"中国车企出海面临各国电安全法规壁垒，中汽中心主导的国际验证体系输出有助于统一标准话语权，减少海外认证重复成本。",
+   url:"https://ysxw.cctv.cn/article.html?channelId=1119&item_id=12277668118984021769&toc_style_id=feeds_default", verified:"ok", seen:"11:04", tags:["中汽中心","电安全","出海","标准","新能源汽车"]},
+
+  {ts:"2026-11-17T11:55:00+08:00", cat:"具身智能", weight:1,
+   title:"机器人力传感器龙头蓝点触控完成数亿元D3轮融资，近半年融资超10亿元",
+   src:"新京报贝壳财经",
+   sum:"11月17日国内机器人力传感器龙头蓝点触控宣布完成数亿元D3轮融资，由洪泰基金、中关村科学城、弘毅投资、浙创投等十余家机构联合投资。近半年公司累计融资已超10亿元，力传感器是人形机器人关节感知核心零部件。",
+   imp:"具身智能核心零部件（力传感器）赛道持续获资本加注，国产替代进程加速；近半年10亿融资节奏说明人形机器人量产前夜供应链正在集中扩产。",
+   url:"http://m.toutiao.com/group/7708984154005357071/", verified:"ok", seen:"11:55", tags:["蓝点触控","力传感器","人形机器人","融资","具身智能"]},
+
   {ts:"2026-11-16T22:46:00+08:00", cat:"出海与海外建厂", weight:2,
    title:"特斯拉投资30亿欧元扩建德国格林海德工厂，目标年产100万辆Cybercab",
    src:"路透社 / 新浪财经 / 华尔街见闻",
@@ -2600,7 +2621,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-17 12:00";
+document.getElementById("s-next").textContent = "11-17 14:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
