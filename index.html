@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-17 10:00</b></li>
+        <li>下一轮<b id="s-next">11-17 12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-17T08:00:00+08:00";
-const NEXT_TS    = "2026-11-17T10:00:00+08:00";
+const REFRESH_TS = "2026-11-17T10:00:00+08:00";
+const NEXT_TS    = "2026-11-17T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-16T22:46:00+08:00", cat:"出海与海外建厂", weight:2,
+   title:"特斯拉投资30亿欧元扩建德国格林海德工厂，目标年产100万辆Cybercab",
+   src:"路透社 / 新浪财经 / 华尔街见闻",
+   sum:"11月16日特斯拉向路透社发送邮件声明，计划向德国柏林郊外格林海德超级工厂投资30亿欧元，新建一座专为Cybercab自动驾驶出租车设计的生产设施，规划年产能最高100万辆。新厂房面积约为现有主车间两倍，计划2027年上半年开工、2029年正式投产。特斯拉承诺扩建后工厂用水量维持现有合同额度。",
+   imp:"特斯拉在欧洲唯一整车厂押注Robotaxi规模化生产，与得州工厂Cybercab产线形成双基地；但100万辆远期目标缺乏时间表，且Cybercab尚未在任何地区大规模商业销售。",
+   url:"https://finance.sina.com.cn/jjxw/2026-11-16/doc-iniyxynz2677862.shtml", verified:"ok", seen:"22:46", tags:["特斯拉","Cybercab","德国","格林海德","Robotaxi","出海"]},
+
+  {ts:"2026-11-17T09:04:00+08:00", cat:"政策法规", weight:1,
+   title:"工信部回应车企账期调研：应付账款规模大、故意拉长账期或投诉多的车企将被联合约谈整改",
+   src:"腾讯新闻 / 东方财富网",
+   sum:"11月17日工信部就中汽协16日发布的《汽车企业供应商账款支付调研评估工作通知》作出回应：每年开展一次系统调研评估并公布评估结果，对三类存在账款支付问题的汽车企业——应付账款规模大、故意拉长账期、投诉较多——将联合相关部门开展约谈并督促整改。",
+   imp:"R95中汽协账期调研评估的执行层面升级，60天账期从行业倡议变为有约谈整改的硬约束；中小零部件供应商现金流保护机制进一步压实。",
+   url:"http://news.qq.com/rain/a/20261117A03J7U00", verified:"ok", seen:"09:04", tags:["工信部","账期","供应商","中汽协","政策","约谈整改"]},
+
+  {ts:"2026-11-16T20:44:00+08:00", cat:"企业战略", weight:1,
+   title:"纳芯微拟4.87亿收购隔空智能78.15%股权，加码车规毫米波雷达芯片",
+   src:"上海证券报 / 科创板日报",
+   sum:"11月16日晚纳芯微公告，拟以现金4.87亿元收购宁波隔空智能科技78.152%股权，标的公司主营微波/毫米波雷达传感芯片及模组，增值率268.40%，不设业绩承诺。隔空智能车载雷达芯片尚未量产，产品目前主要应用于智能照明、家电、安防等领域。",
+   imp:"国产车规模拟芯片龙头向毫米波雷达SoC延伸，补齐智驾感知芯片版图；但标的车载雷达芯片尚未量产且亏损，收购存在整合风险。",
+   url:"http://www.cnstock.com/commonDetail/829192", verified:"ok", seen:"20:44", tags:["纳芯微","隔空智能","毫米波雷达","车规芯片","收购","智驾"]},
+
   {ts:"2026-11-17T05:00:00+08:00", cat:"企业战略", weight:2,
    title:"现代汽车集团完成Boston Dynamics 100%全资收购交割，加速人形机器人Atlas量产",
    src:"韩媒 Newsis / Financial News",
@@ -2579,7 +2600,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-17 10:00";
+document.getElementById("s-next").textContent = "11-17 12:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
