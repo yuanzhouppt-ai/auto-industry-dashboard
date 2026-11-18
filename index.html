@@ -169,6 +169,32 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 .col-empty{font-size:12px;color:var(--muted);padding:6px 0}
 .col-msg{display:none}
 .tag{font-size:10.5px;padding:1px 6px;border-radius:2px;color:var(--ink-2);background:rgba(22,25,22,.06);border:1px solid var(--line);white-space:nowrap}
+
+/* ===== 核心人物板块 ===== */
+.people-sec{margin:18px 0 8px;border:1px solid var(--line);background:var(--card)}
+.people-sec>summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;align-items:center;gap:10px;
+  background:linear-gradient(90deg,rgba(51,82,63,.06),transparent);border-bottom:1px solid var(--line)}
+.people-sec>summary::-webkit-details-marker{display:none}
+.people-sec>summary h2{font-family:var(--serif);font-size:16px;margin:0;font-weight:600;letter-spacing:.02em;flex:1}
+.people-sec>summary .cnt{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.people-sec>summary .arrow{font-family:var(--mono);font-size:11px;color:var(--pine);transition:transform .2s}
+.people-sec[open]>summary .arrow{transform:rotate(90deg)}
+.people-body{padding:12px 16px 16px}
+.people-note{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 12px;padding:8px 10px;background:rgba(138,106,31,.06);border-left:2px solid var(--amber)}
+.people-group{margin-bottom:14px}
+.people-group:last-child{margin-bottom:0}
+.people-group>h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--pine);margin:0 0 8px;
+  padding-bottom:4px;border-bottom:1px solid var(--line);text-transform:uppercase}
+.people-table{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.5}
+.people-table th{text-align:left;font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600;
+  padding:5px 8px;border-bottom:1px solid var(--line);letter-spacing:.04em}
+.people-table td{padding:6px 8px;border-bottom:1px dashed var(--line);vertical-align:top}
+.people-table tr:last-child td{border-bottom:0}
+.people-table .car{font-weight:600;color:var(--ink);white-space:nowrap;min-width:80px}
+.people-table .role{color:var(--ink-2)}
+.people-table .na{color:var(--muted);font-style:italic}
+.people-table .tag-mini{display:inline-block;font-family:var(--mono);font-size:10px;padding:0 4px;border-radius:2px;
+  background:rgba(162,64,47,.08);color:var(--brick);margin-left:4px}
 </style>
 </head>
 <body>
@@ -240,6 +266,391 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="col-list" id="col-定点"></div>
     </div>
   </section>
+
+  <details class="people-sec" id="peopleSec">
+    <summary>
+      <h2>核心人物图谱 · 车企高管动态跟踪</h2>
+      <span class="cnt">56家车企 · CEO/CTO/采购/研究院</span>
+      <span class="arrow">▶</span>
+    </summary>
+    <div class="people-body">
+      <p class="people-note">本表为公开信息整理，覆盖国内自主、合资、海外、华为车BU、商用车共56家车企的关键岗位负责人。用于跟踪各位高管的招聘、采购、人事变动与公开发言。标注「待查」的为公开渠道未具名披露，后续跟踪中补充。</p>
+      <div class="people-group">
+<h3>国内自主整车集团（17家）</h3>
+<table class="people-table">
+<thead><tr><th>车企</th><th>CEO/董事长</th><th>CTO/研发负责人</th><th>采购一号位</th><th>研究院/技术中心</th></tr></thead>
+<tbody><tr>
+<td class="car">比亚迪</td>
+<td class="role">王传福（董事长兼总裁）</td>
+<td class="role">廉玉波（首席科学家/汽车总工程师/工程院院长，院士）</td>
+<td class="role">王渤（供应链管理公司总经理）</td>
+<td class="role">杨冬生（高级副总裁/汽车新技术研究院院长）</td>
+</tr><tr>
+<td class="car">吉利汽车</td>
+<td class="role">淦家阅（行政总裁）；安聪慧（董事会主席）</td>
+<td class="role">李传海（集团副总裁/研究院院长=CTO）</td>
+<td class="role">待查</td>
+<td class="role">李传海（兼）</td>
+</tr><tr>
+<td class="car">长安汽车</td>
+<td class="role">赵非（董事长）；叶沛（总裁）</td>
+<td class="role">张晓宇（执行副总裁，分管研发）</td>
+<td class="role">韩宛霓（采购中心副总工程师）</td>
+<td class="role">詹樟松（前瞻技术研究院总经理）</td>
+</tr><tr>
+<td class="car">长城汽车</td>
+<td class="role">魏建军（董事长）；穆峰（总经理）</td>
+<td class="role">吴会肖（CTO）</td>
+<td class="role">赵国庆（副董事长/COO/首席供应链官）</td>
+<td class="role">张凯（车辆安全工程研究院院长）</td>
+</tr><tr>
+<td class="car">奇瑞汽车</td>
+<td class="role">尹同跃（董事长）；张贵兵（常务副总裁）</td>
+<td class="role">高新华（执行副总裁/研发总院院长=CTO）</td>
+<td class="role">王洪（全球采购中心副总监）</td>
+<td class="role">徐有忠（研发总院副院长）</td>
+</tr><tr>
+<td class="car">上汽集团</td>
+<td class="role">王晓秋（董事长）；贾健旭（总裁）</td>
+<td class="role">祖似杰（副总裁/总工程师/研发总院院长）</td>
+<td class="role">待查</td>
+<td class="role">邵景峰（研发总院总设计师）</td>
+</tr><tr>
+<td class="car">广汽集团</td>
+<td class="role">冯兴亚（董事长）；閤先庆（总经理）</td>
+<td class="role">吴坚（广汽研究院院长）</td>
+<td class="role">待查</td>
+<td class="role">梁伟强（平台技术研究院院长）</td>
+</tr><tr>
+<td class="car">北汽集团</td>
+<td class="role">张建勇（董事长）；常瑞（总经理）</td>
+<td class="role">郑新芬（研究总院副院长）</td>
+<td class="role">李森（采购中心主任/研究总院院长）</td>
+<td class="role">徐峰（研究总院执行院长）</td>
+</tr><tr>
+<td class="car">东风汽车</td>
+<td class="role">杨青（董事长）；冯长军（总经理）</td>
+<td class="role">尤峥（副总经理，分管科技）</td>
+<td class="role">徐斌（集采分公司负责人）</td>
+<td class="role">冯超（研发总院智能化总工程师）</td>
+</tr><tr>
+<td class="car">中国一汽</td>
+<td class="role">邱现东（董事长）；刘亦功（总经理）</td>
+<td class="role">蒋文虎（研发总院院长）</td>
+<td class="role">田海峰（采购中心负责人）</td>
+<td class="role">朱学武（研发总院技术创新管理部部长）</td>
+</tr><tr>
+<td class="car">蔚来</td>
+<td class="role">李斌（创始人/董事长/CEO）</td>
+<td class="role">周欣（执行副总裁/产品委员会主席）</td>
+<td class="role">沈峰（执行VP，即将退休）；李斌直管</td>
+<td class="role">周欣（兼）</td>
+</tr><tr>
+<td class="car">小鹏汽车</td>
+<td class="role">何小鹏（董事长/CEO）；王凤英（总裁）</td>
+<td class="role">刘先明（通用智能中心负责人）</td>
+<td class="role">王凤英统筹</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">理想汽车</td>
+<td class="role">李想（创始人/董事长/CEO）；马东辉（总裁）</td>
+<td class="role">谢炎（CTO，原华为终端OS部部长）</td>
+<td class="role">孟庆鹏（供应链副总裁）</td>
+<td class="role">谢炎（兼）</td>
+</tr><tr>
+<td class="car">零跑汽车</td>
+<td class="role">朱江明（创始人/董事长/CEO）</td>
+<td class="role">周洪涛（高级VP，自动驾驶）；曹力（整车）；巫存（电驱）</td>
+<td class="role">待查</td>
+<td class="role">朱江明直管</td>
+</tr><tr>
+<td class="car">小米汽车</td>
+<td class="role">雷军（创始人/董事长/CEO）</td>
+<td class="role">胡峥楠（集团副总裁/汽车部CTO）</td>
+<td class="role">李肖爽（汽车副总裁，供应链）</td>
+<td class="role">胡峥楠（兼）</td>
+</tr><tr>
+<td class="car">赛力斯</td>
+<td class="role">张兴海（集团董事长）；尹先知（总裁）</td>
+<td class="role">周林（副总裁/CTO）</td>
+<td class="role">待查</td>
+<td class="role">周林（兼）</td>
+</tr><tr>
+<td class="car">江汽集团</td>
+<td class="role">项兴初（党委书记/董事长/总经理）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr></tbody>
+</table>
+</div><div class="people-group">
+<h3>新势力尾部（5家）</h3>
+<table class="people-table">
+<thead><tr><th>车企</th><th>CEO/董事长</th><th>CTO/研发负责人</th><th>采购一号位</th><th>研究院/技术中心</th></tr></thead>
+<tbody><tr>
+<td class="car">哪吒汽车</td>
+<td class="role">方运舟（创始人/董事长，兼CEO）</td>
+<td class="role">常冰（副总裁兼设计中心总经理）</td>
+<td class="role">待查</td>
+<td class="role">公司破产重整中</td>
+</tr><tr>
+<td class="car">合创汽车</td>
+<td class="role">杨颖（CEO）；王会普（法定代表人）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">启境汽车完成10亿元增资</td>
+</tr><tr>
+<td class="car">极越汽车</td>
+<td class="role">夏一平（CEO/法定代表人）；周毅（董事长）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">百度+吉利联合研发</td>
+</tr><tr>
+<td class="car">深蓝汽车</td>
+<td class="role">邓承浩（执行副总裁，兼董事长）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">长安子公司</td>
+</tr><tr>
+<td class="car">阿维塔</td>
+<td class="role">陈卓（总裁）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">长安子公司</td>
+</tr></tbody>
+</table>
+</div><div class="people-group">
+<h3>合资车企（在华）（11家）</h3>
+<table class="people-table">
+<thead><tr><th>车企</th><th>CEO/董事长</th><th>CTO/研发负责人</th><th>采购一号位</th><th>研究院/技术中心</th></tr></thead>
+<tbody><tr>
+<td class="car">一汽-大众</td>
+<td class="role">陈彬（党委书记/总经理）</td>
+<td class="role">待查（Jost Kessels已调任Seat/Cupra）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">上汽大众</td>
+<td class="role">吴赟（总经理，2026年8月新任）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">广汽丰田</td>
+<td class="role">藤原宽行（总经理）；黄坚（执行副总经理）</td>
+<td class="role">待查</td>
+<td class="role">黄昱（采购部科长）</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">东风本田</td>
+<td class="role">土屋宣明（总经理）；曹东杰（执行副总经理）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">曹东杰牵头中国新能源战略室</td>
+</tr><tr>
+<td class="car">广汽本田</td>
+<td class="role">森山克英（总经理）；林志斌（副总经理）</td>
+<td class="role">高洪祥（研发公司董事长）</td>
+<td class="role">待查</td>
+<td class="role">2026年7月合资续约</td>
+</tr><tr>
+<td class="car">东风日产</td>
+<td class="role">关口勋（总经理）；马智欣（东风有限总裁）</td>
+<td class="role">江田博文（技术中心高级总监）</td>
+<td class="role">待查</td>
+<td class="role">赤石永一（日产全球CTO）</td>
+</tr><tr>
+<td class="car">上汽通用</td>
+<td class="role">徐平（总经理，2026年7月新任）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">北京奔驰</td>
+<td class="role">严博霖（总裁兼CEO）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">庄睦德（在华研发负责人）</td>
+</tr><tr>
+<td class="car">华晨宝马</td>
+<td class="role">宝思齐/Birgit Boehm（总裁兼CEO）</td>
+<td class="role">RAINER FLORIAN PREUSS（沈阳技术中心董事长）</td>
+<td class="role">待查</td>
+<td class="role">Michele Melchiorre（技术与制造SVP）</td>
+</tr><tr>
+<td class="car">神龙汽车</td>
+<td class="role">吕海涛（副董事长/总经理）；程军（党委书记/副总经理）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">Stellantis执行副总裁奥立维</td>
+</tr><tr>
+<td class="car">捷豹路虎中国</td>
+<td class="role">韩少帅/Tim Howard（CEO）；潘庆（全球采购董事兼中国区总裁）</td>
+<td class="role">待查</td>
+<td class="role">潘庆（兼全球采购董事）</td>
+<td class="role">巴柏德（全球CEO）</td>
+</tr></tbody>
+</table>
+</div><div class="people-group">
+<h3>海外车企全球（12家）</h3>
+<table class="people-table">
+<thead><tr><th>车企</th><th>CEO/董事长</th><th>CTO/研发负责人</th><th>采购一号位</th><th>研究院/技术中心</th></tr></thead>
+<tbody><tr>
+<td class="car">特斯拉</td>
+<td class="role">Elon Musk（CEO）；朱晓彤（汽车业务SVP）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">丰田</td>
+<td class="role">近健太（社长/CEO，2026年4月起）</td>
+<td class="role">中嶋裕樹（副CTO）</td>
+<td class="role">待查</td>
+<td class="role">志賀武文（Chief Production Officer）</td>
+</tr><tr>
+<td class="car">大众集团</td>
+<td class="role">奥博穆/Oliver Blume（集团主席）；贝瑞德/Ralf Brandstätter（大众中国CEO）</td>
+<td class="role">吴博锐/Thomas Ulbrich（大众中国CTO/VCTC CEO）</td>
+<td class="role">Karsten Schnake（品牌集团采购董事）</td>
+<td class="role">Thomas Schmall（技术/电池董事）</td>
+</tr><tr>
+<td class="car">宝马集团</td>
+<td class="role">聂科维/Milan Nedeljković（董事长）</td>
+<td class="role">Dr. Joachim Post（研发董事）</td>
+<td class="role">Dr. Nicolai Martin（采购董事）</td>
+<td class="role">Mike Reichelt（新世代负责人）</td>
+</tr><tr>
+<td class="car">奔驰</td>
+<td class="role">Ola Källenius（董事长/CEO）</td>
+<td class="role">Jörg Burzer（CTO/研发与采购董事）</td>
+<td class="role">Jörg Burzer（兼）</td>
+<td class="role">Michael Schiebe（生产/质量/供应链董事）</td>
+</tr><tr>
+<td class="car">Stellantis</td>
+<td class="role">Antonio Filosa（CEO）</td>
+<td class="role">Ned Curic（首席工程与技术官）</td>
+<td class="role">Monica Genovese（采购负责人）</td>
+<td class="role">Doug Ostermann（CFO）</td>
+</tr><tr>
+<td class="car">福特</td>
+<td class="role">Jim Farley（总裁/CEO）；Bill Ford（执行董事长）</td>
+<td class="role">Doug Field（首席EV/数字与设计官）</td>
+<td class="role">Lisa Drake（全球采购VP，2027年退休）</td>
+<td class="role">John Lawler（副董事长，2027年退休不补位）</td>
+</tr><tr>
+<td class="car">通用</td>
+<td class="role">Mary Barra（董事长/CEO）</td>
+<td class="role">Kent Helfrich（全球研发VP/CTO）</td>
+<td class="role">Shilpan Amin（全球首席采购与供应链官）</td>
+<td class="role">Sterling Anderson（全球产品SVP）</td>
+</tr><tr>
+<td class="car">现代/起亚</td>
+<td class="role">郑义宣/Euisun Chung（会长）</td>
+<td class="role">Jihan Ryu（整车架构与集成中心负责人）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr><tr>
+<td class="car">本田</td>
+<td class="role">三部敏宏（代表执行役社长/CEO）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">Mahito Shikama（首席转型官）</td>
+</tr><tr>
+<td class="car">沃尔沃汽车</td>
+<td class="role">Håkan Samuelsson（总裁/CEO）；Klaus Zellmer（2027年10月接任）</td>
+<td class="role">Alexander Petrofski（CTO，2026年8月新任）</td>
+<td class="role">待查</td>
+<td class="role">Michael Fleiss（首席战略与产品官）</td>
+</tr><tr>
+<td class="car">保时捷</td>
+<td class="role">Dr. Michael Leiters（CEO，2026年1月起）</td>
+<td class="role">Dr. Michael Steiner（研发董事，2026年10月卸任）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+</tr></tbody>
+</table>
+</div><div class="people-group">
+<h3>华为车BU/鸿蒙智行（6家）</h3>
+<table class="people-table">
+<thead><tr><th>车企</th><th>CEO/董事长</th><th>CTO/研发负责人</th><th>采购一号位</th><th>研究院/技术中心</th></tr></thead>
+<tbody><tr>
+<td class="car">华为终端BG</td>
+<td class="role">余承东（华为常务董事/终端BG董事长）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">鸿蒙智行总负责人</td>
+</tr><tr>
+<td class="car">引望公司（车BU）</td>
+<td class="role">靳玉志（华为高级副总裁/引望CEO）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">乾崑智驾搭载量超200万台</td>
+</tr><tr>
+<td class="car">智界汽车</td>
+<td class="role">郭锐（CEO，2026年4月）；赵长江（执行董事/执行副总裁）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">奇瑞×华为</td>
+</tr><tr>
+<td class="car">享界</td>
+<td class="role">马磊（享界事业部总裁）；郭东栋（享界事业部副总裁/超级工厂总经理）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">北汽×华为</td>
+</tr><tr>
+<td class="car">尊界</td>
+<td class="role">项兴初（江汽董事长，亲自管尊界）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">江淮×华为</td>
+</tr><tr>
+<td class="car">问界</td>
+<td class="role">张兴海/张正萍（赛力斯主导）</td>
+<td class="role">周林（赛力斯CTO）</td>
+<td class="role">待查</td>
+<td class="role">2026年9月专属专营模式</td>
+</tr></tbody>
+</table>
+</div><div class="people-group">
+<h3>商用车（5家）</h3>
+<table class="people-table">
+<thead><tr><th>车企</th><th>CEO/董事长</th><th>CTO/研发负责人</th><th>采购一号位</th><th>研究院/技术中心</th></tr></thead>
+<tbody><tr>
+<td class="car">中国重汽</td>
+<td class="role">刘正涛（董事长）；刘伟（总经理）；吕涛（济南卡车总经理，2026年11月新任）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">丁惟云（集团总工程师/汽车研究总院院长）</td>
+</tr><tr>
+<td class="car">一汽解放</td>
+<td class="role">李胜（党委书记/董事长）；于长信（总经理）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">王建宇（商用车开发院院长）</td>
+</tr><tr>
+<td class="car">东风商用车</td>
+<td class="role">待查</td>
+<td class="role">李智（技术中心副中心长）；郭虎（技术总师）</td>
+<td class="role">待查</td>
+<td class="role">梁海波（D600平台技术总师）</td>
+</tr><tr>
+<td class="car">福田汽车</td>
+<td class="role">常瑞（董事长）</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">郭凤刚（工程研究总院常务副院长）</td>
+</tr><tr>
+<td class="car">宇通客车</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">待查</td>
+<td class="role">李高鹏（新能源研究院院长，全国劳模）</td>
+</tr></tbody>
+</table>
+</div>
+    </div>
+  </details>
+
 
   <div class="grid">
     <main>
