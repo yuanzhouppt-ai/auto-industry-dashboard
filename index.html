@@ -210,7 +210,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">20:00</b></li>
+        <li>下一轮<b id="s-next">10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -723,10 +723,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-18T18:00:00+08:00";
-const NEXT_TS    = "2026-11-18T20:00:00+08:00";
+const REFRESH_TS = "2026-11-19T08:00:00+08:00";
+const NEXT_TS    = "2026-11-19T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-19T06:29:00+08:00", cat:"供应链", weight:1,
+   title:"福特密歇根 BlueOval 电池公园首批 LFP 电芯发运，采用宁德时代技术授权供 Fathom 皮卡原型车",
+   src:"Ford 官方新闻稿 / Nasdaq-RTTNews",
+   sum:"11 月 18 日福特宣布，密歇根州马歇尔 BlueOval Battery Park 首批磷酸铁锂方形电芯已下线并发往肯塔基州路易维尔装配厂，供 Fathom 电动皮卡原型车开发；产线每分钟约 40 块电芯，工厂规划年产能 20GWh（原 40GWh 目标已下调）。该工厂为福特全资持有，以技术授权加按电芯付版税方式使用宁德时代 LFP 化学体系、设计与设备方案，规避中美技术合作禁令；Fathom 计划 2027 年四季度投产。",
+   imp:"中国电池技术以授权方式落地北美独资工厂，福特成为美国本土首个为主流乘用车量产 LFP 电池的整车厂；独资加授权费模式成为车企绕开供应链限制的样板，也对北美本土电池产业链形成压力。",
+   url:"https://www.at.ford.com/us/en/home/news-media/news/2026/11/battery-park-ships-first-lfp-cells.html", verified:"ok", seen:"06:29", tags:["福特","CATL","宁德时代","LFP","电池工厂","密歇根","出海","供应链","Fathom"]},
+
+  {ts:"2026-11-19T03:09:00+08:00", cat:"人物动态", weight:1,
+   title:"英伟达临时 CEO Kress 黄仁勋辞任后首次全员大会，承诺 12 月提前加薪并发放额外股权激励",
+   src:"CNBC（现场知情人士）/ 每经早参、21 财经交叉转述",
+   sum:"11 月 18 日（美东）英伟达召开黄仁勋辞任后的首次全员大会，临时 CEO Colette Kress 回应近 700 个预提交员工问题：将于 12 月提前实施加薪及额外股权激励，较正常年度评审提前数月；董事长 Harvey Jones 确认正通过外部猎头寻找永久 CEO，内外部候选人并重申黄仁勋不会回归。财报公布后英伟达收跌近 3%，总市值约 3.64 万亿美元，单日蒸发约 1085 亿美元。",
+   imp:"黄仁勋离任后管理层以薪酬安抚核心工程人才，过渡期人才稳定压力公开化；永久 CEO 遴选与 Thor 智驾芯片路线图的稳定性，将影响车企智驾算力供应链预期。",
+   url:"http://m.toutiao.com/group/7709663979874583081/", verified:"pend", seen:"03:09", tags:["英伟达","Kress","黄仁勋","CEO过渡","股权激励","智驾芯片","Thor"]},
+
 
   {ts:"2026-11-18T15:38:00+08:00", cat:"供应链", weight:1,
    title:"POSCO集团与宁德时代签订2026—2028年锂长期供应协议，供应已在进行中",
@@ -3165,7 +3179,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "20:00";
+document.getElementById("s-next").textContent = "10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
