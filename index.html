@@ -184,7 +184,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">11-18 08:00</b></li>
+        <li>下一轮<b id="s-next">10:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -312,10 +312,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-17T20:00:00+08:00";
-const NEXT_TS    = "2026-11-18T08:00:00+08:00";
+const REFRESH_TS = "2026-11-18T08:00:00+08:00";
+const NEXT_TS    = "2026-11-18T10:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-17T22:46:00+08:00", cat:"人物动态", weight:1,
+   title:"福特副董事长John Lawler将于2027年1月1日退休，福特不替换该职位，职责拆分给三位高管",
+   src:"SEC 8-K / Ford官方",
+   sum:"11月17日福特向SEC提交8-K文件，宣布副董事长John Lawler将于2027年1月1日退休，结束在福特超过30年的职业生涯。福特明确不设继任者填补副董事长职位，其职责拆分：一部分向执行董事长Bill Ford汇报，其余向CEO Jim Farley汇报。Lawler此前负责全球战略、伙伴关系、联盟与业务发展。",
+   imp:"福特全球二号人物退休且不补位，副董事长职位被拆分，标志福特高层进一步扁平化，Farley集权加速。",
+   url:"https://www.sec.gov/Archives/edgar/data/37996/000003799626000193/f-20261117.htm", verified:"ok", seen:"22:46", tags:["福特","John Lawler","副董事长","退休","组织架构","Farley"]},
+
+  {ts:"2026-11-17T21:00:00+08:00", cat:"具身智能", weight:1,
+   title:"Genesis AI完成5亿美元A轮融资估值35亿美元，英伟达/AMD Ventures/三星Next参投，创始人周衔",
+   src:"PR Newswire / TechCrunch",
+   sum:"通用机器人公司Genesis AI宣布完成5亿美元A轮融资，投后估值35亿美元，由Premji Invest、Khosla Ventures、Eclipse联合领投，英伟达旗下、AMD Ventures、三星Next等参投。创始人兼CEO周衔表示公司已破解灵巧操作，旗下Eno人形机器人通过传感器手套采集100多名工人手部数据训练，计划2027年在美国量产部署。",
+   imp:"具身智能赛道再现超大额A轮（5亿美元），英伟达/AMD/三星同时押注灵巧操作路线，与特斯拉Optimus、Figure等形成路线竞争。",
+   url:"https://www.prnewswire.com/news-releases/genesis-ai-raises-500m-series-a-at-3-5b-valuation-to-master-human-level-dexterity-in-general-purpose-robots-and-deploy-at-scale-302941249.html", verified:"ok", seen:"21:00", tags:["Genesis AI","周衔","具身智能","人形机器人","5亿美元","A轮","英伟达","三星"]},
+
   {ts:"2026-11-17T19:41:00+08:00", cat:"人物动态", weight:1,
    title:"中国重汽：赵海辞任总经理，吕涛接任（1984年出生）",
    src:"新浪财经",
@@ -2698,7 +2712,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "11-18 08:00";
+document.getElementById("s-next").textContent = "10:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
