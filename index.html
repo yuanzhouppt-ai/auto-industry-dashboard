@@ -210,7 +210,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">14:00</b></li>
+        <li>下一轮<b id="s-next">16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -723,10 +723,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-18T12:00:00+08:00";
-const NEXT_TS    = "2026-11-18T14:00:00+08:00";
+const REFRESH_TS = "2026-11-18T14:00:00+08:00";
+const NEXT_TS    = "2026-11-18T16:00:00+08:00";
 
 const DATA = [
+
+  {ts:"2026-11-18T15:38:00+08:00", cat:"供应链", weight:1,
+   title:"POSCO集团与宁德时代签订2026—2028年锂长期供应协议，供应已在进行中",
+   src:"POSCO Group Newsroom 官方公告",
+   sum:"11月18日POSCO集团官方新闻室宣布，已与全球动力电池份额约40%的宁德时代签订锂长期供应协议，2026年至2028年三年间向CATL供应电动车电池生产所需锂原料，双方巩固长期伙伴关系并保障原料稳定供应，协议项下供应已在进行中。POSCO Holdings 会长张仁华将其作为抢占优质资源、绑定全球头部客户战略的落地动作。",
+   imp:"韩国关键矿产集团绑定中国最大电池厂三年长协，锂资源供应从现货博弈转向长单锁定；宁德时代在上游锂端再落一道保险，对韩国锂盐出口与中国电池原料安全均具信号意义。",
+   url:"https://newsroom.posco.com/en/posco-group-strengthens-lithium-supply-partnership-with-catl-the-worlds-largest-battery-company/", verified:"ok", seen:"15:38", tags:["POSCO","浦项","宁德时代","CATL","锂","长协","原材料","供应链"]},
+
+  {ts:"2026-11-18T15:48:00+08:00", cat:"智驾出海", weight:1,
+   title:"Momenta联合Uber在德国慕尼黑启动Robotaxi试运营，全程免费、配安全员",
+   src:"每日经济新闻（单一信源，官方公告待核）",
+   sum:"11月18日每日经济新闻援引双方宣布，Uber与Momenta正式在德国慕尼黑启动Robotaxi试运营，试运营全程向乘客免费开放，每趟行程配备安全员。此前Momenta已于7月29日获德国联邦机动车交通管理局（KBA）颁发全境L4测试许可，无需逐城申报即可在德国全国城市道路开展L4测试。截至发稿Momenta与Uber官方新闻室尚未检索到对应通稿，待回溯一手公告。",
+   imp:"中国智驾公司借助Uber出行网络落地欧洲首个Robotaxi试点，是Momenta出海商业化的关键一步；若后续全无人化推进，将与Waymo、Autobrains在欧洲市场正面竞争。",
+   url:"https://news.qq.com/rain/a/20261118A0C00I00", verified:"pend", seen:"15:48", tags:["Momenta","Uber","Robotaxi","慕尼黑","德国","KBA","L4","智驾出海"]},
+
+  {ts:"2026-11-18T15:38:00+08:00", cat:"召回与监管", weight:1,
+   title:"现代汽车牙山工厂废油排放有罪确定，韩国环境厅启动绿色企业资格取消听证",
+   src:"京畿新闻（单一地方媒体，环境厅公告待核）",
+   sum:"11月18日京畿新闻报道，韩国金江流域环境厅已向现代汽车牙山工厂发出绿色企业指定取消听证实施通知，听证定于12月3日举行。大法院上月8日驳回现代汽车法人及责任人上诉，维持一审、二审违反水环境保全法罚金500万韩元的有罪判决；该厂1998年1月起被指定为绿色企业，约30年间享受排放设施许可豁免、环境检查豁免及资金技术优待，若听证后取消，上述优惠全部中止。",
+   imp:"现代在韩主力工厂因环境违法失去绿色企业认证优待，叠加蔚山工厂2022年因排放数据造假被取消资格，ESG合规压力上升；韩国环境监管对车企工厂的约束收紧。",
+   url:"https://kgnews.co.kr/mobile/article.html?no=920178", verified:"pend", seen:"15:38", tags:["现代汽车","牙山工厂","环境处罚","绿色企业","韩国","ESG","听证"]},
 
   {ts:"2026-11-17T22:10:00+08:00", cat:"重大事件", weight:1,
    title:"岚图汽车获独立道路机动车辆生产资质，列入工信部第412批目录",
@@ -3144,7 +3165,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "14:00";
+document.getElementById("s-next").textContent = "16:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
