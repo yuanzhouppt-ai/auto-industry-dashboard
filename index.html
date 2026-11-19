@@ -210,7 +210,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">10:00</b></li>
+        <li>下一轮<b id="s-next">12:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -723,10 +723,31 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-19T08:00:00+08:00";
-const NEXT_TS    = "2026-11-19T10:00:00+08:00";
+const REFRESH_TS = "2026-11-19T10:00:00+08:00";
+const NEXT_TS    = "2026-11-19T12:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-19T08:00:00+08:00", cat:"人物动态", weight:1,
+   title:"阿斯顿·马丁任命 Charlotte Dickson 为亚太区总裁，自迈凯伦汽车加盟接替 Carl Bayliss",
+   src:"Aston Martin 官方新闻稿（Gaydon）",
+   sum:"11 月 19 日阿斯顿·马丁官方宣布，任命 Charlotte Dickson 为亚太区（APAC）区域总裁，自迈凯伦汽车加盟；她此前任迈凯伦亚洲、日本及中国区域总监，将领导区域商业战略、网络表现与品牌战略，统筹驻新加坡、东京、上海的跨职能团队，向首席商务官 Andrea Baldi 汇报。Dickson 接替在任五年后离职另谋发展的 Carl Bayliss。",
+   imp:"英国超豪华品牌换帅亚太一把手，从迈凯伦挖人补强中国及亚洲市场；在电动化与利润压力下，区域营销与渠道执行力将成为豪华品牌在华销量修复的关键变量。",
+   url:"https://media.astonmartin.com/aston-martin-appoints-charlotte-dickson-as-regional-president-apac/?lang=eng", verified:"ok", seen:"08:00", tags:["阿斯顿马丁","Dickson","迈凯伦","APAC","人事变动","豪华品牌","Bayliss"]},
+
+  {ts:"2026-11-19T07:25:00+08:00", cat:"人物动态", weight:1,
+   title:"DealBook 峰会马斯克公开挺黄仁勋称愿聘其回归，纳德拉与奥特曼表态信任英伟达现团队",
+   src:"TechCrunch / NYT DealBook Summit 现场（中文转述交叉）",
+   sum:"11 月 18 日《纽约时报》DealBook 峰会，马斯克称把黄仁勋比作巅峰乔丹，董事会决定让其离开并非明智，公开表示愿意聘请黄仁勋，并签署逾 20 万人联署的复职请愿；微软 CEO 纳德拉称对黄仁勋的遭遇感到遗憾，但仍信任临时 CEO Kress 与英伟达团队；OpenAI CEO 奥特曼以自身被解雇后数日复职的经历表示共情，称英伟达是靠黄仁勋早期押注走到今天。英伟达董事会此前确认不计划让黄回归。",
+   imp:"黄仁勋离任后 AI 圈与舆论分裂公开化，外部资本与同业压力可能影响英伟达过渡期董事会决策；智驾芯片供应链客户需关注管理层稳定与 Thor 路线图连续性。",
+   url:"https://m.weibo.cn/detail/5366905902467066", verified:"pend", seen:"07:25", tags:["英伟达","黄仁勋","马斯克","纳德拉","奥特曼","DealBook","CEO过渡","智驾芯片"]},
+
+  {ts:"2026-11-19T08:13:00+08:00", cat:"具身智能", weight:1,
+   title:"马斯克称特斯拉将在未来两个月内演示 Optimus，首个场景侧重采矿冶炼等重工业",
+   src:"奥斯汀 TomorrowX 峰会（新浪财经/TokenPost 转述，一手峰会记录待核）",
+   sum:"11 月 18 日马斯克在奥斯汀 TomorrowX 峰会上表示，特斯拉将在未来一到两个月内进行 Optimus 机器人演示；他称机器人最佳用途是重工业领域工作，初期可能侧重采矿与冶炼场景。马斯克同期还提及 SpaceX 正在开发 AI 模型 Grok 4.8。",
+   imp:"Optimus 从早期样机走向公开演示，场景定位先锚定高危重工业而非家用，与国产人形机器人制造/物流路线形成差异化；两个月内的演示进度将直接影响市场对量产时点的判断。",
+   url:"https://finance.sina.com.cn/stock/estate/integration/2026-11-19/doc-inizfqem6369073.shtml", verified:"pend", seen:"08:13", tags:["特斯拉","Optimus","马斯克","人形机器人","具身智能","重工业","量产"]},
+
   {ts:"2026-11-19T06:29:00+08:00", cat:"供应链", weight:1,
    title:"福特密歇根 BlueOval 电池公园首批 LFP 电芯发运，采用宁德时代技术授权供 Fathom 皮卡原型车",
    src:"Ford 官方新闻稿 / Nasdaq-RTTNews",
@@ -3179,7 +3200,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "10:00";
+document.getElementById("s-next").textContent = "12:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
