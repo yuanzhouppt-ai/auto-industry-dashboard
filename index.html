@@ -210,7 +210,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">14:00</b></li>
+        <li>下一轮<b id="s-next">16:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -735,10 +735,40 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-19T13:00:00+08:00";
-const NEXT_TS    = "2026-11-19T14:00:00+08:00";
+const REFRESH_TS = "2026-11-19T14:00:00+08:00";
+const NEXT_TS    = "2026-11-19T16:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-19T14:01:00+08:00", cat:"政策与数据", weight:1,
+   title:"吉林印发「人工智能+」十五五规划，布局智能网联汽车、车载大模型与具身智能",
+   src:"财联社转吉林省人民政府办公厅（官网原文待补）",
+   sum:"11 月 19 日，吉林省政府办公厅印发《吉林省「人工智能+」发展「十五五」规划》，提出发展智能网联汽车、支持迭代高阶自动驾驶、开发智能座舱、推进车载端侧大模型部署与本地化推理决策；支持研发多模态感知、场景自适应的具身智能机器人，在情感陪伴、家务辅助、康养护理等场景示范。",
+   imp:"省级规划把智驾、座舱、端侧大模型与具身智能列入方向，利好本地一汽供应链与机器人场景落地，属指引性政策而非强制准入。",
+   url:"https://www.cls.cn/detail/2538783", verified:"pend", seen:"14:01", tags:["吉林","人工智能+","十五五规划","智能网联汽车","高阶智驾","车载大模型","具身智能"]},
+  {ts:"2026-11-19T09:57:00+08:00", cat:"出海", weight:2,
+   title:"捷途明年起在巴西本地生产，追加投资 4 亿雷亚尔接手闲置工厂",
+   src:"捷途声明；R7/Terra/新浪财经交叉（JLR 工厂接手为州政府协议消息）",
+   sum:"奇瑞旗下捷途 11 月 19 日声明，明年起在巴西本地生产，先推出 T1、T2 两款 SUV；在已宣布的同等规模投资基础上追加 4 亿雷亚尔（约 6860 万美元）。媒体报道其已与里约热内卢州政府达成协议，拟接手 JLR 在 Itatiaia 的闲置工厂（2016 年建成、今年 6 月起停产），生产混动与电动车型。",
+   imp:"中国车企继比亚迪、吉利、长城后扎堆巴西建厂，捷途以接手闲置产能落地本地化制造，应对关税与供应链本地化要求。",
+   url:"https://finance.sina.com.cn/stock/estate/integration/2026-11-19/doc-inizfqem6405437.shtml", verified:"ok", seen:"09:57", tags:["捷途","奇瑞","巴西","建厂","出海","本地化","JLR工厂"]},
+  {ts:"2026-11-18T15:28:00+08:00", cat:"政策与数据", weight:2,
+   title:"乘联分会：11 月上半月新能源零售渗透率 73.2%，乘用车大盘零售同比降 25%",
+   src:"乘联分会（新浪财经/凤凰网/易车交叉）",
+   sum:"11 月 1-15 日全国乘用车零售 61.1 万辆，同比 -25%、环比 -6%；新能源零售 44.7 万辆，同比 -13%、环比 +7%，零售渗透率 73.2%；新能源批发 59.2 万辆同比 +3%，批发渗透率 82%。乘联分会称车市呈政策托底、弱修复、结构极致分化，新能源渗透率续创新高，是唯一确定性增量。",
+   imp:"大盘承压但新能源渗透率续创新高，燃油车份额继续收缩，行业淘汰赛与结构分化进一步加剧。",
+   url:"https://finance.sina.com.cn/stock/hkstock/ggscyd/2026-11-18/doc-inizcvuz1083696.shtml", verified:"ok", seen:"11-18 15:28", tags:["乘联分会","销量数据","新能源渗透率","11月上半月","行业格局"]},
+  {ts:"2026-11-18T12:31:00+08:00", cat:"延伸行业", weight:2,
+   title:"现代 12 月起向 Waymo 批量交付 IONIQ 5，佐治亚工厂装车规 Robotaxi",
+   src:"东亚日报/首尔经济/朝鲜日报（Muñoz 11-17 Semafor 活动表态）",
+   sum:"现代汽车社长 Muñoz 11 月 17 日在加州 Menlo Park Semafor 活动上表示，12 月起向 Waymo 批量交付 IONIQ 5，不仅供美国内销也将出口；车辆由佐治亚 HMGMA 工厂生产，搭载 Waymo 第六代 Waymo Driver。IONIQ 5 将成为 Waymo 继 Pacifica Hybrid、Jaguar I-Pace 之后第三款主力车型；现代 2024 年 10 月已与 Waymo 签约。",
+   imp:"整车厂以 Robotaxi 代工模式切入智驾供应链，现代凭北美本土产能分享 Waymo 放量，整车定制化配套空间打开。",
+   url:"https://www.chosun.com/english/industry-en/2026/11/18/3BJF7VISUNCGTNSXWNAAFLQCCQ/", verified:"ok", seen:"11-18 12:31", tags:["现代","Waymo","IONIQ5","Robotaxi","供应链定点","佐治亚工厂","出海"]},
+  {ts:"2026-11-18T03:49:00+08:00", cat:"重大事件", weight:3,
+   title:"加州 DMV 禁止 Waymo 上高速，Waymo 已暂停全美 Robotaxi 高速运营",
+   src:"加州 DMV 11-11 限制令（11-17 公开）；TechCrunch/ABC/财联社交叉",
+   sum:"加州 DMV 11 月 11 日向 Waymo 发出限制令，禁止其在加州所有高速公路运营或测试无人驾驶车，11 月 17 日公开。事由为三辆 Waymo 车闯入 101 公路施工封闭区、280 公路试图绕过公路巡警执法车等反复事件，DMV 认定高速运营构成迫在眉睫的公共安全威胁。Waymo 已暂停全美各市场高速 Robotaxi 运营，整改达标前限制持续。",
+   imp:"Robotaxi 高速场景扩张被监管以安全为由收紧，ODD 受限将影响商业化节奏，也为各国智驾上路许可与事故责任划分提供监管参照。",
+   url:"http://m.toutiao.com/group/7709435019067933222/", verified:"ok", seen:"11-18 03:49", tags:["Waymo","加州DMV","自动驾驶","Robotaxi","高速禁令","安全事件","法规"]},
   {ts:"2026-11-19T09:18:00+08:00", cat:"具身智能", weight:2,
    title:"镁伽科技获近 2 亿美元新一轮融资，阿曼投资局参投，累计约 6 亿美元",
    src:"PRNewswire（苏州 11-19）；界面新闻/格隆汇/投资界交叉",
@@ -3244,7 +3274,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "14:00";
+document.getElementById("s-next").textContent = "16:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
