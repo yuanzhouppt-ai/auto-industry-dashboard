@@ -210,7 +210,7 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
       <div class="live"><span class="pulse"></span>持续监测中</div>
       <ul class="stats">
         <li>本期采集<b id="s-refresh">—</b></li>
-        <li>下一轮<b id="s-next">12:00</b></li>
+        <li>下一轮<b id="s-next">14:00</b></li>
         <li>收录<b id="s-count">—</b></li>
         <li>覆盖窗口<b>10-19 至今</b></li>
       </ul>
@@ -723,10 +723,24 @@ aside{display:flex;flex-direction:column;gap:16px;margin-top:26px}
 
 <script>
 /* ===== 数据：本轮采集结果（采集时刻 2026-11-05 09:56） ===== */
-const REFRESH_TS = "2026-11-19T10:00:00+08:00";
-const NEXT_TS    = "2026-11-19T12:00:00+08:00";
+const REFRESH_TS = "2026-11-19T12:00:00+08:00";
+const NEXT_TS    = "2026-11-19T14:00:00+08:00";
 
 const DATA = [
+  {ts:"2026-11-19T08:06:00+08:00", cat:"重大事件", weight:1,
+   title:"马斯克在 DealBook 峰会剧透无方向盘无踏板 Model Y，6 至 7 座面向家庭多人出行",
+   src:"IT之家/新浪科技（BASENOR、AutoSpies 交叉；NYT 现场记录待核）",
+   sum:"11 月 19 日，马斯克通过视频连线出席《纽约时报》DealBook 峰会（人在深圳参加 APEC），透露特斯拉计划推出一款不配备方向盘和踏板的自动驾驶版 Model Y，最多搭载 6 至 7 名乘客，主要面向家庭和多人出行场景。这是继双座 Cybercab 之后第二款完全取消人工驾驶装置的车型；马斯克称约 90% 出行仅一至两名乘客，Cybercab 双座仍有市场，加长版 Model YL 目前已是该系列最受欢迎版本，产线或逐步转向该平台。",
+   imp:"最畅销车型走向全无人驾驶，意味着驾驶责任主体从驾驶员转向厂商，对 L4 准入、保险与事故责任划分提出新要求；若落地将把 Robotaxi 技术从专用车型下放到走量家用平台。",
+   url:"https://finance.sina.com.cn/tech/digi/2026-11-19/doc-inizfunc0413550.shtml", verified:"pend", seen:"08:06", tags:["特斯拉","Model Y","无方向盘","自动驾驶","Cybercab","责任划分","DealBook"]},
+
+  {ts:"2026-11-19T11:00:00+08:00", cat:"政策法规", weight:1,
+   title:"日本国交省公布无驾驶席自动驾驶车辆保安基准改正案，新设两种自动运行车辆分类并启动意见征集",
+   src:"LOGISTICS TODAY（国交省 11-19 公布；一手省令稿待补）",
+   sum:"11 月 19 日日本国土交通省公布《道路运送车辆保安基准》及相关省令、告示改正案并启动意见征集（截止 12 月 19 日 10 时），对应 WP.29 新通过的第 185 号协定规则。改正案为不设驾驶席的车辆新设分类：有乘员定员的为第一种自动运行用汽车、无定员的为第二种自动运行用汽车；除大型/小型特殊车外，自动运行装置搭载车辆适用第 185 号安全要件，并要求提交安全管理系统与运营后安全管理证明文件。另新设方向指示表示投影装置基准。改正省令与告示拟 12 月 25 日公布、12 月 27 日施行，部分规定 2027 年 1 月 30 日施行。",
+   imp:"日本为无人车量产铺路，法规与 WP.29 国际规则对齐；对在日布局的中国自动驾驶与整车企业，型式指定与安全管理合规门槛将同步抬升。",
+   url:"https://www.logi-today.com/1023659", verified:"pend", seen:"11:00", tags:["日本","国交省","自动驾驶","保安基准","WP.29","第185号","法规","无人车"]},
+
   {ts:"2026-11-19T08:00:00+08:00", cat:"人物动态", weight:1,
    title:"阿斯顿·马丁任命 Charlotte Dickson 为亚太区总裁，自迈凯伦汽车加盟接替 Carl Bayliss",
    src:"Aston Martin 官方新闻稿（Gaydon）",
@@ -3200,7 +3214,7 @@ document.getElementById("rfCopy").addEventListener("click", ()=>{
 
 /* ===== 侧栏 ===== */
 document.getElementById("s-refresh").textContent = fmt(NOW) + " " + hhmm(NOW);
-document.getElementById("s-next").textContent = "12:00";
+document.getElementById("s-next").textContent = "14:00";
 document.getElementById("tCount");
 
 /* ===== 专栏渲染 ===== */
